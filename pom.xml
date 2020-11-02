@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>at.jku.cis</groupId>
-	<artifactId>ivolunteer</artifactId>
+	<artifactId>ivolunteerconfigurator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>ivolunteer</name>
+	<name>ivolunteerconfigurator</name>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -24,7 +24,7 @@
 	</properties>
 
 	<modules>
-		<module>marketplace</module>
-		<module>core</module>
+		<module>configurator-marketplace</module>
+		<module>configurator-core</module>
 	</modules>
 </project>
