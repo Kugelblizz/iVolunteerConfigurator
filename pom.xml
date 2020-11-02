@@ -24,7 +24,6 @@
 	</properties>
 
 	<modules>
-		<module>configurator-marketplace</module>
-		<module>configurator-core</module>
+		<module>configurator</module>
 	</modules>
 </project>
