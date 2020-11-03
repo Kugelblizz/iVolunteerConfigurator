@@ -25,17 +25,13 @@
 	</properties>
 
 	<modules>
-		<module>configurator-core-application</module>
-		<module>configurator-core-trustifier</module>
-		<module>configurator-core-security</module>
-		<module>configurator-core-config</module>
+		<module>configurator-application</module>
+		<module>configurator-security</module>
+		<module>configurator-config</module>
 
-		<module>configurator-marketplace-application</module>
-		<module>configurator-marketplace-core</module>
-		<module>configurator-marketplace-config</module>
-		<module>configurator-marketplace-security</module>
-		<module>configurator-marketplace-api</module>
-		<module>configurator-marketplace-model</module>
+
+		<module>configurator-core</module>
+		<module>configurator-model</module>
 	</modules>
 	
 	

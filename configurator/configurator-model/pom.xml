@@ -9,7 +9,11 @@
 		<artifactId>configurator</artifactId>
 	</parent>
 
-	<artifactId>configurator-marketplace-api</artifactId>
+	<artifactId>configurator-model</artifactId>
+
+	<properties>
+		<activiti.version>5.22.0</activiti.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -17,14 +21,13 @@
 			<artifactId>gson</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>at.jku.cis</groupId>
-			<artifactId>configurator-marketplace-model</artifactId>
-			<version>${project.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>at.jku.cis</groupId>
-			<artifactId>configurator-marketplace-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-api</artifactId>
+            <version>7.34.0.Final</version>
+        </dependency>
 	</dependencies>
 </project>

@@ -8,7 +8,7 @@
 		<artifactId>configurator</artifactId>
 	</parent>
 
-	<artifactId>configurator-core-config</artifactId>
+	<artifactId>configurator-config</artifactId>
 
 	<properties>
 		<activiti.version>5.22.0</activiti.version>
@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>at.jku.cis</groupId>
-			<artifactId>configurator-marketplace-model</artifactId>
+			<artifactId>configurator-model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

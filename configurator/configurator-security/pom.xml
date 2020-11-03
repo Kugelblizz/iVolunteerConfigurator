@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>configurator-core-security</artifactId>
+	<artifactId>configurator-security</artifactId>
 
 	<dependencies>
 		<dependency>
