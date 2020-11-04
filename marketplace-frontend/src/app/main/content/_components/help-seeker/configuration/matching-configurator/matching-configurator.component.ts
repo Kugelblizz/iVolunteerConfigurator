@@ -2,16 +2,13 @@ import { mxgraph } from 'mxgraph';
 import { Component, OnInit, AfterContentInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { DialogFactoryDirective } from '../../../_shared/dialogs/_dialog-factory/dialog-factory.component';
 import { MatchingEntityDataService } from 'app/main/content/_service/configuration/matching-collector-configuration.service';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { MatchingOperatorRelationshipService } from 'app/main/content/_service/configuration/matching-operator-relationship.service';
 import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
-import { Marketplace } from 'app/main/content/_model/marketplace';
 import { MatchingConfiguration, MatchingEntityMappingConfiguration } from 'app/main/content/_model/meta/configurations';
 import { CConstants } from '../class-configurator/utils-and-constants';
 import { MatchingOperatorRelationship, MatchingEntityType, MatchingEntityMappings, MatchingEntity, MatchingDataRequestDTO } from 'app/main/content/_model/matching';
 import { Tenant } from 'app/main/content/_model/tenant';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 import { MyMxCell, MyMxCellType } from '../myMxCell';
 import { MatchingConfiguratorPopupMenu } from './popup-menu';
 import { PropertyType } from 'app/main/content/_model/meta/property/property';
@@ -53,14 +50,12 @@ const mx: typeof mxgraph = require('mxgraph')({
 export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
   constructor(
     private matchingCollectorConfigurationService: MatchingEntityDataService,
-    private loginService: LoginService,
     private matchingConfigurationService: MatchingConfigurationService,
     private matchingOperatorRelationshipService: MatchingOperatorRelationshipService,
     private objectIdService: ObjectIdService,
     private dialogFactory: DialogFactoryDirective
   ) { }
 
-  marketplace: Marketplace;
   eventResponseAction: string;
 
   @ViewChild('graphContainer', { static: true }) private graphContainer: ElementRef;
@@ -84,15 +79,11 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
   async ngOnInit() {
     this.confirmDelete = true;
     this.includeConnectors = true;
-
-    const globalInfo = <GlobalInfo>await this.loginService.getGlobalInfo().toPromise();
-    this.marketplace = globalInfo.marketplace;
-    this.tenant = globalInfo.tenants[0];
   }
 
   async loadClassesAndRelationships(matchingConfiguration: MatchingConfiguration) {
     this.matchingCollectorConfigurationService
-      .getMatchingData(this.marketplace, matchingConfiguration)
+      .getMatchingData(null, matchingConfiguration)
       .toPromise().then((data: MatchingDataRequestDTO) => {
         this.data = data;
         this.redrawContent();
@@ -418,8 +409,8 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
 
   private async performSave() {
     this.updateModel();
-    await this.matchingConfigurationService.saveMatchingConfiguration(this.marketplace, this.data.matchingConfiguration).toPromise();
-    await this.matchingOperatorRelationshipService.saveMatchingOperatorRelationships(this.marketplace, this.data.relationships, this.data.matchingConfiguration.id).toPromise();
+    await this.matchingConfigurationService.saveMatchingConfiguration(null, this.data.matchingConfiguration).toPromise();
+    await this.matchingOperatorRelationshipService.saveMatchingOperatorRelationships(null, this.data.relationships, this.data.matchingConfiguration.id).toPromise();
     this.redrawContent();
   }
 
@@ -491,7 +482,7 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
       name: label, tenantId: this.tenant.id
     });
 
-    this.matchingConfigurationService.saveMatchingConfiguration(this.marketplace, matchingConfiguration)
+    this.matchingConfigurationService.saveMatchingConfiguration(null, matchingConfiguration)
       .toPromise().then(() => {
         this.loadClassesAndRelationships(matchingConfiguration);
       });

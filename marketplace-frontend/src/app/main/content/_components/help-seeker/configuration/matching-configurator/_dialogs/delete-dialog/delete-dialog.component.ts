@@ -1,6 +1,5 @@
 import { OnInit, Component, Inject } from '@angular/core';
 import { MatchingConfiguration } from 'app/main/content/_model/meta/configurations';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { isNullOrUndefined } from 'util';
@@ -26,18 +25,14 @@ export class DeleteMatchingDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DeleteMatchingDialogData>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteMatchingDialogData,
-    private loginService: LoginService,
     private matchingConfigurationService: MatchingConfigurationService
   ) { }
 
   async ngOnInit() {
     this.data.idsToDelete = [];
-    this.globalInfo = <GlobalInfo>(await this.loginService.getGlobalInfo().toPromise());
 
-
-    this.matchingConfigurationService.getAllMatchingConfigurations(this.globalInfo.marketplace)
-      .toPromise()
-      .then((matchingConfigurations: MatchingConfiguration[]) => {
+    this.matchingConfigurationService.getAllMatchingConfigurations(null)
+      .toPromise().then((matchingConfigurations: MatchingConfiguration[]) => {
         this.allMatchingConfigurations = matchingConfigurations;
         this.checkboxStates = Array(matchingConfigurations.length);
         this.checkboxStates.fill(false);

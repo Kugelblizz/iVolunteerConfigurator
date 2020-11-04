@@ -14,9 +14,6 @@ import { ClassOptionsOverlayControlModule } from './options-overlay/options-over
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material';
 import { DialogFactoryModule } from '../../../_shared/dialogs/_dialog-factory/dialog-factory.module';
-import { RouterModule, Route } from '@angular/router';
-
-
 
 @NgModule({
   imports: [
@@ -46,11 +43,6 @@ import { RouterModule, Route } from '@angular/router';
   ],
   declarations: [ClassConfiguratorComponent],
   exports: [ClassConfiguratorComponent],
-
-
-
 })
-
-
 
 export class ClassConfiguratorModule { }

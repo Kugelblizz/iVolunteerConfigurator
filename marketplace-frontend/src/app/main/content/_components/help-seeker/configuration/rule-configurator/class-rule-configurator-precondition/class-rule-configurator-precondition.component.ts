@@ -1,48 +1,28 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-
-import { LoginService } from "../../../../../_service/login.service";
-import { User, UserRole } from "../../../../../_model/user";
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  FormGroupDirective,
-  ControlContainer,
-  FormArray,
-} from "@angular/forms";
-import { Marketplace } from "app/main/content/_model/marketplace";
-import {
-  AttributeCondition,
-  ClassCondition,
-  AggregationOperatorType,
-} from "app/main/content/_model/derivation-rule";
-import { ClassDefinition } from "app/main/content/_model/meta/class";
-import { ClassDefinitionService } from "app/main/content/_service/meta/core/class/class-definition.service";
-import { ClassPropertyService } from "app/main/content/_service/meta/core/property/class-property.service";
-import { DerivationRuleValidators } from "app/main/content/_validator/derivation-rule.validators";
-import { GlobalInfo } from "app/main/content/_model/global-info";
-import { Tenant } from "app/main/content/_model/tenant";
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { User } from '../../../../../_model/user';
+import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, ControlContainer, FormArray } from '@angular/forms';
+import { AttributeCondition, ClassCondition, AggregationOperatorType } from 'app/main/content/_model/derivation-rule';
+import { ClassDefinition } from 'app/main/content/_model/meta/class';
+import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
+import { ClassPropertyService } from 'app/main/content/_service/meta/core/property/class-property.service';
+import { DerivationRuleValidators } from 'app/main/content/_validator/derivation-rule.validators';
+import { Tenant } from 'app/main/content/_model/tenant';
 import { isNullOrUndefined } from 'util';
 import { ClassProperty, PropertyType } from 'app/main/content/_model/meta/property/property';
 
 @Component({
   selector: "class-rule-precondition",
-  templateUrl: "./class-rule-configurator-precondition.component.html",
-  styleUrls: ["../rule-configurator.component.scss"],
+  templateUrl: './class-rule-configurator-precondition.component.html',
+  styleUrls: ['../rule-configurator.component.scss'],
   viewProviders: [
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
 })
 export class FuseClassRulePreconditionConfiguratorComponent implements OnInit {
-  @Input("classCondition") classCondition: ClassCondition;
-  @Output("classConditionChange") classConditionChange: EventEmitter<
-    ClassCondition
-  > = new EventEmitter<ClassCondition>();
+  @Input('classCondition') classCondition: ClassCondition;
+  @Output('classConditionChange') classConditionChange: EventEmitter<ClassCondition> = new EventEmitter<ClassCondition>();
 
   tenantAdmin: User;
-  marketplace: Marketplace;
   tenant: Tenant;
   classConditionForms: FormArray;
   rulePreconditionForm: FormGroup;
@@ -56,8 +36,6 @@ export class FuseClassRulePreconditionConfiguratorComponent implements OnInit {
   conditionValidationMessages = DerivationRuleValidators.ruleValidationMessages;
 
   constructor(
-    private route: ActivatedRoute,
-    private loginService: LoginService,
     private formBuilder: FormBuilder,
     private classDefinitionService: ClassDefinitionService,
     private classPropertyService: ClassPropertyService,
@@ -76,7 +54,7 @@ export class FuseClassRulePreconditionConfiguratorComponent implements OnInit {
 
   async ngOnInit() {
     this.classConditionForms = <FormArray>(
-      this.parentForm.form.controls["classConditionForms"]
+      this.parentForm.form.controls['classConditionForms']
     );
     this.classConditionForms.push(this.rulePreconditionForm);
 
@@ -84,11 +62,11 @@ export class FuseClassRulePreconditionConfiguratorComponent implements OnInit {
       classDefinitionId:
         (this.classCondition.classDefinition
           ? this.classCondition.classDefinition.id
-          : "") || "",
+          : '') || '',
       aggregationOperatorType:
-        this.classCondition.aggregationOperatorType || "",
-      value: this.classCondition.value || "",
-      classPropertyId: (this.classCondition.classProperty ? this.classCondition.classProperty.id : "") || ""
+        this.classCondition.aggregationOperatorType || '',
+      value: this.classCondition.value || '',
+      classPropertyId: (this.classCondition.classProperty ? this.classCondition.classProperty.id : '') || ''
     });
 
     this.classCondition.attributeConditions = this.classCondition
@@ -96,13 +74,6 @@ export class FuseClassRulePreconditionConfiguratorComponent implements OnInit {
       ? this.classCondition.attributeConditions
       : new Array();
     this.aggregationOperators = Object.keys(AggregationOperatorType);
-
-    const globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.marketplace = globalInfo.marketplace;
-    this.tenantAdmin = globalInfo.user;
-    this.tenant = globalInfo.tenants[0];
 
     this.loadClassDefinitions();
     if (this.classCondition.classDefinition) {
@@ -125,41 +96,33 @@ export class FuseClassRulePreconditionConfiguratorComponent implements OnInit {
     }
   }
 
-  onPropertyChange(classProperty: ClassProperty<any>, $event){
-    if ($event.isUserInput && 
-        ( isNullOrUndefined(this.classCondition.classProperty) ||
-          this.classCondition.classProperty.id != classProperty.id)){
-            this.classCondition.classProperty = classProperty;
-        }
+  onPropertyChange(classProperty: ClassProperty<any>, $event) {
+    if ($event.isUserInput &&
+      (isNullOrUndefined(this.classCondition.classProperty) ||
+        this.classCondition.classProperty.id != classProperty.id)) {
+      this.classCondition.classProperty = classProperty;
+    }
   }
 
-  private loadClassDefinitions(){
+  private loadClassDefinitions() {
     this.classDefinitionService
-      .getAllClassDefinitions(
-        this.marketplace,
-        this.tenant.id
-      )
-      .toPromise()
-      .then((definitions: ClassDefinition[]) => {
+      .getAllClassDefinitions(null, this.tenant.id)
+      .toPromise().then((definitions: ClassDefinition[]) => {
         this.classDefinitions = definitions;
       });
   }
 
   private loadClassProperties(classDefinition: ClassDefinition) {
     this.classPropertyService
-    .getAllClassPropertiesFromClass(
-      this.marketplace,
-      classDefinition.id
-    )
-    .toPromise()
-    .then((props: ClassProperty<any>[]) => {
-      this.classProperties = props;
-      this.filteredSumClassProperties.push(... this.filterPropertiesByType(PropertyType.FLOAT_NUMBER));
-      this.filteredSumClassProperties.push(... this.filterPropertiesByType(PropertyType.WHOLE_NUMBER));
-    });
+      .getAllClassPropertiesFromClass(null, classDefinition.id).toPromise()
+      .then((props: ClassProperty<any>[]) => {
+        this.classProperties = props;
+        this.filteredSumClassProperties.push(... this.filterPropertiesByType(PropertyType.FLOAT_NUMBER));
+        this.filteredSumClassProperties.push(... this.filterPropertiesByType(PropertyType.WHOLE_NUMBER));
+      });
   }
 
-  private filterPropertiesByType(propertyType: PropertyType){
+  private filterPropertiesByType(propertyType: PropertyType) {
     /*this.classProperties.forEach(cp => {
       console.log(cp.name + " " + cp.type);
     });*/
@@ -192,7 +155,7 @@ export class FuseClassRulePreconditionConfiguratorComponent implements OnInit {
   }
 
   private retrieveAggregationOperatorValueOf(op) {
-    let x: AggregationOperatorType =
+    const x: AggregationOperatorType =
       AggregationOperatorType[op as keyof typeof AggregationOperatorType];
     return x;
   }

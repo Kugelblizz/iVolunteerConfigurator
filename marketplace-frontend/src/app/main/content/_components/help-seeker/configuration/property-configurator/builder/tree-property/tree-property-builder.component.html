@@ -38,7 +38,7 @@
     </div>
   </form>
 
-  <app-tree-property-graph-editor *ngIf="showEditor" [marketplace]="marketplace" [tenantAdmin]="tenantAdmin"
+  <app-tree-property-graph-editor *ngIf="showEditor" [tenantAdmin]="tenantAdmin"
     [treePropertyDefinition]="treePropertyDefinition" (result)="handleResult($event)"
     (management)="handleManagementEvent($event)">
   </app-tree-property-graph-editor>

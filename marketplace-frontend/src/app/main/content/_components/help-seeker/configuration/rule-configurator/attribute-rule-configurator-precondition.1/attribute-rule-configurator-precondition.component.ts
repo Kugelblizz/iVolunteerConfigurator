@@ -1,31 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
-
-import { LoginService } from "../../../../../_service/login.service";
-import { User, UserRole } from "../../../../../_model/user";
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  FormGroupDirective,
-  ControlContainer,
-  FormArray,
-  Validators,
-} from "@angular/forms";
-import { Marketplace } from "app/main/content/_model/marketplace";
-import {
-  ComparisonOperatorType,
-  AttributeCondition,
-} from "app/main/content/_model/derivation-rule";
-import { ClassDefinition } from "app/main/content/_model/meta/class";
-import { ClassDefinitionService } from "app/main/content/_service/meta/core/class/class-definition.service";
-import {
-  ClassProperty,
-  FlatPropertyDefinition,
-} from "app/main/content/_model/meta/property/property";
-import { ClassPropertyService } from "app/main/content/_service/meta/core/property/class-property.service";
-import { DerivationRuleValidators } from "app/main/content/_validator/derivation-rule.validators";
-import { GlobalInfo } from "app/main/content/_model/global-info";
-import { Tenant } from "app/main/content/_model/tenant";
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, FormGroupDirective, ControlContainer, FormArray, Validators, } from '@angular/forms';
+import { ComparisonOperatorType, AttributeCondition } from 'app/main/content/_model/derivation-rule';
+import { ClassDefinition } from 'app/main/content/_model/meta/class';
+import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
+import { ClassProperty, FlatPropertyDefinition } from 'app/main/content/_model/meta/property/property';
+import { ClassPropertyService } from 'app/main/content/_service/meta/core/property/class-property.service';
+import { DerivationRuleValidators } from 'app/main/content/_validator/derivation-rule.validators';
+import { Tenant } from 'app/main/content/_model/tenant';
 import { isNullOrUndefined } from 'util';
 import { DynamicFormItemService } from 'app/main/content/_service/dynamic-form-item.service';
 import { DynamicFormItemControlService } from 'app/main/content/_service/dynamic-form-item-control.service';
@@ -33,24 +14,21 @@ import { DynamicFormItemBase } from 'app/main/content/_model/dynamic-forms/item'
 
 @Component({
   selector: "attribute-rule-precondition",
-  templateUrl: "./attribute-rule-configurator-precondition.component.html",
-  styleUrls: ["../rule-configurator.component.scss"],
+  templateUrl: './attribute-rule-configurator-precondition.component.html',
+  styleUrls: ['../rule-configurator.component.scss'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
   providers: [DynamicFormItemService, DynamicFormItemControlService]
 })
 export class FuseAttributeRulePreconditionConfiguratorComponent
   implements OnInit {
-  @Input("attributeCondition")
+  @Input('attributeCondition')
   attributeCondition: AttributeCondition;
   /*@Output("attributeConditionChange")
   attributeConditionChange: EventEmitter<AttributeCondition> = new EventEmitter<
     AttributeCondition
   >();*/
 
-  tenantAdmin: User;
-  marketplace: Marketplace;
-  role: UserRole;
-  tenant: Tenant;
+
   rulePreconditionForm: FormGroup;
   ruleQuestionForm: FormControl;
   classDefinitions: ClassDefinition[] = [];
@@ -65,11 +43,12 @@ export class FuseAttributeRulePreconditionConfiguratorComponent
   classDefinitionCache: ClassDefinition[] = [];
   attributeForms: FormArray;
 
+  tenant: Tenant;
+
   attributeValidationMessages = DerivationRuleValidators.ruleValidationMessages;
-  //dynamicFormItemControlService: any;
+  // dynamicFormItemControlService: any;
 
   constructor(
-    private loginService: LoginService,
     private formBuilder: FormBuilder,
     private classDefinitionService: ClassDefinitionService,
     private classPropertyService: ClassPropertyService,
@@ -81,7 +60,7 @@ export class FuseAttributeRulePreconditionConfiguratorComponent
 
   async ngOnInit() {
     this.attributeForms = <FormArray>(
-      this.parent.form.controls["classAttributeForms"]
+      this.parent.form.controls['classAttributeForms']
     );
 
     this.rulePreconditionForm = this.formBuilder.group({
@@ -96,28 +75,18 @@ export class FuseAttributeRulePreconditionConfiguratorComponent
       classPropertyId:
         (this.attributeCondition.classProperty
           ? this.attributeCondition.classProperty.id
-          : "") || "",
+          : '') || '',
       comparisonOperatorType:
         this.attributeCondition.comparisonOperatorType || ComparisonOperatorType.EQ,
-      value: this.attributeCondition.value || "",
+      value: this.attributeCondition.value || '',
     });
 
     this.comparisonOperators = Object.keys(ComparisonOperatorType);
 
-    const globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.marketplace = globalInfo.marketplace;
-    this.tenantAdmin = globalInfo.user;
-    this.tenant = globalInfo.tenants[0];
 
     this.classDefinitionService
-      .getAllClassDefinitions(
-        this.marketplace,
-        this.tenant.id
-      )
-      .toPromise()
-      .then((definitions: ClassDefinition[]) => {
+      .getAllClassDefinitions(null, this.tenant.id)
+      .toPromise().then((definitions: ClassDefinition[]) => {
         this.classDefinitions = definitions;
         this.loadClassProperties(null);
       });
@@ -142,17 +111,14 @@ export class FuseAttributeRulePreconditionConfiguratorComponent
   private initAttributeCondition() {
     this.attributeCondition.classProperty = new ClassProperty();
     this.attributeCondition.comparisonOperatorType = ComparisonOperatorType.EQ;
-    this.attributeCondition.value = "";
+    this.attributeCondition.value = '';
     this.rulePreconditionForm.reset();
   }
 
   private loadClassProperties($event) {
     if (this.attributeCondition && this.attributeCondition.classDefinition) {
       this.classPropertyService
-        .getAllClassPropertiesFromClass(
-          this.marketplace,
-          this.attributeCondition.classDefinition.id
-        )
+        .getAllClassPropertiesFromClass(null, this.attributeCondition.classDefinition.id)
         .toPromise()
         .then((props: ClassProperty<any>[]) => {
           this.classProperties = props;
@@ -162,7 +128,7 @@ export class FuseAttributeRulePreconditionConfiguratorComponent
   }
 
   private addQuestionAndFormGroup(classProperty: ClassProperty<any>) {
-    let myArr: ClassProperty<any>[] = new Array();
+    const myArr: ClassProperty<any>[] = new Array();
     myArr.push(classProperty);
     this.formItems = this.dynamicFormItemService.getFormItemsFromProperties(myArr);
     // this.formItem = this.formItems[0]; XXX brauche ich das?
@@ -204,12 +170,12 @@ export class FuseAttributeRulePreconditionConfiguratorComponent
         ) || new ClassProperty();
       this.attributeCondition.comparisonOperatorType = this.rulePreconditionForm.value.comparisonOperatorType;
       this.attributeCondition.value = this.rulePreconditionForm.value.value;
-      //this.attributeConditionChange.emit(this.attributeCondition);
+      // this.attributeConditionChange.emit(this.attributeCondition);
     }
   }
 
   private retrieveComparisonOperatorValueOf(op) {
-    let x: ComparisonOperatorType =
+    const x: ComparisonOperatorType =
       ComparisonOperatorType[op as keyof typeof ComparisonOperatorType];
     return x;
   }

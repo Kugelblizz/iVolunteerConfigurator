@@ -4,28 +4,23 @@ import { TreePropertyOptionsOverlayContentData } from '../options-overlay-conten
 const OVERLAY_WIDTH = 160;
 const OVERLAY_HEIGHT = 100;
 
-
 @Component({
   selector: 'tree-property-options-overlay-control',
   templateUrl: './options-overlay-control.component.html',
   styleUrls: ['./options-overlay-control.component.scss']
 })
 export class TreePropertyOptionsOverlayControlComponent implements OnInit, OnChanges {
-
-
   @ViewChild('overlayDiv', { static: false }) overlayDiv: ElementRef;
   @Input() displayOverlay: boolean;
   @Input() overlayContent: TreePropertyOptionsOverlayContentData;
   @Input() overlayEvent: PointerEvent;
   @Output() overlayClosed = new EventEmitter<any>();
 
-
   constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-
     this.toggleOverlay();
   }
 

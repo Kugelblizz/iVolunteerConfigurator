@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
 import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -31,7 +30,6 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     private classConfigurationService: ClassConfigurationService,
     private relationshipsService: RelationshipService,
     private classDefintionService: ClassDefinitionService,
-    private loginService: LoginService
   ) { }
   tenant: Tenant;
 
@@ -40,16 +38,10 @@ export class NewClassConfigurationDialogComponent implements OnInit {
   showEditDialog: boolean;
   loaded = false;
 
-  globalInfo: GlobalInfo;
-
   async ngOnInit() {
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.tenant = this.globalInfo.tenants[0];
 
     this.classConfigurationService
-      .getClassConfigurationsByTenantId(this.globalInfo.marketplace, this.tenant.id)
+      .getClassConfigurationsByTenantId(null, this.tenant.id)
       .toPromise()
       .then((classConfigurations: ClassConfiguration[]) => {
         this.allClassConfigurations = classConfigurations;
@@ -98,24 +90,20 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     const formValues = this.getFormValues();
 
     this.classConfigurationService
-      .createNewClassConfiguration(this.globalInfo.marketplace, this.tenant.id, formValues.name, formValues.description)
+      .createNewClassConfiguration(null, this.tenant.id, formValues.name, formValues.description)
       .toPromise()
       .then((ret: ClassConfiguration) => {
         this.data.classConfiguration = ret;
       }).then(() => {
         Promise.all([
           this.relationshipsService
-            .getRelationshipsById(this.globalInfo.marketplace, this.data.classConfiguration.relationshipIds)
+            .getRelationshipsById(null, this.data.classConfiguration.relationshipIds)
             .toPromise()
             .then((ret: Relationship[]) => {
               this.data.relationships = ret;
             }),
           this.classDefintionService
-            .getClassDefinitionsById(
-              this.globalInfo.marketplace,
-              this.data.classConfiguration.classDefinitionIds,
-              this.tenant.id
-            )
+            .getClassDefinitionsById(null, this.data.classConfiguration.classDefinitionIds, this.tenant.id)
             .toPromise()
             .then((ret: ClassDefinition[]) => {
               this.data.classDefinitions = ret;
@@ -132,7 +120,7 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     }
     const formValues = this.getFormValues();
     this.classConfigurationService
-      .saveClassConfigurationMeta(this.globalInfo.marketplace, this.data.classConfiguration.id, formValues.name, formValues.description)
+      .saveClassConfigurationMeta(null, this.data.classConfiguration.id, formValues.name, formValues.description)
       .toPromise().then((ret: ClassConfiguration) => {
         this.data.classConfiguration = ret;
         this.dialogRef.close(this.data);

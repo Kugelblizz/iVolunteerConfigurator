@@ -11,10 +11,8 @@ export interface GraphNode {
   type: string;
   cell: MyMxCell;
   visible: boolean;
-
   children?: GraphNode[];
 }
-
 
 @Component({
   selector: 'editor-tree-view',

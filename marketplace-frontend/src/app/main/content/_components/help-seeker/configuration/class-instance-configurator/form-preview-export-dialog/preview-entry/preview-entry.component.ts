@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormConfiguration, FormEntry, FormEntryReturnEventData } from 'app/main/content/_model/meta/form';
-import { FormGroup, FormControl } from '@angular/forms';
 import { DynamicFormItemBase } from 'app/main/content/_model/dynamic-forms/item';
 
 @Component({

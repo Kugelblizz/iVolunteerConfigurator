@@ -3,8 +3,6 @@ import { ClassConfiguration } from 'app/main/content/_model/meta/configurations'
 import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
 import { isNullOrUndefined } from 'util';
-import { LoginService } from 'app/main/content/_service/login.service';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 
 export class DeleteClassConfigurationDialogData {
   idsToDelete: string[];
@@ -25,23 +23,18 @@ export class DeleteClassConfigurationDialogComponent implements OnInit {
 
   currentFilter: string;
 
-  globalInfo: GlobalInfo;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteClassConfigurationDialogData>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteClassConfigurationDialogData,
     private classConfigurationService: ClassConfigurationService,
-    private loginService: LoginService
   ) { }
 
   async ngOnInit() {
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
 
     this.data.idsToDelete = [];
 
-    this.classConfigurationService.getAllClassConfigurations(this.globalInfo.marketplace)
+    this.classConfigurationService.getAllClassConfigurations(null)
       .toPromise()
       .then((classConfigurations: ClassConfiguration[]) => {
         this.allClassConfigurations = classConfigurations;
@@ -64,7 +57,7 @@ export class DeleteClassConfigurationDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.classConfigurationService.deleteClassConfigurations(this.globalInfo.marketplace, this.data.idsToDelete).toPromise().then((ret) => {
+    this.classConfigurationService.deleteClassConfigurations(null, this.data.idsToDelete).toPromise().then((ret) => {
       this.dialogRef.close(this.data);
     });
   }

@@ -1,5 +1,4 @@
-import { OnInit, Component, Input, Output, EventEmitter } from "@angular/core";
-import { Marketplace } from "app/main/content/_model/marketplace";
+import { OnInit, Component, Input, Output, EventEmitter } from '@angular/core';
 import { GlobalInfo } from 'app/main/content/_model/global-info';
 
 export class MatchingBrowseSubDialogData {
@@ -18,8 +17,8 @@ export class MatchingBrowseSubDialogData {
 
 @Component({
   selector: "browse-matching-sub-dialog",
-  templateUrl: "./browse-sub-dialog.component.html",
-  styleUrls: ["./browse-sub-dialog.component.scss"]
+  templateUrl: './browse-sub-dialog.component.html',
+  styleUrls: ['./browse-sub-dialog.component.scss']
 })
 export class BrowseMatchingSubDialogComponent implements OnInit {
   @Input() data: MatchingBrowseSubDialogData;

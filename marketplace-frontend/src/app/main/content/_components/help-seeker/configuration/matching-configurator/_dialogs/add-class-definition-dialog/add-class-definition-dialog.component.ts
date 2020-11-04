@@ -1,16 +1,12 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import {
-  MatDialogRef, MAT_DIALOG_DATA, MatDialog,
-} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { isNullOrUndefined } from 'util';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { Tenant } from 'app/main/content/_model/tenant';
-import { MatchingEntityMappingConfiguration, MatchingConfiguration } from 'app/main/content/_model/meta/configurations';
+import { MatchingEntityMappingConfiguration } from 'app/main/content/_model/meta/configurations';
 import { MatchingEntity } from 'app/main/content/_model/matching';
 import { AddClassDefinitionGraphDialogComponent, AddClassDefinitionGraphDialogData } from '../add-class-definition-graph-dialog/add-class-definition-graph-dialog.component';
 
@@ -29,7 +25,6 @@ export class AddClassDefinitionDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddClassDefinitionDialogData>,
     @Inject(MAT_DIALOG_DATA) public data: AddClassDefinitionDialogData,
-    private loginService: LoginService,
     public dialog: MatDialog,
   ) { }
 
@@ -37,13 +32,10 @@ export class AddClassDefinitionDialogComponent implements OnInit {
   displayedColumns = ['checkbox', 'label', 'type'];
 
   selection: SelectionModel<MatchingEntity>;
-
   disabledClassDefinitions: ClassDefinition[];
 
   loaded: boolean;
   tabIndex: number;
-
-  globalInfo: GlobalInfo;
   tenant: Tenant;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -51,11 +43,6 @@ export class AddClassDefinitionDialogComponent implements OnInit {
   async ngOnInit() {
     this.tabIndex = 0;
 
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-
-    this.tenant = this.globalInfo.tenants[0];
     this.dataSource.data = this.data.matchingEntityConfiguration.mappings.entities;
     this.selection = new SelectionModel<MatchingEntity>(true, []);
     const entities = this.dataSource.data.filter(e => this.data.existingEntityPaths.find(path => path === e.path));

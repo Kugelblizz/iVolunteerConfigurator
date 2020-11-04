@@ -1,7 +1,6 @@
-import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNullOrUndefined } from 'util';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
 import {
@@ -32,7 +31,6 @@ export class NewMatchingDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: NewMatchingDialogData,
     private classConfigurationService: ClassConfigurationService,
     private matchingConfigurationService: MatchingConfigurationService,
-    private loginService: LoginService,
   ) { }
 
   allClassConfigurations: ClassConfiguration[];
@@ -51,9 +49,6 @@ export class NewMatchingDialogComponent implements OnInit {
   globalInfo: GlobalInfo;
 
   async ngOnInit() {
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
     this.tenant = this.globalInfo.tenants[0];
 
     this.dialogForm = new FormGroup({
@@ -62,9 +57,8 @@ export class NewMatchingDialogComponent implements OnInit {
 
 
     this.classConfigurationService
-      .getClassConfigurationsByTenantId(this.globalInfo.marketplace, this.tenant.id)
-      .toPromise()
-      .then((classConfigurations: ClassConfiguration[]) => {
+      .getClassConfigurationsByTenantId(null, this.tenant.id)
+      .toPromise().then((classConfigurations: ClassConfiguration[]) => {
         this.recentClassConfigurations = classConfigurations;
         this.allClassConfigurations = classConfigurations;
 

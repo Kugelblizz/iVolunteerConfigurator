@@ -1,28 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DynamicFormItemService } from 'app/main/content/_service/dynamic-form-item.service';
 import { DynamicFormItemControlService } from 'app/main/content/_service/dynamic-form-item-control.service';
-import { Marketplace } from 'app/main/content/_model/marketplace';
-import {
-  FormConfiguration,
-  FormEntryReturnEventData,
-  FormEntry
-} from 'app/main/content/_model/meta/form';
+import { FormConfiguration, FormEntryReturnEventData, FormEntry } from 'app/main/content/_model/meta/form';
 import { ClassInstance } from 'app/main/content/_model/meta/class';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MarketplaceService } from 'app/main/content/_service/core-marketplace.service';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import { ClassInstanceService } from 'app/main/content/_service/meta/core/class/class-instance.service';
 import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
 import { FormGroup, FormControl } from '@angular/forms';
-import {
-  PropertyInstance,
-  PropertyType,
-  ClassProperty
-} from 'app/main/content/_model/meta/property/property';
+import { PropertyInstance, PropertyType, ClassProperty } from 'app/main/content/_model/meta/property/property';
 import { isNullOrUndefined } from 'util';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { User, UserRole } from 'app/main/content/_model/user';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 import { Tenant } from 'app/main/content/_model/tenant';
 
 @Component({
@@ -32,7 +20,6 @@ import { Tenant } from 'app/main/content/_model/tenant';
   providers: [DynamicFormItemService, DynamicFormItemControlService]
 })
 export class ClassInstanceFormEditorComponent implements OnInit {
-  marketplace: Marketplace;
   tenantAdmin: User;
   tenant: Tenant;
 
@@ -56,8 +43,6 @@ export class ClassInstanceFormEditorComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private loginService: LoginService,
-    private marketplaceService: MarketplaceService,
     private classDefinitionService: ClassDefinitionService,
     private classInstanceService: ClassInstanceService,
     private formItemService: DynamicFormItemService,
@@ -66,12 +51,7 @@ export class ClassInstanceFormEditorComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    const globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.tenantAdmin = globalInfo.user;
-    this.tenant = globalInfo.tenants[0];
-    this.marketplace = globalInfo.marketplace;
+
 
     let marketplaceId: string;
     const childClassIds: string[] = [];
@@ -90,35 +70,8 @@ export class ClassInstanceFormEditorComponent implements OnInit {
         }
       })
     ]).then(() => {
-      this.marketplaceService
-        .findById(marketplaceId)
-        .toPromise()
-        .then((marketplace: Marketplace) => {
-          this.marketplace = marketplace;
-
-          Promise.all([
-            this.classDefinitionService
-              .getFormConfigurations(this.marketplace, childClassIds)
-              .toPromise()
-              .then((formConfigurations: FormConfiguration[]) => {
-                this.formConfigurations = formConfigurations;
-
-                for (const config of this.formConfigurations) {
-                  config.formEntry = this.addFormItemsAndFormGroup(config.formEntry, config.formEntry.id);
-                }
-              }),
-
-            this.loginService
-              .getLoggedIn()
-              .toPromise()
-              .then((tenantAdmin: User) => {
-                this.tenantAdmin = tenantAdmin;
-              })
-          ]).then(() => {
-            this.currentFormConfiguration = this.formConfigurations.pop();
-            this.loaded = true;
-          });
-        });
+      this.currentFormConfiguration = this.formConfigurations.pop();
+      this.loaded = true;
     });
   }
 
@@ -157,16 +110,12 @@ export class ClassInstanceFormEditorComponent implements OnInit {
     });
 
     this.classDefinitionService
-      .getFormConfigurationChunk(this.marketplace, pathPrefix, evt.selection.id)
-      .toPromise()
-      .then((retFormEntry: FormEntry) => {
-
+      .getFormConfigurationChunk(null, pathPrefix, evt.selection.id).toPromise().then((retFormEntry: FormEntry) => {
         const currentFormEntry = this.getFormEntry(
           pathPrefix,
           this.currentFormConfiguration.formEntry.id,
           this.currentFormConfiguration.formEntry
         );
-
 
         retFormEntry = this.addFormItemsAndFormGroup(retFormEntry, pathPrefix);
 
@@ -249,14 +198,11 @@ export class ClassInstanceFormEditorComponent implements OnInit {
       }
     }
 
-    this.classInstanceService
-      .createNewClassInstances(this.marketplace, classInstances)
-      .toPromise()
-      .then((ret: ClassInstance[]) => {
-        this.resultClassInstance = ret.pop();
-        this.contentDiv.nativeElement.scrollTo(0, 0);
-        this.showResultPage = true;
-      });
+    this.classInstanceService.createNewClassInstances(null, classInstances).toPromise().then((ret: ClassInstance[]) => {
+      this.resultClassInstance = ret.pop();
+      this.contentDiv.nativeElement.scrollTo(0, 0);
+      this.showResultPage = true;
+    });
   }
 
   private createClassInstance(
@@ -286,7 +232,6 @@ export class ClassInstanceFormEditorComponent implements OnInit {
     );
     classInstance.childClassInstances = [];
     classInstance.id = this.objectIdService.getNewObjectId();
-    classInstance.marketplaceId = this.marketplace.id;
 
     if (formEntry.multipleAllowed) {
       if (!forceAddProperties) {
@@ -328,8 +273,6 @@ export class ClassInstanceFormEditorComponent implements OnInit {
       }
 
       let value = values[0][keys.find(k => k.endsWith(classProperty.id))];
-
-
 
       if (!classProperty.computed && classProperty.type === PropertyType.FLOAT_NUMBER) {
         value = Number(value);

@@ -1,40 +1,23 @@
-import { Component, OnInit } from "@angular/core";
-import { Marketplace } from "app/main/content/_model/marketplace";
-import { UserRole, User } from "app/main/content/_model/user";
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  FormArrayName,
-  FormArray
-} from "@angular/forms";
-import {
-  DerivationRule,
-  GeneralCondition,
-  ClassCondition,
-  ClassAction
-} from "app/main/content/_model/derivation-rule";
-import { ClassDefinition } from "app/main/content/_model/meta/class";
-import { ActivatedRoute, Router } from "@angular/router";
-import { LoginService } from "app/main/content/_service/login.service";
-import { DerivationRuleService } from "app/main/content/_service/derivation-rule.service";
-import { ClassDefinitionService } from "app/main/content/_service/meta/core/class/class-definition.service";
-import { Tenant } from "app/main/content/_model/tenant";
-import { TenantService } from "app/main/content/_service/core-tenant.service";
-import { DerivationRuleValidators } from "app/main/content/_validator/derivation-rule.validators";
-import { GlobalInfo } from "app/main/content/_model/global-info";
-import { isNullOrUndefined } from "util";
-import { RuleExecution } from "app/main/content/_model/derivation-rule-execution";
+import { Component, OnInit } from '@angular/core';
+import { UserRole, User } from 'app/main/content/_model/user';
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { DerivationRule, GeneralCondition, ClassCondition, ClassAction } from 'app/main/content/_model/derivation-rule';
+import { ClassDefinition } from 'app/main/content/_model/meta/class';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DerivationRuleService } from 'app/main/content/_service/derivation-rule.service';
+import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
+import { Tenant } from 'app/main/content/_model/tenant';
+import { DerivationRuleValidators } from 'app/main/content/_validator/derivation-rule.validators';
+import { isNullOrUndefined } from 'util';
+import { RuleExecution } from 'app/main/content/_model/derivation-rule-execution';
 
 @Component({
-  templateUrl: "./rule-configurator.component.html",
-  styleUrls: ["./rule-configurator.component.scss"],
+  templateUrl: './rule-configurator.component.html',
+  styleUrls: ['./rule-configurator.component.scss'],
   providers: []
 })
 export class FuseRuleConfiguratorComponent implements OnInit {
   tenantAdmin: User;
-  marketplace: Marketplace;
   role: UserRole;
   tenant: Tenant;
 
@@ -56,10 +39,8 @@ export class FuseRuleConfiguratorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private loginService: LoginService,
     private derivationRuleService: DerivationRuleService,
     private classDefinitionService: ClassDefinitionService,
-    private tenantService: TenantService,
     private formBuilder: FormBuilder
   ) {
     this.ruleForm = formBuilder.group({
@@ -74,32 +55,25 @@ export class FuseRuleConfiguratorComponent implements OnInit {
   }
 
   async ngOnInit() {
-    let genConditionForms = <FormArray>(
-      this.ruleForm.controls["genConditionForms"]
+    const genConditionForms = <FormArray>(
+      this.ruleForm.controls['genConditionForms']
     );
-    const globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-
-    this.tenantAdmin = globalInfo.user;
-    this.marketplace = globalInfo.marketplace;
-    this.tenant = globalInfo.tenants[0];
 
     this.route.params.subscribe(params => {
-      this.loadDerivationRule(this.marketplace, params["ruleId"]);
+      this.loadDerivationRule(params['ruleId']);
     });
 
     this.classDefinitions = <ClassDefinition[]>(
       await this.classDefinitionService
-        .getAllClassDefinitions(this.marketplace, this.tenant.id)
+        .getAllClassDefinitions(null, this.tenant.id)
         .toPromise()
     );
   }
 
-  private loadDerivationRule(marketplace: Marketplace, ruleId: string) {
+  private loadDerivationRule(ruleId: string) {
     if (ruleId) {
       this.derivationRuleService
-        .findById(marketplace, ruleId)
+        .findById(null, ruleId)
         .toPromise()
         .then((rule: DerivationRule) => {
           this.derivationRule = rule;
@@ -124,7 +98,7 @@ export class FuseRuleConfiguratorComponent implements OnInit {
     this.derivationRule.generalConditions = new Array();
     this.derivationRule.classActions = new Array();
     this.derivationRule.classActions.push(new ClassAction(null));
-    //this.ruleActionForm.push(new FormGroup({}));
+    // this.ruleActionForm.push(new FormGroup({}));
     this.derivationRule.conditions = new Array();
   }
 
@@ -145,7 +119,7 @@ export class FuseRuleConfiguratorComponent implements OnInit {
     this.derivationRule.name = this.ruleForm.value.name;
     this.derivationRule.tenantId = this.tenant.id;
     this.derivationRule.container =
-      "simulate execution " + this.derivationRule.name;
+      'simulate execution ' + this.derivationRule.name;
   }
 
   save() {
@@ -154,22 +128,22 @@ export class FuseRuleConfiguratorComponent implements OnInit {
     if (this.ruleForm.valid) {
       this.derivationRule.name = this.ruleForm.value.name;
       this.derivationRule.tenantId = this.tenant.id;
-      this.derivationRule.container = "Test-Frontend";
+      this.derivationRule.container = 'Test-Frontend';
 
       if (this.derivationRule.id) {
         this.derivationRuleService
-          .save(this.marketplace, this.derivationRule)
+          .save(null, this.derivationRule)
           .toPromise()
           .then(() => {
-            this.loadDerivationRule(this.marketplace, this.derivationRule.id);
+            this.loadDerivationRule(this.derivationRule.id);
           });
       } else {
         this.derivationRuleService
-          .save(this.marketplace, this.derivationRule)
+          .save(null, this.derivationRule)
           .toPromise()
           .then((rule: DerivationRule) => {
             this.derivationRule = rule;
-            this.router.navigate(["/main/rule/" + this.derivationRule.id]);
+            this.router.navigate(['/main/rule/' + this.derivationRule.id]);
           });
       }
       this.showSuccessMsg = true;

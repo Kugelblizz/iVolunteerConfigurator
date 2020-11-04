@@ -1,17 +1,10 @@
-import { Marketplace } from 'app/main/content/_model/marketplace';
 import { Component, OnInit, Inject } from '@angular/core';
 import { DynamicFormItemService } from 'app/main/content/_service/dynamic-form-item.service';
 import { DynamicFormItemControlService } from 'app/main/content/_service/dynamic-form-item-control.service';
-import {
-  FormConfiguration,
-  FormEntryReturnEventData,
-  FormEntry,
-} from 'app/main/content/_model/meta/form';
+import { FormConfiguration, FormEntryReturnEventData, FormEntry } from 'app/main/content/_model/meta/form';
 import { ClassInstance } from 'app/main/content/_model/meta/class';
-
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { ClassProperty } from 'app/main/content/_model/meta/property/property';
 import { isNullOrUndefined } from 'util';
 import { FormControl } from '@angular/forms';
@@ -46,8 +39,6 @@ export class ClassInstanceFormPreviewExportDialogComponent implements OnInit {
   tenantAdmin: User;
   tenant: Tenant;
 
-  globalInfo: GlobalInfo;
-
   constructor(
     public dialogRef: MatDialogRef<
       ClassInstanceFormPreviewExportDialogComponent
@@ -58,24 +49,13 @@ export class ClassInstanceFormPreviewExportDialogComponent implements OnInit {
     private classDefinitionService: ClassDefinitionService,
     private formItemService: DynamicFormItemService,
     private formItemControlService: DynamicFormItemControlService,
-    private loginService: LoginService
   ) { }
 
   async ngOnInit() {
     this.returnedClassInstances = [];
     this.expectedNumberOfResults = 0;
 
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.tenantAdmin = this.globalInfo.user;
-    this.tenant = this.globalInfo.tenants[0];
-
-    this.classDefinitionService
-      .getFormConfigurations(
-        this.globalInfo.marketplace,
-        this.data.classConfigurationIds
-      )
+    this.classDefinitionService.getFormConfigurations(null, this.data.classConfigurationIds)
       .toPromise()
       .then((formConfigurations: FormConfiguration[]) => {
         this.formConfigurations = formConfigurations;
@@ -151,11 +131,8 @@ export class ClassInstanceFormPreviewExportDialogComponent implements OnInit {
     });
 
     unableToContinueQuestion = evt.formEntry.formItems.find((item) => item.key.endsWith('unableToContinue'));
-    console.log(this.globalInfo.marketplace);
-    console.log(pathPrefix);
-    console.log(evt.selection.id);
 
-    this.classDefinitionService.getFormConfigurationChunk(this.globalInfo.marketplace, pathPrefix, evt.selection.id)
+    this.classDefinitionService.getFormConfigurationChunk(null, pathPrefix, evt.selection.id)
       .toPromise()
       .then((retFormEntry: FormEntry) => {
         const currentFormEntry = this.getFormEntry(pathPrefix, this.currentFormConfiguration.formEntry.id, this.currentFormConfiguration.formEntry);

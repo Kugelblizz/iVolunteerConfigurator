@@ -1,11 +1,10 @@
 /*prettier-ignore*/
 import {
   ViewChild, ElementRef, Component, ChangeDetectorRef, Input, EventEmitter, Output, OnInit, OnChanges
-} from "@angular/core";
-import { Marketplace } from "app/main/content/_model/marketplace";
-import { User } from "app/main/content/_model/user";
-import { ClassDefinition } from "app/main/content/_model/meta/class";
-import { Relationship } from "app/main/content/_model/meta/relationship";
+} from '@angular/core';
+import { User } from 'app/main/content/_model/user';
+import { ClassDefinition } from 'app/main/content/_model/meta/class';
+import { Relationship } from 'app/main/content/_model/meta/relationship';
 
 declare var $: any;
 
@@ -13,7 +12,6 @@ const OVERLAY_WIDTH = 400;
 const OVERLAY_HEIGHT = 390;
 
 export class OptionsOverlayContentData {
-  marketplace: Marketplace;
   tenantAdmin: User;
 
   classDefinition: ClassDefinition;
@@ -25,13 +23,13 @@ export class OptionsOverlayContentData {
 
 @Component({
   selector: "class-options-overlay-control",
-  templateUrl: "./options-overlay-control.component.html",
-  styleUrls: ["./options-overlay-control.component.scss"],
+  templateUrl: './options-overlay-control.component.html',
+  styleUrls: ['./options-overlay-control.component.scss'],
 })
 export class ClassOptionsOverlayControlComponent implements OnInit, OnChanges {
-  @ViewChild("overlayDiv", { static: false }) overlayDiv: ElementRef;
+  @ViewChild('overlayDiv', { static: false }) overlayDiv: ElementRef;
   @Input() displayOverlay: boolean;
-  @Input() overlayType: "CLASS" | "RELATIONSHIP";
+  @Input() overlayType: 'CLASS' | 'RELATIONSHIP';
   @Input() overlayContent: OptionsOverlayContentData;
   @Input() overlayEvent: PointerEvent;
   @Output() overlayClosed = new EventEmitter<OptionsOverlayContentData>();
@@ -70,11 +68,11 @@ export class ClassOptionsOverlayControlComponent implements OnInit, OnChanges {
         xPos = window.innerWidth - OVERLAY_WIDTH;
       }
 
-      this.overlayDiv.nativeElement.style.top = yPos + "px";
-      this.overlayDiv.nativeElement.style.left = xPos + "px";
-      this.overlayDiv.nativeElement.style.position = "fixed";
-      this.overlayDiv.nativeElement.style.width = OVERLAY_WIDTH + "px";
-      this.overlayDiv.nativeElement.style.height = OVERLAY_HEIGHT + "px";
+      this.overlayDiv.nativeElement.style.top = yPos + 'px';
+      this.overlayDiv.nativeElement.style.left = xPos + 'px';
+      this.overlayDiv.nativeElement.style.position = 'fixed';
+      this.overlayDiv.nativeElement.style.width = OVERLAY_WIDTH + 'px';
+      this.overlayDiv.nativeElement.style.height = OVERLAY_HEIGHT + 'px';
     }
   }
 

@@ -1,7 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, HostListener, AfterContentInit } from '@angular/core';
 import { mxgraph } from 'mxgraph';
 import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
-import { Marketplace } from 'app/main/content/_model/marketplace';
 import { MyMxCell, MyMxCellType } from '../../../../myMxCell';
 import { TreePropertyDefinition, TreePropertyEntry, TreePropertyRelationship } from 'app/main/content/_model/meta/property/tree-property';
 import { CConstants } from '../../../../class-configurator/utils-and-constants';
@@ -27,7 +26,6 @@ const mx: typeof mxgraph = require('mxgraph')({
 export class TreePropertyGraphEditorComponent implements AfterContentInit {
   constructor(private objectIdService: ObjectIdService) { }
 
-  @Input() marketplace: Marketplace;
   @Input() tenantAdmin: User;
   @Input() treePropertyDefinition: TreePropertyDefinition;
   @Output() result: EventEmitter<{ type: string; payload: TreePropertyDefinition; }> = new EventEmitter();

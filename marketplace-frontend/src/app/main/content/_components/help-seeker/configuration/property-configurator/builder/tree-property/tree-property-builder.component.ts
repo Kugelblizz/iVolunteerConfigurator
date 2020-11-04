@@ -1,15 +1,11 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Marketplace } from 'app/main/content/_model/marketplace';
-
 import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tree-property';
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
 import { isNullOrUndefined } from 'util';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'app/main/content/_model/user';
-import { LoginService } from 'app/main/content/_service/login.service';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 import { Tenant } from 'app/main/content/_model/tenant';
 
 @Component({
@@ -21,13 +17,10 @@ import { Tenant } from 'app/main/content/_model/tenant';
 export class TreePropertyBuilderComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private treePropertyDefinitionService: TreePropertyDefinitionService,
-    private loginService: LoginService
   ) { }
 
-  @Input() marketplace: Marketplace;
   @Input() tenantAdmin: User;
   @Input() entryId: string;
   @Input() sourceString: string;
@@ -44,11 +37,6 @@ export class TreePropertyBuilderComponent implements OnInit {
   tenant: Tenant;
 
   async ngOnInit() {
-    const globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.tenant = globalInfo.tenants[0];
-
     this.form = this.formBuilder.group({
       name: this.formBuilder.control('', Validators.required),
       description: this.formBuilder.control(''),
@@ -59,9 +47,8 @@ export class TreePropertyBuilderComponent implements OnInit {
 
     if (!isNullOrUndefined(this.entryId)) {
       this.treePropertyDefinitionService
-        .getPropertyDefinitionById(this.marketplace, this.entryId)
-        .toPromise()
-        .then((ret: TreePropertyDefinition) => {
+        .getPropertyDefinitionById(null, this.entryId)
+        .toPromise().then((ret: TreePropertyDefinition) => {
           this.treePropertyDefinition = ret;
           this.form.get('name').setValue(this.treePropertyDefinition.name);
           this.form
@@ -104,9 +91,8 @@ export class TreePropertyBuilderComponent implements OnInit {
       }
 
       this.treePropertyDefinitionService
-        .newPropertyDefinition(this.marketplace, newTreePropertyDefinition, this.tenant.id)
-        .toPromise()
-        .then((treePropertyDefinition: TreePropertyDefinition) => {
+        .newPropertyDefinition(null, newTreePropertyDefinition, this.tenant.id)
+        .toPromise().then((treePropertyDefinition: TreePropertyDefinition) => {
           if (!isNullOrUndefined(treePropertyDefinition)) {
             this.treePropertyDefinition = treePropertyDefinition;
             this.showEditor = true;
@@ -125,9 +111,8 @@ export class TreePropertyBuilderComponent implements OnInit {
       event.payload.description = this.form.controls['description'].value;
       event.payload.multiple = this.multipleToggled;
       this.treePropertyDefinitionService
-        .savePropertyDefinition(this.marketplace, event.payload)
-        .toPromise()
-        .then((ret: TreePropertyDefinition) => {
+        .savePropertyDefinition(null, event.payload)
+        .toPromise().then((ret: TreePropertyDefinition) => {
           return; // don't emit result
         });
 
@@ -139,9 +124,8 @@ export class TreePropertyBuilderComponent implements OnInit {
       event.payload.multiple = this.multipleToggled;
 
       this.treePropertyDefinitionService
-        .savePropertyDefinition(this.marketplace, event.payload)
-        .toPromise()
-        .then((ret: TreePropertyDefinition) => {
+        .savePropertyDefinition(null, event.payload)
+        .toPromise().then((ret: TreePropertyDefinition) => {
           this.result.emit({ builderType: 'tree', value: ret });
         });
     }

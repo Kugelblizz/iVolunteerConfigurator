@@ -76,19 +76,15 @@ export class DynamicFormBlockComponent implements OnInit, OnChanges {
     if (this.form.valid) {
 
       for (const item of this.formItems) {
-
         if (item.controlType.startsWith('tree')) {
           this.form.controls[item.key].setValue(item.value);
         }
-
       }
-
       this.fireResultEvent();
 
     } else {
       // Mark errornous Fields
       this.markFormAsTouched(this.formItems, this.form);
-
       this.errorEvent.emit(true);
 
       // focus on first error using jQuery

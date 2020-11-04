@@ -1,4 +1,3 @@
-import { Marketplace } from 'app/main/content/_model/marketplace';
 import { ClassDefinition, ClassInstance } from 'app/main/content/_model/meta/class';
 import { Relationship } from 'app/main/content/_model/meta/relationship';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -8,8 +7,6 @@ import { FormConfiguration, FormEntry, FormEntryReturnEventData } from 'app/main
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import { isNullOrUndefined } from 'util';
-import { LoginService } from 'app/main/content/_service/login.service';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 
 export interface ClassInstanceFormPreviewDialogData {
     classDefinitions: ClassDefinition[];
@@ -27,15 +24,10 @@ export class ClassInstanceFormPreviewDialogComponent implements OnInit {
 
     formConfigurations: FormConfiguration[];
     currentFormConfiguration: FormConfiguration;
-
     returnedClassInstances: ClassInstance[];
-
     expectedNumberOfResults: number;
 
-    marketplace: Marketplace;
-
     isLoaded = false;
-
 
     constructor(
         public dialogRef: MatDialogRef<ClassInstanceFormPreviewDialogComponent>,
@@ -44,18 +36,15 @@ export class ClassInstanceFormPreviewDialogComponent implements OnInit {
         private classDefinitionService: ClassDefinitionService,
         private formItemService: DynamicFormItemService,
         private formItemControlService: DynamicFormItemControlService,
-        private loginService: LoginService,
     ) {
     }
 
     async ngOnInit() {
 
-        const globalInfo = <GlobalInfo>(await this.loginService.getGlobalInfo().toPromise());
-
         this.returnedClassInstances = [];
 
         this.classDefinitionService
-            .getFormConfigurationPreview(globalInfo.marketplace, this.data.classDefinitions, this.data.relationships, this.data.rootClassDefinition)
+            .getFormConfigurationPreview(null, this.data.classDefinitions, this.data.relationships, this.data.rootClassDefinition)
             .toPromise()
             .then((ret: FormConfiguration[]) => {
                 this.formConfigurations = ret;

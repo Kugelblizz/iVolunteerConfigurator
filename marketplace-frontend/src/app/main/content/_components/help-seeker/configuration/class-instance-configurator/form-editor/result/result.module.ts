@@ -7,8 +7,6 @@ import { InstanceCreationResultComponent } from './result.component';
 @NgModule({
   imports: [
     CommonModule,
-
-
     MatCommonModule,
     MatProgressSpinnerModule,
     MatExpansionModule,

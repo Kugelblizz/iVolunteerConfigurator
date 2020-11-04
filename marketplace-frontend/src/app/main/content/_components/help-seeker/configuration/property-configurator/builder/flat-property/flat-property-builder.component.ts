@@ -1,18 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {
-  FormGroup, FormControl, Validators, FormArray, FormBuilder,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
-import { Router } from '@angular/router';
-import {
-  FlatPropertyDefinition, PropertyType,
-} from 'app/main/content/_model/meta/property/property';
-import { Marketplace } from 'app/main/content/_model/marketplace';
+import { FlatPropertyDefinition, PropertyType } from 'app/main/content/_model/meta/property/property';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { propertyNameUniqueValidator } from 'app/main/content/_validator/property-name-unique.validator';
 import { User } from 'app/main/content/_model/user';
-import { LoginService } from 'app/main/content/_service/login.service';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 import { Tenant } from 'app/main/content/_model/tenant';
 import { ConstraintType, PropertyConstraint } from 'app/main/content/_model/meta/constraint';
 
@@ -45,7 +37,6 @@ const availableConstraints = [
   styleUrls: ['./flat-property-builder.component.scss'],
 })
 export class FlatPropertyBuilderComponent implements OnInit {
-  @Input() marketplace: Marketplace;
   @Input() tenantAdmin: User;
   @Input() entryId: string;
   @Input() sourceString: string;
@@ -72,21 +63,12 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private propertyDefinitionService: FlatPropertyDefinitionService,
-    private loginService: LoginService
   ) { }
 
   async ngOnInit() {
     this.preparePropertyTypeOptions();
     this.clearForm();
-
-    console.log(this.form.value);
-
-    const globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.tenant = globalInfo.tenants[0];
 
     this.dropdownToggled = false;
 
@@ -108,7 +90,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   private getAllPropertyDefinitions() {
     return this.propertyDefinitionService
-      .getAllPropertyDefinitons(this.marketplace, this.tenant.id)
+      .getAllPropertyDefinitons(null, this.tenant.id)
       .toPromise()
       .then((ret: FlatPropertyDefinition<any>[]) => {
         this.allPropertyDefinitions = ret;
@@ -117,7 +99,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   private getCurrentPropertyDefinition() {
     return this.propertyDefinitionService
-      .getPropertyDefinitionById(this.marketplace, this.entryId, this.tenant.id)
+      .getPropertyDefinitionById(null, this.entryId, this.tenant.id)
       .toPromise()
       .then((ret: FlatPropertyDefinition<any>) => {
         this.propertyDefinition = ret;
@@ -344,10 +326,8 @@ export class FlatPropertyBuilderComponent implements OnInit {
     if (this.form.valid) {
       const property = this.createPropertyFromForm();
 
-      this.propertyDefinitionService
-        .createNewPropertyDefinition(this.marketplace, [property])
-        .toPromise()
-        .then((ret: FlatPropertyDefinition<any>[]) => {
+      this.propertyDefinitionService.createNewPropertyDefinition(null, [property])
+        .toPromise().then((ret: FlatPropertyDefinition<any>[]) => {
           if (!isNullOrUndefined(ret) && ret.length > 0) {
             this.result.emit({ builderType: 'property', value: ret[0] });
           } else {

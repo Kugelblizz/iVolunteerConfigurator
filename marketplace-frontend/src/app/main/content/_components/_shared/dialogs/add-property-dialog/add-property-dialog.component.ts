@@ -20,7 +20,6 @@ import {
   PropertyCreationDialogComponent, PropertyCreationDialogData,
 } from '../../../help-seeker/configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.component';
 import { GlobalInfo } from 'app/main/content/_model/global-info';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { Tenant } from 'app/main/content/_model/tenant';
 
 export interface AddPropertyDialogData {
@@ -44,7 +43,6 @@ export class AddPropertyDialogComponent implements OnInit {
     private classPropertyService: ClassPropertyService,
     private treePropertyDefinitionService: TreePropertyDefinitionService,
     public dialog: MatDialog,
-    private loginService: LoginService,
   ) { }
 
   flatPropertyDataSource = new MatTableDataSource<PropertyItem>();
@@ -66,7 +64,6 @@ export class AddPropertyDialogComponent implements OnInit {
   loaded: boolean;
   tabIndex: number;
 
-  globalInfo: GlobalInfo;
   tenant: Tenant;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -74,15 +71,8 @@ export class AddPropertyDialogComponent implements OnInit {
   async ngOnInit() {
     this.tabIndex = 0;
 
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-
-    this.tenant = this.globalInfo.tenants[0];
-
-
     Promise.all([
-      this.flatPropertyDefinitionService.getAllPropertyDefinitons(this.globalInfo.marketplace, this.tenant.id)
+      this.flatPropertyDefinitionService.getAllPropertyDefinitons(null, this.tenant.id)
         .toPromise()
         .then((ret: FlatPropertyDefinition<any>[]) => {
           this.flatPropertyDataSource.data = ret;
@@ -103,7 +93,7 @@ export class AddPropertyDialogComponent implements OnInit {
           this.flatPropertySelection.select(...this.initialFlatPropertyDefinitions);
         }),
       this.treePropertyDefinitionService
-        .getAllPropertyDefinitionsForTenant(this.globalInfo.marketplace, this.tenant.id)
+        .getAllPropertyDefinitionsForTenant(null, this.tenant.id)
         .toPromise()
         .then((ret: TreePropertyDefinition[]) => {
           this.treePropertyDataSource.data = ret;
@@ -197,8 +187,7 @@ export class AddPropertyDialogComponent implements OnInit {
 
     this.classPropertyService
       .getClassPropertyFromDefinitionById(
-        this.globalInfo.marketplace,
-        addedFlatProperties.map((p) => p.id),
+        null, addedFlatProperties.map((p) => p.id),
         addedTreeProperties.map((e) => e.id)
       )
       .toPromise()
@@ -215,7 +204,7 @@ export class AddPropertyDialogComponent implements OnInit {
       height: '90vh',
       minHeight: '90vh',
       data: {
-        marketplace: this.globalInfo.marketplace,
+        marketplace: null,
         allFlatPropertyDefinitions: this.flatPropertyDataSource.data,
         builderType: type,
       },

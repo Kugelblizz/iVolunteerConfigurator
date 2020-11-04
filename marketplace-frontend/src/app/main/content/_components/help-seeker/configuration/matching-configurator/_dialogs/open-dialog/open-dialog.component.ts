@@ -1,13 +1,9 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Marketplace } from "app/main/content/_model/marketplace";
-import { LoginService } from "app/main/content/_service/login.service";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { MatchingConfigurationService } from "app/main/content/_service/configuration/matching-configuration.service";
-import { MatchingConfiguration } from "app/main/content/_model/meta/configurations";
-import { MatchingBrowseSubDialogData } from "app/main/content/_components/help-seeker/configuration/matching-configurator/_dialogs/browse-sub-dialog/browse-sub-dialog.component";
-import { User } from "app/main/content/_model/user";
-import { GlobalInfo } from 'app/main/content/_model/global-info';
+import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
+import { MatchingConfiguration } from 'app/main/content/_model/meta/configurations';
+import { MatchingBrowseSubDialogData } from 'app/main/content/_components/help-seeker/configuration/matching-configurator/_dialogs/browse-sub-dialog/browse-sub-dialog.component';
 
 export interface OpenMatchingDialogData {
   matchingConfiguration: MatchingConfiguration;
@@ -15,15 +11,14 @@ export interface OpenMatchingDialogData {
 
 @Component({
   selector: "open-matching-dialog",
-  templateUrl: "./open-dialog.component.html",
-  styleUrls: ["./open-dialog.component.scss"],
+  templateUrl: './open-dialog.component.html',
+  styleUrls: ['./open-dialog.component.scss'],
 })
 export class OpenMatchingDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<OpenMatchingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: OpenMatchingDialogData,
     private matchingConfigurationService: MatchingConfigurationService,
-    private loginService: LoginService
   ) { }
 
   allMatchingConfigurations: MatchingConfiguration[];
@@ -33,18 +28,10 @@ export class OpenMatchingDialogComponent implements OnInit {
   loaded: boolean;
   browseMode: boolean;
 
-  globalInfo: GlobalInfo;
-
   async ngOnInit() {
-
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-
     this.matchingConfigurationService
-      .getAllMatchingConfigurations(this.globalInfo.marketplace)
-      .toPromise()
-      .then((matchingConfigurations: MatchingConfiguration[]) => {
+      .getAllMatchingConfigurations(null)
+      .toPromise().then((matchingConfigurations: MatchingConfiguration[]) => {
         this.recentMatchingConfigurations = matchingConfigurations;
         this.allMatchingConfigurations = matchingConfigurations;
 
@@ -78,9 +65,8 @@ export class OpenMatchingDialogComponent implements OnInit {
   handleBrowseClick() {
     this.browseDialogData = new MatchingBrowseSubDialogData();
 
-    this.browseDialogData.title = "Durchsuchen";
+    this.browseDialogData.title = 'Durchsuchen';
     this.browseDialogData.entries = [];
-    this.browseDialogData.globalInfo = this.globalInfo;
 
     for (const matchingConfiguration of this.allMatchingConfigurations) {
       this.browseDialogData.entries.push({

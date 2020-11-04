@@ -1,17 +1,6 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  Output,
-  EventEmitter,
-  Input,
-  AfterViewInit,
-  OnChanges
-} from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { isNullOrUndefined } from "util";
-import { Marketplace } from "app/main/content/_model/marketplace";
-import { DialogFactoryDirective } from "app/main/content/_components/_shared/dialogs/_dialog-factory/dialog-factory.component";
+import { Component, ElementRef, ViewChild, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
+import { isNullOrUndefined } from 'util';
+import { DialogFactoryDirective } from 'app/main/content/_components/_shared/dialogs/_dialog-factory/dialog-factory.component';
 
 export interface RootMenuItem {
   id: number;
@@ -28,7 +17,7 @@ export interface SubMenuItem {
 }
 
 const rootMenuItems: RootMenuItem[] = [
-  { id: 1, label: "Menü", icon: "menu" }
+  { id: 1, label: 'Menü', icon: 'menu' }
   // { id: 2, label: 'Bearbeiten' },
   // { id: 3, label: 'Ansicht' },
   // { id: 4, label: 'Extras' },
@@ -39,29 +28,29 @@ const subMenuItems: SubMenuItem[] = [
   {
     rootId: 1,
     id: 1,
-    label: "Neues Matching",
-    clickAction: "newClicked",
+    label: 'Neues Matching',
+    clickAction: 'newClicked',
     icon: undefined
   },
   {
     rootId: 1,
     id: 2,
-    label: "Matching öffnen",
-    clickAction: "openClicked",
+    label: 'Matching öffnen',
+    clickAction: 'openClicked',
     icon: undefined
   },
   {
     rootId: 1,
     id: 3,
-    label: "Matching speichern",
-    clickAction: "saveClicked",
+    label: 'Matching speichern',
+    clickAction: 'saveClicked',
     icon: undefined
   },
   {
     rootId: 1,
     id: 4,
-    label: "Matching löschen",
-    clickAction: "deleteClicked",
+    label: 'Matching löschen',
+    clickAction: 'deleteClicked',
     icon: undefined
   }
 
@@ -85,8 +74,8 @@ const subMenuItems: SubMenuItem[] = [
 
 @Component({
   selector: "matching-editor-top-menu-bar",
-  templateUrl: "./top-menu-bar.component.html",
-  styleUrls: ["./top-menu-bar.component.scss"]
+  templateUrl: './top-menu-bar.component.html',
+  styleUrls: ['./top-menu-bar.component.scss']
 })
 export class MatchingTopMenuBarComponent implements AfterViewInit {
   isLoaded = false;
@@ -96,76 +85,73 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   subMenuItems = subMenuItems;
   currentRootId = 1;
 
-  @ViewChild("menubarContainer", { static: true }) menubarContainer: ElementRef;
-  @ViewChild("submenuContainer", { static: true }) submenuContainer: ElementRef;
-  @ViewChild("titlebarTextContainer", { static: true })
+  @ViewChild('menubarContainer', { static: true }) menubarContainer: ElementRef;
+  @ViewChild('submenuContainer', { static: true }) submenuContainer: ElementRef;
+  @ViewChild('titlebarTextContainer', { static: true })
   titleBarTextContainer: ElementRef;
 
-  @Input() marketplace: Marketplace;
   @Input() eventResponseAction: string;
   @Output() menuOptionClickedEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private dialogFactory: DialogFactoryDirective
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
-    this.submenuContainer.nativeElement.style.position = "absolute";
-    this.submenuContainer.nativeElement.style.overflow = "hidden";
-    this.submenuContainer.nativeElement.style.padding = "0px";
-    this.submenuContainer.nativeElement.style.top = "29px";
-    this.submenuContainer.nativeElement.style.left = "10px";
-    this.submenuContainer.nativeElement.style.height = "auto";
-    this.submenuContainer.nativeElement.style.width = "200px";
-    this.submenuContainer.nativeElement.style.background = "white";
+    this.submenuContainer.nativeElement.style.position = 'absolute';
+    this.submenuContainer.nativeElement.style.overflow = 'hidden';
+    this.submenuContainer.nativeElement.style.padding = '0px';
+    this.submenuContainer.nativeElement.style.top = '29px';
+    this.submenuContainer.nativeElement.style.left = '10px';
+    this.submenuContainer.nativeElement.style.height = 'auto';
+    this.submenuContainer.nativeElement.style.width = '200px';
+    this.submenuContainer.nativeElement.style.background = 'white';
     this.submenuContainer.nativeElement.style.font =
-      "Arial, Helvetica, sans-serif";
-    this.submenuContainer.nativeElement.style.display = "none";
+      'Arial, Helvetica, sans-serif';
+    this.submenuContainer.nativeElement.style.display = 'none';
 
-    this.menubarContainer.nativeElement.style.position = "absolute";
-    this.menubarContainer.nativeElement.style.overflow = "hidden";
+    this.menubarContainer.nativeElement.style.position = 'absolute';
+    this.menubarContainer.nativeElement.style.overflow = 'hidden';
     // this.menubarContainer.nativeElement.style.padding = '2px';
-    this.menubarContainer.nativeElement.style.right = "0px";
-    this.menubarContainer.nativeElement.style.top = "0px";
-    this.menubarContainer.nativeElement.style.left = "0px";
-    this.menubarContainer.nativeElement.style.height = "35px";
-    this.menubarContainer.nativeElement.style.background = "white";
+    this.menubarContainer.nativeElement.style.right = '0px';
+    this.menubarContainer.nativeElement.style.top = '0px';
+    this.menubarContainer.nativeElement.style.left = '0px';
+    this.menubarContainer.nativeElement.style.height = '35px';
+    this.menubarContainer.nativeElement.style.background = 'white';
     this.menubarContainer.nativeElement.style.font =
-      "Arial, Helvetica, sans-serif";
+      'Arial, Helvetica, sans-serif';
 
     this.titleBarTextContainer.nativeElement.style.maxWidth =
       // clientwidth of titlebar - margin left/right - icon left
-      this.menubarContainer.nativeElement.clientWidth - 50 - 15 + "px";
+      this.menubarContainer.nativeElement.clientWidth - 50 - 15 + 'px';
 
     const outer = this;
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener('click', function (event) {
       outer.handleHTMLClickEvent(event);
     });
   }
 
   handleHTMLClickEvent(event: any) {
     if (
-      event.srcElement.className !== "menuitem" &&
+      event.srcElement.className !== 'menuitem' &&
       event.srcElement.className !==
-        "menuitem-icon mat-icon notranslate material-icons mat-icon-no-color"
+      'menuitem-icon mat-icon notranslate material-icons mat-icon-no-color'
     ) {
-      this.submenuContainer.nativeElement.style.display = "none";
+      this.submenuContainer.nativeElement.style.display = 'none';
     }
   }
 
   openSubmenu(event: any, rootItemId: number) {
     this.currentRootId = rootItemId;
-    this.submenuContainer.nativeElement.style.display = "block";
+    this.submenuContainer.nativeElement.style.display = 'block';
     const leftPosition = this.calculateLeftSpace(
       event.srcElement.offsetParent,
       rootItemId
     );
-    this.submenuContainer.nativeElement.style.left = leftPosition + "px";
+    this.submenuContainer.nativeElement.style.left = leftPosition + 'px';
   }
 
   private calculateLeftSpace(offsetParent: any, rootItemId: number) {
@@ -184,19 +170,19 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   newClicked(event: any, item: SubMenuItem) {
     this.dialogFactory.openNewMatchingDialog().then((ret: any) => {
       if (!isNullOrUndefined(ret)) {
-        this.menuOptionClickedEvent.emit({ id: "editor_new", payload: ret });
+        this.menuOptionClickedEvent.emit({ id: 'editor_new', payload: ret });
       }
     });
   }
 
-  editClicked() {}
+  editClicked() { }
 
   openClicked(event: any, item: SubMenuItem) {
     this.dialogFactory.openOpenMatchingDialog().then((ret: any) => {
       if (!isNullOrUndefined(ret)) {
-        this.menuOptionClickedEvent.emit({ id: "editor_open", payload: ret });
+        this.menuOptionClickedEvent.emit({ id: 'editor_open', payload: ret });
       } else {
-        this.menuOptionClickedEvent.emit({ id: "cancelled" });
+        this.menuOptionClickedEvent.emit({ id: 'cancelled' });
       }
     });
   }
@@ -204,14 +190,14 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   saveClicked(event: any, item: SubMenuItem) {
     this.dialogFactory
       .confirmationDialog(
-        "Save",
-        "Are you sure you want to save? The existing model will be overidden..."
+        'Save',
+        'Are you sure you want to save? The existing model will be overidden...'
       )
       .then((result: boolean) => {
         if (result) {
-          this.menuOptionClickedEvent.emit({ id: "editor_save" });
+          this.menuOptionClickedEvent.emit({ id: 'editor_save' });
         } else {
-          this.menuOptionClickedEvent.emit({ id: "cancelled" });
+          this.menuOptionClickedEvent.emit({ id: 'cancelled' });
         }
       });
   }
@@ -219,9 +205,9 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   deleteClicked(event: any, item: SubMenuItem) {
     this.dialogFactory.openDeleteMatchingDialog().then((ret: any) => {
       if (!isNullOrUndefined(ret)) {
-        this.menuOptionClickedEvent.emit({ id: "editor_delete", payload: ret });
+        this.menuOptionClickedEvent.emit({ id: 'editor_delete', payload: ret });
       } else {
-        this.menuOptionClickedEvent.emit({ id: "cancelled" });
+        this.menuOptionClickedEvent.emit({ id: 'cancelled' });
       }
     });
   }

@@ -2,8 +2,6 @@ import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { isNullOrUndefined } from 'util';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
-import { LoginService } from 'app/main/content/_service/login.service';
 import { Tenant } from 'app/main/content/_model/tenant';
 import { MatchingEntityMappingConfiguration, ClassConfigurationDTO } from 'app/main/content/_model/meta/configurations';
 import { MatchingEntity } from 'app/main/content/_model/matching';
@@ -38,12 +36,10 @@ export class AddClassDefinitionGraphDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddClassDefinitionGraphDialogData>,
     @Inject(MAT_DIALOG_DATA) public dialogData: AddClassDefinitionGraphDialogData,
-    private loginService: LoginService,
     private classConfigurationServce: ClassConfigurationService,
   ) { }
 
 
-  globalInfo: GlobalInfo;
   tenant: Tenant;
 
   graph: mxgraph.mxGraph;
@@ -54,15 +50,9 @@ export class AddClassDefinitionGraphDialogComponent implements OnInit {
   loaded: boolean;
 
   async ngOnInit() {
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
-    this.tenant = this.globalInfo.tenants[0];
 
     this.graphData = <ClassConfigurationDTO>(
-      await this.classConfigurationServce.getAllForClassConfigurationInOne(
-        this.globalInfo.marketplace, this.dialogData.matchingEntityConfiguration.classConfigurationId
-      ).toPromise()
+      await this.classConfigurationServce.getAllForClassConfigurationInOne(null, this.dialogData.matchingEntityConfiguration.classConfigurationId).toPromise()
     );
     this.loaded = true;
     this.initGraph();

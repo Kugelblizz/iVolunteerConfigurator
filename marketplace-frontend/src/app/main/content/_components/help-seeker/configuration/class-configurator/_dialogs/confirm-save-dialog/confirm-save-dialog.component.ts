@@ -1,14 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Marketplace } from 'app/main/content/_model/marketplace';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
 import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
 import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { Relationship } from 'app/main/content/_model/meta/relationship';
 import { RelationshipService } from 'app/main/content/_service/meta/core/relationship/relationship.service';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
-import { LoginService } from 'app/main/content/_service/login.service';
 
 export interface ConfirmClassConfigurationSaveDialogData {
   classConfiguration: ClassConfiguration;
@@ -33,47 +30,43 @@ export class ConfirmClassConfigurationSaveDialogComponent implements OnInit {
     private classConfigurationService: ClassConfigurationService,
     private relationshipService: RelationshipService,
     private classDefinitionService: ClassDefinitionService,
-    private loginService: LoginService
   ) {
   }
 
   loaded: boolean;
-  globalInfo: GlobalInfo;
 
   async ngOnInit() {
-    this.globalInfo = <GlobalInfo>(
-      await this.loginService.getGlobalInfo().toPromise()
-    );
+
   }
 
   onOKClick() {
     Promise.all([
       this.relationshipService
-        .addAndUpdateRelationships(this.globalInfo.marketplace, this.data.relationships)
+        .addAndUpdateRelationships(null, this.data.relationships)
         .toPromise().then((ret: Relationship[]) => {
           this.data.relationships = ret;
         }),
 
       this.classDefinitionService
-        .addOrUpdateClassDefintions(this.globalInfo.marketplace, this.data.classDefinitions)
+        .addOrUpdateClassDefintions(null, this.data.classDefinitions)
         .toPromise().then((ret: ClassDefinition[]) => {
           this.data.classDefinitions = ret;
         }),
 
       this.classDefinitionService
-        .deleteClassDefinitions(this.globalInfo.marketplace, this.data.deletedClassDefintions)
+        .deleteClassDefinitions(null, this.data.deletedClassDefintions)
         .toPromise().then((ret: any) => {
           this.data.deletedClassDefintions = [];
         }),
 
       this.relationshipService
-        .deleteRelationships(this.globalInfo.marketplace, this.data.deletedRelationships)
+        .deleteRelationships(null, this.data.deletedRelationships)
         .toPromise().then((ret: any) => {
           this.data.deletedRelationships = [];
         }),
     ]).then(() => {
       this.classConfigurationService
-        .saveClassConfiguration(this.globalInfo.marketplace, this.data.classConfiguration)
+        .saveClassConfiguration(null, this.data.classConfiguration)
         .toPromise().then((ret: ClassConfiguration) => {
           this.data.classConfiguration = ret;
         }).then(() => {
