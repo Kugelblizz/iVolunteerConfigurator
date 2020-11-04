@@ -72,7 +72,7 @@ export class AddPropertyDialogComponent implements OnInit {
     this.tabIndex = 0;
 
     Promise.all([
-      this.flatPropertyDefinitionService.getAllPropertyDefinitons(null, this.tenant.id)
+      this.flatPropertyDefinitionService.getAllPropertyDefinitons()
         .toPromise()
         .then((ret: FlatPropertyDefinition<any>[]) => {
           this.flatPropertyDataSource.data = ret;
@@ -93,7 +93,7 @@ export class AddPropertyDialogComponent implements OnInit {
           this.flatPropertySelection.select(...this.initialFlatPropertyDefinitions);
         }),
       this.treePropertyDefinitionService
-        .getAllPropertyDefinitionsForTenant(null, this.tenant.id)
+        .getAllPropertyDefinitionsForTenant()
         .toPromise()
         .then((ret: TreePropertyDefinition[]) => {
           this.treePropertyDataSource.data = ret;

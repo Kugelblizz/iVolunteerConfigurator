@@ -47,7 +47,7 @@ export class TreePropertyBuilderComponent implements OnInit {
 
     if (!isNullOrUndefined(this.entryId)) {
       this.treePropertyDefinitionService
-        .getPropertyDefinitionById(null, this.entryId)
+        .getPropertyDefinitionById(this.entryId)
         .toPromise().then((ret: TreePropertyDefinition) => {
           this.treePropertyDefinition = ret;
           this.form.get('name').setValue(this.treePropertyDefinition.name);
@@ -91,7 +91,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       }
 
       this.treePropertyDefinitionService
-        .newPropertyDefinition(null, newTreePropertyDefinition, this.tenant.id)
+        .newPropertyDefinition(newTreePropertyDefinition, this.tenant.id)
         .toPromise().then((treePropertyDefinition: TreePropertyDefinition) => {
           if (!isNullOrUndefined(treePropertyDefinition)) {
             this.treePropertyDefinition = treePropertyDefinition;
@@ -111,7 +111,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       event.payload.description = this.form.controls['description'].value;
       event.payload.multiple = this.multipleToggled;
       this.treePropertyDefinitionService
-        .savePropertyDefinition(null, event.payload)
+        .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
           return; // don't emit result
         });
@@ -124,7 +124,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       event.payload.multiple = this.multipleToggled;
 
       this.treePropertyDefinitionService
-        .savePropertyDefinition(null, event.payload)
+        .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
           this.result.emit({ builderType: 'tree', value: ret });
         });

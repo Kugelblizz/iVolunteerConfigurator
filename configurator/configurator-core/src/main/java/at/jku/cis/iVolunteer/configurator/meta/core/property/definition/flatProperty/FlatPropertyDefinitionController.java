@@ -20,7 +20,6 @@ public class FlatPropertyDefinitionController {
 
 	@GetMapping("/property-definition/flat/all")
 	private List<FlatPropertyDefinition<Object>> getAllPropertyDefinitions() {
-		System.out.println("test");
 		return propertyDefinitionRepository.findAll();
 	}
 

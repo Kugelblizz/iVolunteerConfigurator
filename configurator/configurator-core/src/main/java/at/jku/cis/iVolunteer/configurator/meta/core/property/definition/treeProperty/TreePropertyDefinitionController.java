@@ -19,44 +19,38 @@ public class TreePropertyDefinitionController {
 
 	@Autowired TreePropertyDefinitionRepository treePropertyDefinitionRepository;
 
-	@GetMapping("/meta/core/property-definition/tree/all")
+	@GetMapping("/property-definition/tree/all")
 	private List<TreePropertyDefinition> getAllTreePropertyDefinitions() {
-
 		return treePropertyDefinitionRepository.findAll();
 	}
 
-	@GetMapping("/meta/core/property-definition/tree/all/{tenantId}")
-	private List<TreePropertyDefinition> getAllTreePropertyDefinitionssForTenant(@PathVariable("tenantId") String tenantId) {
-		return treePropertyDefinitionRepository.getByTenantId(tenantId);
-	}
-
-	@GetMapping("/meta/core/property-definition/tree/{id}")
+	@GetMapping("/property-definition/tree/{id}")
 	private TreePropertyDefinition getTreePropertyDefinitionById(@PathVariable("id") String id) {
 		return treePropertyDefinitionRepository.findOne(id);
 	}
 
-	@GetMapping("/meta/core/property-definition/tree/by-name/{name}")
+	@GetMapping("/property-definition/tree/by-name/{name}")
 	private TreePropertyDefinition getTreePropertyDefinitionByName(@PathVariable("name") String name) {
 		return treePropertyDefinitionRepository.findByName(name);
 	}
 
-	@PostMapping("/meta/core/property-definition/tree/new")
+	@PostMapping("/property-definition/tree/new")
 	private TreePropertyDefinition newTreePropertyDefinition(@RequestBody TreePropertyDefinition treePropertyDefinition) {
 		return treePropertyDefinitionRepository.save(treePropertyDefinition);
 	}
 
-	@PutMapping("/meta/core/property-definition/tree/save")
+	@PutMapping("/property-definition/tree/save")
 	private TreePropertyDefinition replaceTreePropertyDefinition(@RequestBody TreePropertyDefinition treePropertyDefinition) {
 		
 		return treePropertyDefinitionRepository.save(treePropertyDefinition);
 	}
 
-	@DeleteMapping("/meta/core/property-definition/tree/{id}/delete")
+	@DeleteMapping("/property-definition/tree/{id}/delete")
 	private void deleteTreePropertyDefinition(@PathVariable("id") String id) {
 		treePropertyDefinitionRepository.delete(id);
 	}
 
-	@PutMapping("/meta/core/enum-definition/tree/delete-multiple")
+	@PutMapping("/enum-definition/tree/delete-multiple")
 	private List<TreePropertyDefinition> deleteMultipleMatchingConfigurations(@RequestBody List<String> ids) {
 		ids.forEach(this.treePropertyDefinitionRepository::delete);
 		return this.treePropertyDefinitionRepository.findAll();

@@ -29,7 +29,7 @@ export class OpenTreePropertyDefinitionDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.treePropertyDefinitionService
-      .getAllPropertyDefinitionsForTenant(null, this.tenant.id).toPromise()
+      .getAllPropertyDefinitionsForTenant().toPromise()
       .then((treePropertyDefinitions: TreePropertyDefinition[]) => {
         if (!isNullOrUndefined(treePropertyDefinitions)) {
           this.treePropertyDefinitions = treePropertyDefinitions;

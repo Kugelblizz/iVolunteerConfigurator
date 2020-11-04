@@ -75,16 +75,14 @@ export class PropertyListComponent implements OnInit {
     Promise.all([
       this.flatPropertyDefinitionService
         .getAllPropertyDefinitons()
-        .toPromise()
-        .then((propertyDefinitions: FlatPropertyDefinition<any>[]) => {
+        .toPromise().then((propertyDefinitions: FlatPropertyDefinition<any>[]) => {
           this.propertyDefinitions = propertyDefinitions;
         }),
-      // this.treePropertyDefinitionService
-      //   .getAllPropertyDefinitionsForTenant(null, this.tenants[0].id)
-      //   .toPromise()
-      //   .then((treePropertyDefinitions: TreePropertyDefinition[]) => {
-      //     this.treePropertyDefinitions = treePropertyDefinitions;
-      //   }),
+      this.treePropertyDefinitionService
+        .getAllPropertyDefinitionsForTenant()
+        .toPromise().then((treePropertyDefinitions: TreePropertyDefinition[]) => {
+          this.treePropertyDefinitions = treePropertyDefinitions;
+        }),
     ]).then(() => {
       this.updatePropertyEntryList();
       this.applyFiltersFromParams();
@@ -202,7 +200,7 @@ export class PropertyListComponent implements OnInit {
             });
         } else if (ret && entry.type === PropertyType.TREE) {
           this.treePropertyDefinitionService
-            .deletePropertyDefinition(null, entry.id)
+            .deletePropertyDefinition(entry.id)
             .toPromise()
             .then(() => {
               this.deleteFromLists('tree', entry.id);

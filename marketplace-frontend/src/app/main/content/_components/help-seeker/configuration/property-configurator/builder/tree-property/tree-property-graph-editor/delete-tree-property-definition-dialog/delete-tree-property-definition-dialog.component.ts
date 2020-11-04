@@ -32,7 +32,7 @@ export class DeleteTreePropertyDefinitionDialogComponent implements OnInit {
     this.data.idsToDelete = [];
 
     this.treePropertyDefinitionService
-      .getAllPropertyDefinitionsForTenant(null, this.tenant.id)
+      .getAllPropertyDefinitionsForTenant()
       .toPromise()
       .then((treePropertyDefinitions: TreePropertyDefinition[]) => {
         if (!isNullOrUndefined(treePropertyDefinitions)) {
@@ -50,7 +50,7 @@ export class DeleteTreePropertyDefinitionDialogComponent implements OnInit {
 
   onSubmit() {
     this.treePropertyDefinitionService
-      .deletePropertyDefinitions(null, this.data.idsToDelete)
+      .deletePropertyDefinitions(this.data.idsToDelete)
       .toPromise()
       .then(() => {
         this.dialogRef.close(undefined);

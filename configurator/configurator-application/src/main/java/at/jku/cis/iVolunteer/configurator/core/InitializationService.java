@@ -35,6 +35,8 @@ public class InitializationService {
 	@PostConstruct
 	public void init() {
 		addiVolunteerPropertyDefinitions();
+		addGenericPropertyDefintions();
+		addHeaderPropertyDefintions();
 	}
 
 	public void addiVolunteerPropertyDefinitions() {
