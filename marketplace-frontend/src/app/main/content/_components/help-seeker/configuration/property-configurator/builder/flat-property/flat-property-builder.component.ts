@@ -90,7 +90,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   private getAllPropertyDefinitions() {
     return this.propertyDefinitionService
-      .getAllPropertyDefinitons(null, this.tenant.id)
+      .getAllPropertyDefinitons()
       .toPromise()
       .then((ret: FlatPropertyDefinition<any>[]) => {
         this.allPropertyDefinitions = ret;
@@ -99,7 +99,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   private getCurrentPropertyDefinition() {
     return this.propertyDefinitionService
-      .getPropertyDefinitionById(null, this.entryId, this.tenant.id)
+      .getPropertyDefinitionById(this.entryId, this.tenant.id)
       .toPromise()
       .then((ret: FlatPropertyDefinition<any>) => {
         this.propertyDefinition = ret;
@@ -326,7 +326,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
     if (this.form.valid) {
       const property = this.createPropertyFromForm();
 
-      this.propertyDefinitionService.createNewPropertyDefinition(null, [property])
+      this.propertyDefinitionService.createNewPropertyDefinition([property])
         .toPromise().then((ret: FlatPropertyDefinition<any>[]) => {
           if (!isNullOrUndefined(ret) && ret.length > 0) {
             this.result.emit({ builderType: 'property', value: ret[0] });

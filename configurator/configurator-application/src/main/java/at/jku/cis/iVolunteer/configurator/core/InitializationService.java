@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfigurationController;
 import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfigurationRepository;
 import at.jku.cis.iVolunteer.configurator.configurations.matching.collector.MatchingEntityMappingConfigurationRepository;
 import at.jku.cis.iVolunteer.configurator.configurations.matching.configuration.MatchingConfigurationRepository;
@@ -22,7 +21,7 @@ public class InitializationService {
 
 	@Autowired protected ClassDefinitionRepository classDefinitionRepository;
 	@Autowired protected RelationshipRepository relationshipRepository;
-	@Autowired protected FlatPropertyDefinitionRepository propertyDefinitionRepository;
+	@Autowired protected FlatPropertyDefinitionRepository flatPropertyDefinitionRepository;
 	@Autowired protected ClassConfigurationRepository classConfigurationRepository;
 	@Autowired protected MatchingConfigurationRepository matchingConfigurationRepository;
 	@Autowired protected MatchingEntityMappingConfigurationRepository matchingCollectorConfigurationRepository;
@@ -35,16 +34,15 @@ public class InitializationService {
 
 	@PostConstruct
 	public void init() {
-		
-		//TODO
+		addiVolunteerPropertyDefinitions();
 	}
 
 	public void addiVolunteerPropertyDefinitions() {
 //		List<Tenant> tenants = getTenants();
 //		tenants.forEach(tenant -> {
-			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAlliVolunteer(null)) {
-				if (propertyDefinitionRepository.getByNameAndTenantId(pd.getName(), pd.getTenantId()).size() == 0) {
-					propertyDefinitionRepository.save(pd);
+			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAlliVolunteer()) {
+				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
 //		});
@@ -54,9 +52,9 @@ public class InitializationService {
 //		List<Tenant> tenants = getTenants();
 //		tenants.forEach(tenant -> {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions
-					.getAllFlexProdProperties(null)) {
-				if (propertyDefinitionRepository.getByNameAndTenantId(pd.getName(), pd.getTenantId()).size() == 0) {
-					propertyDefinitionRepository.save(pd);
+					.getAllFlexProdProperties()) {
+				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
 //		});
@@ -65,9 +63,9 @@ public class InitializationService {
 	public void addGenericPropertyDefintions() {
 //		List<Tenant> tenants = getTenants();
 //		tenants.forEach(tenant -> {
-			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllGeneric(null)) {
-				if (propertyDefinitionRepository.getByNameAndTenantId(pd.getName(), pd.getTenantId()).size() == 0) {
-					propertyDefinitionRepository.save(pd);
+			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllGeneric()) {
+				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
 //		});
@@ -76,9 +74,9 @@ public class InitializationService {
 	public void addHeaderPropertyDefintions() {
 //		List<Tenant> tenants = getTenants();
 //		tenants.forEach(tenant -> {
-			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllHeader(null)) {
-				if (propertyDefinitionRepository.getByNameAndTenantId(pd.getName(), pd.getTenantId()).size() == 0) {
-					propertyDefinitionRepository.save(pd);
+			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllHeader()) {
+				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
 //		});
@@ -110,6 +108,10 @@ public class InitializationService {
 
 	public void deleteMatchingConfigurations() {
 		matchingConfigurationRepository.deleteAll();
+	}
+	
+	public void deleteProperties() {
+		flatPropertyDefinitionRepository.deleteAll();
 	}
 
 }

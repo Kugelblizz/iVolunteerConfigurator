@@ -7,8 +7,8 @@ import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.fl
 
 @Component
 public class FlatPropertyDefinitionInitializer {
-	public <T> FlatPropertyDefinition<T> createPropertyDefinition(String name, PropertyType type, String tenantId){
-		return new FlatPropertyDefinition<>(name, type, tenantId);
+	public <T> FlatPropertyDefinition<T> createPropertyDefinition(String name, PropertyType type){
+		return new FlatPropertyDefinition<>(name, type);
 	}
 	
 }

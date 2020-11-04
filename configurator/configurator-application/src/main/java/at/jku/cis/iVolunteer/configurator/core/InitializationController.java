@@ -26,7 +26,7 @@ public class InitializationController {
 	
 	@PutMapping("/init/delete-properties")
 	public void deleteProperties() {
-		initializationService.propertyDefinitionRepository.deleteAll();
+		initializationService.deleteProperties();
 	}
 	
 	@PutMapping("/init/add-properties/header")

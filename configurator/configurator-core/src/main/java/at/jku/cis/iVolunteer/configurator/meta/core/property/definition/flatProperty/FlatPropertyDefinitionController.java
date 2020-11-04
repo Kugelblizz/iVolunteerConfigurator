@@ -18,12 +18,13 @@ public class FlatPropertyDefinitionController {
 
 	@Autowired FlatPropertyDefinitionRepository propertyDefinitionRepository;
 
-	@GetMapping("/meta/core/property-definition/flat/all/tenant/{tenantId}")
-	private List<FlatPropertyDefinition<Object>> getAllPropertyDefinitions(@PathVariable("tenantId") String tenantId) {
-		return propertyDefinitionRepository.getAllByTenantId(tenantId);
+	@GetMapping("/property-definition/flat/all")
+	private List<FlatPropertyDefinition<Object>> getAllPropertyDefinitions() {
+		System.out.println("test");
+		return propertyDefinitionRepository.findAll();
 	}
 
-	@GetMapping("/meta/core/property-definition/flat/{id}/tenant/{tenantId}")
+	@GetMapping("/property-definition/flat/{id}/tenant/{tenantId}")
 	private FlatPropertyDefinition<Object> getPropertyDefinitionById(@PathVariable("id") String id, 
 			@PathVariable("tenantId") String tenantId) {
 	
@@ -32,7 +33,7 @@ public class FlatPropertyDefinitionController {
 		
 	}
 
-	@PostMapping("/meta/core/property-definition/flat/new")
+	@PostMapping("/property-definition/flat/new")
 	private List<FlatPropertyDefinition<Object>> createNewPropertyDefintion(
 			@RequestBody List<FlatPropertyDefinition<Object>> propertyDefinitions) {
 		
@@ -43,13 +44,13 @@ public class FlatPropertyDefinitionController {
 		return propertyDefinitionRepository.save(propertyDefinitions);
 	}
 
-	@PutMapping("/meta/core/property-definition/flat/{id}/update")
+	@PutMapping("/property-definition/flat/{id}/update")
 	private List<FlatPropertyDefinition<Object>> updatePropertyDefinition(
 			@RequestBody List<FlatPropertyDefinition<Object>> propertyDefinitions) {
 		return this.createNewPropertyDefintion(propertyDefinitions);
 	}
 
-	@DeleteMapping("/meta/core/property-definition/flat/{id}/delete")
+	@DeleteMapping("/property-definition/flat/{id}/delete")
 	private void deletePropertyDefinition(@PathVariable("id") String id) {
 		propertyDefinitionRepository.delete(id);
 	}

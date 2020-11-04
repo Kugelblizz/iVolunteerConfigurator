@@ -32,10 +32,9 @@ public class FlatPropertyDefinition<T> extends IVolunteerObject {
 	public FlatPropertyDefinition() {
 	}
 
-	public FlatPropertyDefinition(String name, PropertyType type, String tenantId) {
+	public FlatPropertyDefinition(String name, PropertyType type) {
 		this.name = name;
 		this.type = type;
-		this.tenantId = tenantId;
 	}
 
 	public String getId() {

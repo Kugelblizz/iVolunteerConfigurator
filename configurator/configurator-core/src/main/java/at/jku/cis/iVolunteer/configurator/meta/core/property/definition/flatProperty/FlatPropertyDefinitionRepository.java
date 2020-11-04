@@ -9,7 +9,7 @@ import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.fl
 @Repository
 public interface FlatPropertyDefinitionRepository extends MongoRepository<FlatPropertyDefinition<Object>, String> {
 
-	List<FlatPropertyDefinition<Object>> getByNameAndTenantId(String name, String tenantId);
+	List<FlatPropertyDefinition<Object>> getByName(String name);
 
 	FlatPropertyDefinition<Object> getByIdAndTenantId(String id, String tenantId);
 	

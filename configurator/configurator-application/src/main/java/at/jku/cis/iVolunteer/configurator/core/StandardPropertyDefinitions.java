@@ -1,5 +1,6 @@
 package at.jku.cis.iVolunteer.configurator.core;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -30,183 +31,183 @@ public class StandardPropertyDefinitions {
 	public StandardPropertyDefinitions() {
 
 	}
-	public List<FlatPropertyDefinition<Object>> getAlliVolunteer(String tenantId) {
-		List<FlatPropertyDefinition<Object>> properties = getAllHeader(tenantId);
-		properties.addAll(getAllGeneric(tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("IVolunteerUUID", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("IVolunteerSource", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("IssuedOn", PropertyType.DATE, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("Icon", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("Purpose", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("Phase", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("Unit", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("Level", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("GeoInformation", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("RoleID", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("OrganisationID", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("OrganisationName", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("OrganisationType", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("BadgeID", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("CertificateID", PropertyType.TEXT, tenantId));
-		properties.add(new FlatPropertyDefinition<Object>("TaskID", PropertyType.TEXT, tenantId));
+	public List<FlatPropertyDefinition<Object>> getAlliVolunteer() {
+		List<FlatPropertyDefinition<Object>> properties = getAllHeader();
+		properties.addAll(getAllGeneric());
+		properties.add(new FlatPropertyDefinition<Object>("IVolunteerUUID", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("IVolunteerSource", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("IssuedOn", PropertyType.DATE));
+		properties.add(new FlatPropertyDefinition<Object>("Icon", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("Purpose", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("Phase", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("Unit", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("Level", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("GeoInformation", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("RoleID", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("OrganisationID", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("OrganisationName", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("OrganisationType", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("BadgeID", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("CertificateID", PropertyType.TEXT));
+		properties.add(new FlatPropertyDefinition<Object>("TaskID", PropertyType.TEXT));
 		
 		return properties;
 	}
 
-	public List<FlatPropertyDefinition<Object>> getAllHeader(String tenantId) {
+	public List<FlatPropertyDefinition<Object>> getAllHeader() {
 		List<FlatPropertyDefinition<?>> props = new LinkedList<>();
 
-		props.add(new IDProperty(tenantId));
-		props.add(new EvidenzProperty(tenantId));
-		props.add(new DateFromProperty(tenantId));
-		props.add(new DateToProperty(tenantId));
-		props.add(new ImageLinkProperty(tenantId));
-		props.add(new ExpiredProperty(tenantId));
-		props.add(new TaskType1Property(tenantId));
-		props.add(new TaskType2Property(tenantId));
-		props.add(new TaskType3Property(tenantId));
-		props.add(new TaskType4Property(tenantId));
-		props.add(new RankProperty(tenantId));
-		props.add(new DurationProperty(tenantId));
+		props.add(new IDProperty());
+		props.add(new EvidenzProperty());
+		props.add(new DateFromProperty());
+		props.add(new DateToProperty());
+		props.add(new ImageLinkProperty());
+		props.add(new ExpiredProperty());
+		props.add(new TaskType1Property());
+		props.add(new TaskType2Property());
+		props.add(new TaskType3Property());
+		props.add(new TaskType4Property());
+		props.add(new RankProperty());
+		props.add(new DurationProperty());
 
 		return new ArrayList(props);
 
 	}
 
-	public List<FlatPropertyDefinition<Object>> getAllGeneric(String tenantId) {
+	public List<FlatPropertyDefinition<Object>> getAllGeneric() {
 		List<FlatPropertyDefinition<?>> props = new LinkedList<>();
 
-		props.add(new NameProperty(tenantId));
-		props.add(new DescriptionProperty(tenantId));
-		props.add(new WorkflowKeyProperty(tenantId));
-		props.add(new ContentProperty(tenantId));
-		props.add(new PriorityProperty(tenantId));
-		props.add(new ImportancyProperty(tenantId));
-		props.add(new RoleProperty(tenantId));
-		props.add(new LocationProperty(tenantId));
-		props.add(new RequiredEquipmentProperty(tenantId));
-		props.add(new WorkshiftProperty(tenantId));
-		props.add(new TaskPeriodTypeProperty(tenantId));
-		props.add(new KeywordsProperty(tenantId));
-		props.add(new RewardsProperty(tenantId));
-		props.add(new PostcodeProperty(tenantId));
-		props.add(new NumberOfVolunteersProperty(tenantId));
-		props.add(new TaskPeriodValueProperty(tenantId));
-		props.add(new StartDateProperty(tenantId));
-		props.add(new EndDateProperty(tenantId));
-		props.add(new UrgentProperty(tenantId));
-		props.add(new HighlightedProperty(tenantId));
-		props.add(new PromotedProperty(tenantId));
-		props.add(new FeedbackRequestedProperty(tenantId));
-		props.add(new RemindParticipantsProperty(tenantId));
-		props.add(new LatitudeProperty(tenantId));
-		props.add(new LongitudeProperty(tenantId));
-		props.add(new VolunteerAgeProperty(tenantId));
+		props.add(new NameProperty());
+		props.add(new DescriptionProperty());
+		props.add(new WorkflowKeyProperty());
+		props.add(new ContentProperty());
+		props.add(new PriorityProperty());
+		props.add(new ImportancyProperty());
+		props.add(new RoleProperty());
+		props.add(new LocationProperty());
+		props.add(new RequiredEquipmentProperty());
+		props.add(new WorkshiftProperty());
+		props.add(new TaskPeriodTypeProperty());
+		props.add(new KeywordsProperty());
+		props.add(new RewardsProperty());
+		props.add(new PostcodeProperty());
+		props.add(new NumberOfVolunteersProperty());
+		props.add(new TaskPeriodValueProperty());
+		props.add(new StartDateProperty());
+		props.add(new EndDateProperty());
+		props.add(new UrgentProperty());
+		props.add(new HighlightedProperty());
+		props.add(new PromotedProperty());
+		props.add(new FeedbackRequestedProperty());
+		props.add(new RemindParticipantsProperty());
+		props.add(new LatitudeProperty());
+		props.add(new LongitudeProperty());
+		props.add(new VolunteerAgeProperty());
 
 		return new ArrayList(props);
 
 	}
 
-	public List<FlatPropertyDefinition<Object>> getAllFlexProdProperties(String tenantId) {
+	public List<FlatPropertyDefinition<Object>> getAllFlexProdProperties() {
 		List<FlatPropertyDefinition<?>> list = new LinkedList<>();
 
-		list.add(new MaxGluehtemperaturProperty(tenantId));
-		list.add(new VerfuegbaresSchutzgasProperty(tenantId));
-		list.add(new BauartProperty(tenantId));
-		list.add(new TemperaturhomogenitaetProperty(tenantId));
-		list.add(new KaltgewalztesMaterialZulaessigProperty(tenantId));
-		list.add(new WarmgewalztesMaterialZulaessigProperty(tenantId));
+		list.add(new MaxGluehtemperaturProperty());
+		list.add(new VerfuegbaresSchutzgasProperty());
+		list.add(new BauartProperty());
+		list.add(new TemperaturhomogenitaetProperty());
+		list.add(new KaltgewalztesMaterialZulaessigProperty());
+		list.add(new WarmgewalztesMaterialZulaessigProperty());
 
-		list.add(new BundEntfettenProperty(tenantId));
+		list.add(new BundEntfettenProperty());
 
-		list.add(new InnendurchmesserProperty(tenantId));
-		list.add(new AussendurchmesserProperty(tenantId));
-		list.add(new HoeheProperty(tenantId));
+		list.add(new InnendurchmesserProperty());
+		list.add(new AussendurchmesserProperty());
+		list.add(new HoeheProperty());
 
-		list.add(new GluehzeitProperty(tenantId));
-		list.add(new DurchmesserProperty(tenantId));
-		list.add(new DurchsatzProperty(tenantId));
+		list.add(new GluehzeitProperty());
+		list.add(new DurchmesserProperty());
+		list.add(new DurchsatzProperty());
 		
-		list.add(new ChargierhilfeProperty(tenantId));
-		list.add(new WalzartProperty(tenantId));
+		list.add(new ChargierhilfeProperty());
+		list.add(new WalzartProperty());
 
-		list.add(new MoeglicheInnendurchmesserProperty(tenantId));
-		list.add(new MaxAussendurchmesserProperty(tenantId));
-		list.add(new MaxChargierhoeheProperty(tenantId));
+		list.add(new MoeglicheInnendurchmesserProperty());
+		list.add(new MaxAussendurchmesserProperty());
+		list.add(new MaxChargierhoeheProperty());
 
-		list.add(new CQI9Property(tenantId));
-		list.add(new TUSProperty(tenantId));
+		list.add(new CQI9Property());
+		list.add(new TUSProperty());
 
-		list.add(new LetzteWartungProperty(tenantId));
-		list.add(new WartungsintervallProperty(tenantId));
+		list.add(new LetzteWartungProperty());
+		list.add(new WartungsintervallProperty());
 
-		list.add(new BandBreiteProperty(tenantId));
-		list.add(new BandstaerkeProperty(tenantId));
+		list.add(new BandBreiteProperty());
+		list.add(new BandstaerkeProperty());
 
-		list.add(new WarmgewalztProperty(tenantId));
-		list.add(new KaltgewalztProperty(tenantId));
+		list.add(new WarmgewalztProperty());
+		list.add(new KaltgewalztProperty());
 
-		list.add(new StreckgrenzeProperty(tenantId));
-		list.add(new ZugfestigkeitProperty(tenantId));
-		list.add(new DehnungProperty(tenantId));
+		list.add(new StreckgrenzeProperty());
+		list.add(new ZugfestigkeitProperty());
+		list.add(new DehnungProperty());
 
-		list.add(new GefuegeProperty(tenantId));
+		list.add(new GefuegeProperty());
 
-		list.add(new MaterialBereitgestelltProperty(tenantId));
-		list.add(new LieferortProperty(tenantId));
-		list.add(new VerpackungProperty(tenantId));
-		list.add(new TransportartProperty(tenantId));
-		list.add(new MengeProperty(tenantId));
-		list.add(new LieferdatumProperty(tenantId));
-		list.add(new IncotermsProperty(tenantId));
+		list.add(new MaterialBereitgestelltProperty());
+		list.add(new LieferortProperty());
+		list.add(new VerpackungProperty());
+		list.add(new TransportartProperty());
+		list.add(new MengeProperty());
+		list.add(new LieferdatumProperty());
+		list.add(new IncotermsProperty());
 
-		list.add(new ZahlungsbedingungenProperty(tenantId));
+		list.add(new ZahlungsbedingungenProperty());
 
-		list.add(new TitelProperty(tenantId));
-		list.add(new ProdukttypProperty(tenantId));
-		list.add(new MengeProperty(tenantId));
-		list.add(new MinimaleMengeProperty(tenantId));
-		list.add(new LieferdatumProperty(tenantId));
-		list.add(new WerkstoffBereitgestelltProperty(tenantId));
-		list.add(new BeschreibungZusatzinfoProperty(tenantId));
+		list.add(new TitelProperty());
+		list.add(new ProdukttypProperty());
+		list.add(new MengeProperty());
+		list.add(new MinimaleMengeProperty());
+		list.add(new LieferdatumProperty());
+		list.add(new WerkstoffBereitgestelltProperty());
+		list.add(new BeschreibungZusatzinfoProperty());
 		
-		list.add(new DurchmesserInnenProperty(tenantId));
-		list.add(new DurchmesserAussenProperty(tenantId));
-		list.add(new HoeheProperty(tenantId));
+		list.add(new DurchmesserInnenProperty());
+		list.add(new DurchmesserAussenProperty());
+		list.add(new HoeheProperty());
 		
-		list.add(new WerkstoffProperty(tenantId));
-		list.add(new WerkstoffFreitextProperty(tenantId));
-		list.add(new ZugfestigkeitProperty(tenantId));
+		list.add(new WerkstoffProperty());
+		list.add(new WerkstoffFreitextProperty());
+		list.add(new ZugfestigkeitProperty());
 		
-		list.add(new SchutzgasProperty(tenantId));
-		list.add(new GluehreiseProperty(tenantId));
-		list.add(new TemperaturhomogenitaetProperty(tenantId));
+		list.add(new SchutzgasProperty());
+		list.add(new GluehreiseProperty());
+		list.add(new TemperaturhomogenitaetProperty());
 		
-		list.add(new OberflaechenqualitaetProperty(tenantId));
-		list.add(new ZusaetzlicheProduktinformationenProperty(tenantId));
+		list.add(new OberflaechenqualitaetProperty());
+		list.add(new ZusaetzlicheProduktinformationenProperty());
 		
-		list.add(new IncotermsProperty(tenantId));
-		list.add(new LieferortProperty(tenantId));
-		list.add(new AbholortProperty(tenantId));
-		list.add(new VerpackungsvorgabenProperty(tenantId));
+		list.add(new IncotermsProperty());
+		list.add(new LieferortProperty());
+		list.add(new AbholortProperty());
+		list.add(new VerpackungsvorgabenProperty());
 		
-		list.add(new BandDickeProperty(tenantId));
+		list.add(new BandDickeProperty());
 		
-		list.add(new DurchmesserKronenstockProperty(tenantId));
-		list.add(new MaximaldurchmesserBundProperty(tenantId));
+		list.add(new DurchmesserKronenstockProperty());
+		list.add(new MaximaldurchmesserBundProperty());
 		
-		list.add(new DurchmesserDornProperty(tenantId));
-		list.add(new InnendurchmesserOfenProperty(tenantId));
+		list.add(new DurchmesserDornProperty());
+		list.add(new InnendurchmesserOfenProperty());
 		
-		list.add(new OfenHoeheProperty(tenantId));
-		list.add(new MaxGluehtemperaturProperty(tenantId));
-		list.add(new TemperaturhomogenitaetProperty(tenantId));
-		list.add(new ErforderlicheTemperaturhomogenitaetProperty(tenantId));
-		list.add(new AufheizrateProperty(tenantId));
-		list.add(new AbkuehlrateProperty(tenantId));
-		list.add(new MaxAnteilH2Property(tenantId));
-		list.add(new KapazitaetProperty(tenantId));
-		list.add(new GluehprogrammVerfuegbarProperty(tenantId));
+		list.add(new OfenHoeheProperty());
+		list.add(new MaxGluehtemperaturProperty());
+		list.add(new TemperaturhomogenitaetProperty());
+		list.add(new ErforderlicheTemperaturhomogenitaetProperty());
+		list.add(new AufheizrateProperty());
+		list.add(new AbkuehlrateProperty());
+		list.add(new MaxAnteilH2Property());
+		list.add(new KapazitaetProperty());
+		list.add(new GluehprogrammVerfuegbarProperty());
 		
 		
 		return new ArrayList(list);
@@ -219,172 +220,159 @@ public class StandardPropertyDefinitions {
 	 */
 	public static class IDProperty extends TextPropertyDefinition {
 
-		IDProperty(String tenantId) {
-			inst(tenantId);
+		IDProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("ID");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class EvidenzProperty extends TextPropertyDefinition {
 
-		EvidenzProperty(String tenantId) {
-			inst(tenantId);
+		EvidenzProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Evidenz");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	
 	public static class ImageLinkProperty extends TextPropertyDefinition {
 
-		ImageLinkProperty(String tenantId) {
-			inst(tenantId);
+		ImageLinkProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Image Link");
-			this.setTenantId(tenantId);
 		}
 	}
 	
 	public static class ExpiredProperty extends BooleanPropertyDefinition {
 
-		ExpiredProperty(String tenantId) {
-			inst(tenantId);
+		ExpiredProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Expired");
-			this.setTenantId(tenantId);
 		}
 	}
 	
 	public static class LocationProperty extends LocationPropertyDefinition {
 
-		LocationProperty(String tenantId) {
-			inst(tenantId);
+		LocationProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Location");
-			this.setTenantId(tenantId);
 		}
 	}
 	
 	
 	public static class DateFromProperty extends DatePropertyDefinition {
 
-		DateFromProperty(String tenantId) {
-			inst(tenantId);
+		DateFromProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Starting Date");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class DateToProperty extends DatePropertyDefinition {
 
-		DateToProperty(String tenantId) {
-			inst(tenantId);
+		DateToProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("End Date");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class TaskType1Property extends TextPropertyDefinition {
 
-		TaskType1Property(String tenantId) {
-			inst(tenantId);
+		TaskType1Property() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("TaskType1");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class TaskType2Property extends TextPropertyDefinition {
 
-		TaskType2Property(String tenantId) {
-			inst(tenantId);
+		TaskType2Property() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("TaskType2");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class TaskType3Property extends TextPropertyDefinition {
 
-		TaskType3Property(String tenantId) {
-			inst(tenantId);
+		TaskType3Property() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("TaskType3");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class TaskType4Property extends TextPropertyDefinition {
 
-		TaskType4Property(String tenantId) {
-			inst(tenantId);
+		TaskType4Property() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("TaskType4");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class RankProperty extends TextPropertyDefinition {
 
-		RankProperty(String tenantId) {
-			inst(tenantId);
+		RankProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Rank");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class DurationProperty extends LongPropertyDefinition {
 
-		DurationProperty(String tenantId) {
-			inst(tenantId);
+		DurationProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Duration");
-			this.setTenantId(tenantId);
 		}
 	}
 
@@ -399,16 +387,15 @@ public class StandardPropertyDefinitions {
 	// =========================================
 	public static class NameProperty extends TextPropertyDefinition {
 
-		NameProperty(String tenantId) {
-			inst(tenantId);
+		NameProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setType(PropertyType.TEXT);
 			this.setName("Name");
 			this.setRequired(false);
-			this.setTenantId(tenantId);
 
 //			List<PropertyConstraint<?>> constraints = new ArrayList<>();
 //			constraints.add(new MinimumTextLength(3));
@@ -421,49 +408,45 @@ public class StandardPropertyDefinitions {
 
 	public static class DescriptionProperty extends LongTextPropertyDefinition {
 
-		public DescriptionProperty(String tenantId) {
-			inst(tenantId);
+		public DescriptionProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Description");
 			this.setRequired(true);
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class WorkflowKeyProperty extends TextPropertyDefinition {
-		public WorkflowKeyProperty(String tenantId) {
-			inst(tenantId);
+		public WorkflowKeyProperty() {
+			inst();
 		}
 
 		@PostConstruct
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Workflow Key");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class ContentProperty extends TextPropertyDefinition {
-		public ContentProperty(String tenantId) {
-			inst(tenantId);
+		public ContentProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Content");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class PriorityProperty extends TextPropertyDefinition {
-		public PriorityProperty(String tenantId) {
-			inst(tenantId);
+		public PriorityProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Priority");
-			this.setTenantId(tenantId);
 
 			List<String> legalValues = new ArrayList<>();
 			legalValues.add("Low");
@@ -475,13 +458,12 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class ImportancyProperty extends TextPropertyDefinition {
-		public ImportancyProperty(String tenantId) {
-			inst(tenantId);
+		public ImportancyProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Importancy");
-			this.setTenantId(tenantId);
 
 			List<String> legalValues = new ArrayList<>();
 			legalValues.add("Not Important");
@@ -495,46 +477,43 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class RoleProperty extends TextPropertyDefinition {
-		public RoleProperty(String tenantId) {
-			inst(tenantId);
+		public RoleProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Role");
-			this.setTenantId(tenantId);
 		}
 	}
 
 //	public static class LocationProperty extends TextPropertyDefinition {
-//		public LocationProperty(String tenantId) {
-//			inst(tenantId);
+//		public LocationProperty() {
+//			inst();
 //		}
 //
-//		public void inst(String tenantId) {
+//		public void inst() {
 //			this.setName("Location");
-//			this.setTenantId(tenantId);
+//		
 //		}
 //	}
 
 	public static class RequiredEquipmentProperty extends TextPropertyDefinition {
-		public RequiredEquipmentProperty(String tenantId) {
-			inst(tenantId);
+		public RequiredEquipmentProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Required Equipment");
-			this.setTenantId(tenantId);
 		}
 	}
 
 	public static class WorkshiftProperty extends TextPropertyDefinition {
-		public WorkshiftProperty(String tenantId) {
-			inst(tenantId);
+		public WorkshiftProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Allocated Shift");
-			this.setTenantId(tenantId);
 
 			List<String> legalValues = new ArrayList<>();
 			legalValues.add("Morning");
@@ -548,13 +527,13 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class TaskPeriodTypeProperty extends TextPropertyDefinition {
-		public TaskPeriodTypeProperty(String tenantId) {
-			inst(tenantId);
+		public TaskPeriodTypeProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Period Type");
-			this.setTenantId(tenantId);
+		
 
 			List<String> legalValues = new ArrayList<>();
 			legalValues.add("Days");
@@ -569,26 +548,26 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class KeywordsProperty extends TextPropertyDefinition {
-		public KeywordsProperty(String tenantId) {
-			inst(tenantId);
+		public KeywordsProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Keywords");
-			this.setTenantId(tenantId);
+		
 		}
 
 	}
 
 	//// Rewards ??
 	public static class RewardsProperty extends TextPropertyDefinition {
-		public RewardsProperty(String tenantId) {
-			inst(tenantId);
+		public RewardsProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Offered Reward(s)");
-			this.setTenantId(tenantId);
+		
 		}
 	}
 
@@ -597,25 +576,25 @@ public class StandardPropertyDefinitions {
 	// =========================================
 
 	public static class PostcodeProperty extends LongPropertyDefinition {
-		public PostcodeProperty(String tenantId) {
-			inst(tenantId);
+		public PostcodeProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Postcode");
-			this.setTenantId(tenantId);
+		
 
 		}
 	}
 
 	public static class NumberOfVolunteersProperty extends LongPropertyDefinition {
-		public NumberOfVolunteersProperty(String tenantId) {
-			inst(tenantId);
+		public NumberOfVolunteersProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Number of Volunteers");
-			this.setTenantId(tenantId);
+		
 
 			List<Long> legalValues = new LinkedList<>();
 			for (long i = 1; i <= 10; i++) {
@@ -626,13 +605,13 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class TaskPeriodValueProperty extends LongPropertyDefinition {
-		public TaskPeriodValueProperty(String tenantId) {
-			inst(tenantId);
+		public TaskPeriodValueProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Period length");
-			this.setTenantId(tenantId);
+		
 
 			List<Long> defaultValues = new ArrayList<>();
 			defaultValues.add(1L);
@@ -641,13 +620,13 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class VolunteerAgeProperty extends LongPropertyDefinition {
-		public VolunteerAgeProperty(String tenantId) {
-			inst(tenantId);
+		public VolunteerAgeProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Alter");
-			this.setTenantId(tenantId);
+		
 		}
 	}
 
@@ -656,10 +635,10 @@ public class StandardPropertyDefinitions {
 	// =========================================
 
 	public static class StartDateProperty extends DatePropertyDefinition {
-		public StartDateProperty(String tenantId) {
+		public StartDateProperty() {
 			super();
 			this.setName("Starting Date");
-			this.setTenantId(tenantId);
+		
 			setTestValues();
 		}
 
@@ -673,9 +652,9 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class EndDateProperty extends DatePropertyDefinition {
-		public EndDateProperty(String tenantId) {
+		public EndDateProperty() {
 			this.setName("End Date");
-			this.setTenantId(tenantId);
+		
 			setTestValues();
 		}
 
@@ -689,57 +668,57 @@ public class StandardPropertyDefinitions {
 	// =========================================
 
 	public static class UrgentProperty extends BooleanPropertyDefinition {
-		public UrgentProperty(String tenantId) {
-			inst(tenantId);
+		public UrgentProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Urgent");
-			this.setTenantId(tenantId);
+		
 		}
 	}
 
 	public static class HighlightedProperty extends BooleanPropertyDefinition {
-		public HighlightedProperty(String tenantId) {
-			inst(tenantId);
+		public HighlightedProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Highlighted");
-			this.setTenantId(tenantId);
+		
 		}
 	}
 
 	public static class PromotedProperty extends BooleanPropertyDefinition {
-		public PromotedProperty(String tenantId) {
-			inst(tenantId);
+		public PromotedProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Promotion");
-			this.setTenantId(tenantId);
+		
 		}
 	}
 
 	public static class FeedbackRequestedProperty extends BooleanPropertyDefinition {
-		public FeedbackRequestedProperty(String tenantId) {
-			inst(tenantId);
+		public FeedbackRequestedProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Feedback Requested");
-			this.setTenantId(tenantId);
+		
 		}
 	}
 
 	public static class RemindParticipantsProperty extends BooleanPropertyDefinition {
-		public RemindParticipantsProperty(String tenantId) {
-			inst(tenantId);
+		public RemindParticipantsProperty() {
+			inst();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Remind Participants");
-			this.setTenantId(tenantId);
+		
 		}
 	}
 
@@ -748,14 +727,14 @@ public class StandardPropertyDefinitions {
 	// =========================================
 
 	public static class LatitudeProperty extends DoublePropertyDefinition {
-		public LatitudeProperty(String tenantId) {
-			inst(tenantId);
+		public LatitudeProperty() {
+			inst();
 			setTestValues();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Latitude");
-			this.setTenantId(tenantId);
+		
 		}
 
 		private void setTestValues() {
@@ -764,14 +743,14 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class LongitudeProperty extends DoublePropertyDefinition {
-		public LongitudeProperty(String tenantId) {
-			inst(tenantId);
+		public LongitudeProperty() {
+			inst();
 			setTestValues();
 		}
 
-		public void inst(String tenantId) {
+		public void inst() {
 			this.setName("Longitude");
-			this.setTenantId(tenantId);
+		
 		}
 
 		private void setTestValues() {
@@ -784,8 +763,8 @@ public class StandardPropertyDefinitions {
 	// -----------------------------------------
 
 	public static class VerfuegbaresSchutzgasProperty extends TextPropertyDefinition {
-		public VerfuegbaresSchutzgasProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public VerfuegbaresSchutzgasProperty() {
+		
 			this.setId("verfuegbaresschutzgas");
 			this.setName("Verfügbares Schutzgas");
 			this.setAllowedValues(new LinkedList<String>());
@@ -796,8 +775,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class BauartProperty extends TextPropertyDefinition {
-		public BauartProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public BauartProperty() {
+		
 			this.setId("bauart");
 			this.setName("Bauart");
 			this.setAllowedValues(new LinkedList<String>());
@@ -807,32 +786,32 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class KaltgewalztesMaterialZulaessigProperty extends BooleanPropertyDefinition {
-		public KaltgewalztesMaterialZulaessigProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public KaltgewalztesMaterialZulaessigProperty() {
+		
 			this.setId("kaltgewalztesmaterialzulaessig");
 			this.setName("Kaltgewalztes Material zulässig");
 		}
 	}
 
 	public static class WarmgewalztesMaterialZulaessigProperty extends BooleanPropertyDefinition {
-		public WarmgewalztesMaterialZulaessigProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public WarmgewalztesMaterialZulaessigProperty() {
+		
 			this.setId("warmgewalztesmaterialzulaessig");
 			this.setName("Warmgewalztes Material zulässig");
 		}
 	}
 
 	public static class BundEntfettenProperty extends BooleanPropertyDefinition {
-		public BundEntfettenProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public BundEntfettenProperty() {
+		
 			this.setId("bundentfetten");
 			this.setName("Bund Entfetten");
 		}
 	}
 
 	public static class ChargierhilfeProperty extends TextPropertyDefinition {
-		public ChargierhilfeProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public ChargierhilfeProperty() {
+		
 			this.setId("chargierhilfe");
 			this.setName("Chargierhilfe");
 			this.setAllowedValues(new LinkedList<String>());
@@ -845,40 +824,40 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class InnendurchmesserProperty extends LongPropertyDefinition {
-		public InnendurchmesserProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public InnendurchmesserProperty() {
+		
 			this.setId("innendurchmesser");
 			this.setName("Innendurchmesser");
 		}
 	}
 
 	public static class AussendurchmesserProperty extends LongPropertyDefinition {
-		public AussendurchmesserProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public AussendurchmesserProperty() {
+		
 			this.setId("aussendurchmesser");
 			this.setName("Außendurchmesser");
 		}
 	}
 
 	public static class GluehzeitProperty extends LongPropertyDefinition {
-		public GluehzeitProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public GluehzeitProperty() {
+		
 			this.setId("gluehzeit");
 			this.setName("Glühzeit");
 		}
 	}
 
 	public static class DurchsatzProperty extends LongPropertyDefinition {
-		public DurchsatzProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public DurchsatzProperty() {
+		
 			this.setId("durchsatz");
 			this.setName("Durchsatz");
 		}
 	}
 
 	public static class MoeglicheInnendurchmesserProperty extends LongPropertyDefinition {
-		public MoeglicheInnendurchmesserProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public MoeglicheInnendurchmesserProperty() {
+		
 			this.setId("moeglicheinnendurchmesser");
 			this.setName("Mögliche Innendurchmesser");
 			this.setMultiple(true);
@@ -886,80 +865,80 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class MaxAussendurchmesserProperty extends LongPropertyDefinition {
-		public MaxAussendurchmesserProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public MaxAussendurchmesserProperty() {
+		
 			this.setId("maxaussendurchmesser");
 			this.setName("Max. Außendurchmesser");
 		}
 	}
 
 	public static class MaxChargierhoeheProperty extends LongPropertyDefinition {
-		public MaxChargierhoeheProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public MaxChargierhoeheProperty() {
+		
 			this.setId("maxchargierhoehe");
 			this.setName("Max. Chargierhöhe");
 		}
 	}
 
 	public static class CQI9Property extends BooleanPropertyDefinition {
-		public CQI9Property(String tenantId) {
-			this.setTenantId(tenantId);
+		public CQI9Property() {
+		
 			this.setId("cqi9");
 			this.setName("CQI-9");
 		}
 	}
 
 	public static class TUSProperty extends BooleanPropertyDefinition {
-		public TUSProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public TUSProperty() {
+		
 			this.setId("tus");
 			this.setName("TUS");
 		}
 	}
 
 	public static class LetzteWartungProperty extends DatePropertyDefinition {
-		public LetzteWartungProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public LetzteWartungProperty() {
+		
 			this.setId("letztewartung");
 			this.setName("Letzte Wartung");
 		}
 	}
 
 	public static class WartungsintervallProperty extends DatePropertyDefinition {
-		public WartungsintervallProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public WartungsintervallProperty() {
+		
 			this.setId("wartungsintervall");
 			this.setName("Wartungsintervall");
 		}
 	}
 
 	public static class BandstaerkeProperty extends BooleanPropertyDefinition {
-		public BandstaerkeProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public BandstaerkeProperty() {
+		
 			this.setId("bandstaerke");
 			this.setName("Bandstärke");
 		}
 	}
 
 	public static class WarmgewalztProperty extends BooleanPropertyDefinition {
-		public WarmgewalztProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public WarmgewalztProperty() {
+		
 			this.setId("warmgewalzt");
 			this.setName("Warmgewalzt");
 		}
 	}
 
 	public static class KaltgewalztProperty extends BooleanPropertyDefinition {
-		public KaltgewalztProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public KaltgewalztProperty() {
+		
 			this.setId("kaltgewalzt");
 			this.setName("Kaltgewalzt");
 		}
 	}
 
 	public static class WalzartProperty extends TextPropertyDefinition {
-		public WalzartProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public WalzartProperty() {
+		
 			this.setId("walzart");
 			this.setName("Walzart");
 			this.setAllowedValues(new LinkedList<String>());
@@ -969,48 +948,48 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class StreckgrenzeProperty extends LongPropertyDefinition {
-		public StreckgrenzeProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public StreckgrenzeProperty() {
+		
 			this.setId("streckgrenze");
 			this.setName("Streckgrenze");
 		}
 	}
 
 	public static class DehnungProperty extends LongPropertyDefinition {
-		public DehnungProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public DehnungProperty() {
+		
 			this.setId("dehnung");
 			this.setName("Dehnung");
 		}
 	}
 
 	public static class GefuegeProperty extends TextPropertyDefinition {
-		public GefuegeProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public GefuegeProperty() {
+		
 			this.setId("gefuege");
 			this.setName("Gefüge");
 		}
 	}
 
 	public static class MaterialBereitgestelltProperty extends BooleanPropertyDefinition {
-		public MaterialBereitgestelltProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public MaterialBereitgestelltProperty() {
+		
 			this.setId("materialbereitgestellt");
 			this.setName("Material bereitgestellt?");
 		}
 	}
 
 	public static class VerpackungProperty extends TextPropertyDefinition {
-		public VerpackungProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public VerpackungProperty() {
+		
 			this.setId("verpackung");
 			this.setName("Verpackung");
 		}
 	}
 
 	public static class TransportartProperty extends TextPropertyDefinition {
-		public TransportartProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public TransportartProperty() {
+		
 			this.setId("transportart");
 			this.setName("Transportart");
 			this.setAllowedValues(new LinkedList<String>());
@@ -1022,24 +1001,24 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class ZahlungsbedingungenProperty extends LongTextPropertyDefinition {
-		public ZahlungsbedingungenProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public ZahlungsbedingungenProperty() {
+		
 			this.setId("zahlungsbedingungen");
 			this.setName("Zahlungsbedingungen");
 		}
 	}
 
 	public static class TitelProperty extends TextPropertyDefinition {
-		TitelProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		TitelProperty() {
+		
 			this.setId("titel");
 			this.setName("Titel");
 		}
 	}
 
 	public static class ProdukttypProperty extends TextPropertyDefinition {
-		ProdukttypProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		ProdukttypProperty() {
+		
 			this.setId("produkttyp");
 			this.setName("Produkttyp");
 
@@ -1051,8 +1030,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class MengeProperty extends DoublePropertyDefinition {
-		MengeProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		MengeProperty() {
+		
 			this.setId("menge");
 			this.setName("Menge");
 			this.setUnit("t");
@@ -1060,8 +1039,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class MinimaleMengeProperty extends DoublePropertyDefinition {
-		MinimaleMengeProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		MinimaleMengeProperty() {
+		
 			this.setId("minimale_menge");
 			this.setName("minimale Menge");
 			this.setUnit("t");
@@ -1069,16 +1048,16 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class LieferdatumProperty extends DatePropertyDefinition {
-		LieferdatumProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		LieferdatumProperty() {
+		
 			this.setId("lieferdatum");
 			this.setName("Lieferdatum (spätestens)");
 		}
 	}
 
 	public static class WerkstoffBereitgestelltProperty extends TextPropertyDefinition {
-		WerkstoffBereitgestelltProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		WerkstoffBereitgestelltProperty() {
+		
 			this.setId("werkstoff_bereitgestellt");
 			this.setName("Werkstoff bereitgestellt");
 			this.setAllowedValues(new ArrayList<>());
@@ -1088,16 +1067,16 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class BeschreibungZusatzinfoProperty extends LongTextPropertyDefinition {
-		BeschreibungZusatzinfoProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		BeschreibungZusatzinfoProperty() {
+		
 			this.setId("allgemeine_beschreibung");
 			this.setName("allgemeine Beschreibung / Zusatzinformationen");
 		}
 	}
 
 	public static class DurchmesserInnenProperty extends LongPropertyDefinition {
-		public DurchmesserInnenProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public DurchmesserInnenProperty() {
+		
 			this.setId("durchmesser_innen");
 			this.setName("Durchmesser (innen)");
 			this.setUnit("mm");
@@ -1105,8 +1084,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class DurchmesserAussenProperty extends LongPropertyDefinition {
-		public DurchmesserAussenProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public DurchmesserAussenProperty() {
+		
 			this.setId("durchmesser_aussen");
 			this.setName("Durchmesser (außen)");
 			this.setUnit("mm");
@@ -1114,8 +1093,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class HoeheProperty extends LongPropertyDefinition {
-		public HoeheProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public HoeheProperty() {
+		
 			this.setId("hoehe");
 			this.setName("Höhe");
 			this.setUnit("mm");
@@ -1123,8 +1102,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class WerkstoffProperty extends TextPropertyDefinition {
-		public WerkstoffProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public WerkstoffProperty() {
+		
 			this.setId("werkstoff");
 			this.setName("Werkstoff");
 			this.setAllowedValues(new ArrayList<>());
@@ -1137,8 +1116,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class DurchmesserProperty extends LongPropertyDefinition {
-		public DurchmesserProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public DurchmesserProperty() {
+		
 			this.setId("durchmesser");
 			this.setName("Durchmesser");
 			this.setUnit("mm");
@@ -1146,16 +1125,16 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class WerkstoffFreitextProperty extends LongTextPropertyDefinition {
-		public WerkstoffFreitextProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public WerkstoffFreitextProperty() {
+		
 			this.setId("werkstoff_freitext");
 			this.setName("Werkstoff (Freitext)");
 		}
 	}
 
 	public static class ZugfestigkeitProperty extends LongPropertyDefinition {
-		public ZugfestigkeitProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public ZugfestigkeitProperty() {
+		
 			this.setId("zugfestigkeit");
 			this.setName("Zugfestigkeit");
 			this.setUnit("N/mm²");
@@ -1163,8 +1142,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class SchutzgasProperty extends TextPropertyDefinition {
-		public SchutzgasProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public SchutzgasProperty() {
+		
 			this.setId("schutzgas");
 			this.setName("Schutzgas");
 			this.setAllowedValues(new ArrayList<>());
@@ -1183,16 +1162,16 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class GluehreiseProperty extends TextPropertyDefinition {
-		public GluehreiseProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public GluehreiseProperty() {
+		
 			this.setId("gluehreise");
 			this.setName("Glühprogramm / -reise");
 		}
 	}
 
 	public static class ErforderlicheTemperaturhomogenitaetProperty extends LongPropertyDefinition {
-		public ErforderlicheTemperaturhomogenitaetProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public ErforderlicheTemperaturhomogenitaetProperty() {
+		
 			this.setId("erforderliche_temperaturhomogenitaet");
 			this.setName("erforderliche Temperaturhomogenität");
 			this.setUnit("°C (+/-)");
@@ -1200,8 +1179,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class OberflaechenqualitaetProperty extends TextPropertyDefinition {
-		public OberflaechenqualitaetProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public OberflaechenqualitaetProperty() {
+		
 			this.setId("oberflaechenqualitaet");
 			this.setName("Oberflächenqualität");
 			this.setAllowedValues(new ArrayList<>());
@@ -1211,16 +1190,16 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class ZusaetzlicheProduktinformationenProperty extends LongTextPropertyDefinition {
-		public ZusaetzlicheProduktinformationenProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public ZusaetzlicheProduktinformationenProperty() {
+		
 			this.setId("zusaetzliche_produktinformationen");
 			this.setName("Zusätzliche Produkt- und Bearbeitungsinformationen");
 		}
 	}
 
 	public static class IncotermsProperty extends TextPropertyDefinition {
-		public IncotermsProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public IncotermsProperty() {
+		
 			this.setId("incoterms");
 			this.setName("Incoterms");
 			this.setAllowedValues(new ArrayList<>());
@@ -1230,32 +1209,32 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class LieferortProperty extends TextPropertyDefinition {
-		public LieferortProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public LieferortProperty() {
+		
 			this.setId("lieferort");
 			this.setName("Lieferort");
 		}
 	}
 
 	public static class AbholortProperty extends TextPropertyDefinition {
-		public AbholortProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public AbholortProperty() {
+		
 			this.setId("abholort");
 			this.setName("Abholort");
 		}
 	}
 
 	public static class VerpackungsvorgabenProperty extends LongTextPropertyDefinition {
-		public VerpackungsvorgabenProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public VerpackungsvorgabenProperty() {
+		
 			this.setId("verpackungsvorgaben");
 			this.setName("Verpackungsvorgaben");
 		}
 	}
 
 	public static class BandDickeProperty extends LongPropertyDefinition {
-		public BandDickeProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public BandDickeProperty() {
+		
 			this.setId("banddicke");
 			this.setName("Banddicke");
 			this.setUnit("mm");
@@ -1263,8 +1242,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class BandBreiteProperty extends LongPropertyDefinition {
-		public BandBreiteProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public BandBreiteProperty() {
+		
 			this.setId("bandbreite");
 			this.setName("Bandbreite");
 			this.setUnit("mm");
@@ -1273,8 +1252,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class DurchmesserKronenstockProperty extends LongPropertyDefinition {
-		public DurchmesserKronenstockProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public DurchmesserKronenstockProperty() {
+		
 			this.setId("durchmesser_kronenstock");
 			this.setName("Durchmesser Kronenstock");
 			this.setUnit("mm");
@@ -1283,8 +1262,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class MaximaldurchmesserBundProperty extends LongPropertyDefinition {
-		public MaximaldurchmesserBundProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public MaximaldurchmesserBundProperty() {
+		
 			this.setId("maximaldurchmesser_bund");
 			this.setName("Maximaldurchmesser Bund");
 			this.setUnit("mm");
@@ -1293,8 +1272,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class DurchmesserDornProperty extends LongPropertyDefinition {
-		public DurchmesserDornProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public DurchmesserDornProperty() {
+		
 			this.setId("durchmesser_dorn");
 			this.setName("Durchmesser Dorn");
 			this.setUnit("mm");
@@ -1303,8 +1282,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class InnendurchmesserOfenProperty extends LongPropertyDefinition {
-		public InnendurchmesserOfenProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public InnendurchmesserOfenProperty() {
+		
 			this.setId("innendurchmesser_ofen");
 			this.setName("Innendurchmesser Ofen");
 			this.setUnit("mm");
@@ -1313,8 +1292,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class OfenHoeheProperty extends LongPropertyDefinition {
-		public OfenHoeheProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public OfenHoeheProperty() {
+		
 			this.setId("ofenhoehe");
 			this.setName("Ofenhöhe");
 			this.setUnit("mm");
@@ -1323,8 +1302,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class MaxGluehtemperaturProperty extends LongPropertyDefinition {
-		public MaxGluehtemperaturProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public MaxGluehtemperaturProperty() {
+		
 			this.setId("max_gluehtemperatur");
 			this.setName("Max. Glühtemperatur");
 			this.setUnit("°C");
@@ -1333,8 +1312,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class TemperaturhomogenitaetProperty extends LongPropertyDefinition {
-		public TemperaturhomogenitaetProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public TemperaturhomogenitaetProperty() {
+		
 			this.setId("temperaturhomogenitaet");
 			this.setName("Temperaturhomogenität");
 			this.setUnit("°C");
@@ -1343,32 +1322,32 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class AufheizrateProperty extends DoublePropertyDefinition {
-		public AufheizrateProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public AufheizrateProperty() {
+		
 			this.setId("aufheizrate");
 			this.setName("Aufheizrate");
 		}
 	}
 
 	public static class AbkuehlrateProperty extends DoublePropertyDefinition {
-		public AbkuehlrateProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public AbkuehlrateProperty() {
+		
 			this.setId("abkuehlrate");
 			this.setName("Abkühlrate");
 		}
 	}
 
 	public static class GluehprogrammVerfuegbarProperty extends BooleanPropertyDefinition {
-		public GluehprogrammVerfuegbarProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public GluehprogrammVerfuegbarProperty() {
+		
 			this.setId("gluehprogramm_verfuegbar");
 			this.setName("Glühprogramm /-reise verfügbar?");
 		}
 	}
 
 	public static class MaxAnteilH2Property extends LongPropertyDefinition {
-		public MaxAnteilH2Property(String tenantId) {
-			this.setTenantId(tenantId);
+		public MaxAnteilH2Property() {
+		
 			this.setId("max_anteil_h2");
 			this.setName("Maximaler Anteil H2");
 			this.setAllowedValues(new ArrayList<>());
@@ -1387,8 +1366,8 @@ public class StandardPropertyDefinitions {
 	}
 
 	public static class KapazitaetProperty extends TextPropertyDefinition {
-		public KapazitaetProperty(String tenantId) {
-			this.setTenantId(tenantId);
+		public KapazitaetProperty() {
+		
 			this.setId("kapazitaet");
 			this.setName("Kapazität");
 		}
