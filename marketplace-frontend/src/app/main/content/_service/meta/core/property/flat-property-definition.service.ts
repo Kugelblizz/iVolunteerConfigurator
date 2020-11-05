@@ -36,13 +36,13 @@ export class FlatPropertyDefinitionService {
     return this.http.delete(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}/delete`);
   }
 
-  addConstraintToPropertyDefinition(id: string, constraints: PropertyConstraint<any>[]) {
-    return this.http.patch(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}/add-constraint`, constraints);
-  }
+  // addConstraintToPropertyDefinition(id: string, constraints: PropertyConstraint<any>[]) {
+  //   return this.http.patch(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}/add-constraint`, constraints);
+  // }
 
-  removeConstraintFromPropertyDefintion(id: string, constraintIds: string[]) {
-    return this.http.patch(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}/remove-constraint`, constraintIds);
-  }
+  // removeConstraintFromPropertyDefintion(id: string, constraintIds: string[]) {
+  //   return this.http.patch(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}/remove-constraint`, constraintIds);
+  // }
 
 
 

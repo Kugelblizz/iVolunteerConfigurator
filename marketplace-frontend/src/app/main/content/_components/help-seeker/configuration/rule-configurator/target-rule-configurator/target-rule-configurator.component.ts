@@ -66,7 +66,7 @@ export class TargetRuleConfiguratorComponent implements OnInit {
 
 
     this.classDefinitionService
-      .getAllClassDefinitions(null, this.tenant.id)
+      .getAllClassDefinitions()
       .toPromise()
       .then((definitions: ClassDefinition[]) => {
         this.classDefinitions = definitions;

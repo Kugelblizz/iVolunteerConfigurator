@@ -110,7 +110,7 @@ export class ClassInstanceFormEditorComponent implements OnInit {
     });
 
     this.classDefinitionService
-      .getFormConfigurationChunk(null, pathPrefix, evt.selection.id).toPromise().then((retFormEntry: FormEntry) => {
+      .getFormConfigurationChunk(pathPrefix, evt.selection.id).toPromise().then((retFormEntry: FormEntry) => {
         const currentFormEntry = this.getFormEntry(
           pathPrefix,
           this.currentFormConfiguration.formEntry.id,

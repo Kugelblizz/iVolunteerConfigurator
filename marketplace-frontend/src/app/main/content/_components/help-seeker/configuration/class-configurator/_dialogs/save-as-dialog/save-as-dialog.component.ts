@@ -88,10 +88,8 @@ export class SaveClassConfigurationAsDialogComponent implements OnInit {
   }
 
   handleBrowseClick() {
-    // this.classConfigurationService.getClassConfigurationsByTenantId(this.data.marketplace, this.).toPromise().then((classConfigurations: ClassConfiguration[]) => {
-
+    // this.classConfigurationService.getAllClassConfigurations().toPromise().then((classConfigurations: ClassConfiguration[]) => {
     //   this.allClassConfigurations = classConfigurations;
-
 
     //   // ----DEBUG
     //   // this.recentMatchingConfigurations.push(...this.recentMatchingConfigurations);

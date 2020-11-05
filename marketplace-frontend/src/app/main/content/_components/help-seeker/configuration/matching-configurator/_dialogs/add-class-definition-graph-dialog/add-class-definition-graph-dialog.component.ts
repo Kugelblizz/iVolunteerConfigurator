@@ -52,7 +52,7 @@ export class AddClassDefinitionGraphDialogComponent implements OnInit {
   async ngOnInit() {
 
     this.graphData = <ClassConfigurationDTO>(
-      await this.classConfigurationServce.getAllForClassConfigurationInOne(null, this.dialogData.matchingEntityConfiguration.classConfigurationId).toPromise()
+      await this.classConfigurationServce.getAllForClassConfigurationInOne(this.dialogData.matchingEntityConfiguration.classConfigurationId).toPromise()
     );
     this.loaded = true;
     this.initGraph();

@@ -247,7 +247,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
   }
 
   private performOpenByid(classConfigurationId: string) {
-    this.classConfigurationService.getAllForClassConfigurationInOne(null, classConfigurationId).toPromise()
+    this.classConfigurationService.getAllForClassConfigurationInOne(classConfigurationId).toPromise()
       .then((dto: ClassConfigurationDTO) => {
         if (!isNullOrUndefined(dto)) {
           this.currentClassConfiguration = dto.classConfiguration;

@@ -85,7 +85,7 @@ export class FuseAttributeRulePreconditionConfiguratorComponent
 
 
     this.classDefinitionService
-      .getAllClassDefinitions(null, this.tenant.id)
+      .getAllClassDefinitions()
       .toPromise().then((definitions: ClassDefinition[]) => {
         this.classDefinitions = definitions;
         this.loadClassProperties(null);

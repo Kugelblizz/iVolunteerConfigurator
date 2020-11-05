@@ -65,7 +65,7 @@ export class FuseRuleConfiguratorComponent implements OnInit {
 
     this.classDefinitions = <ClassDefinition[]>(
       await this.classDefinitionService
-        .getAllClassDefinitions(null, this.tenant.id)
+        .getAllClassDefinitions()
         .toPromise()
     );
   }

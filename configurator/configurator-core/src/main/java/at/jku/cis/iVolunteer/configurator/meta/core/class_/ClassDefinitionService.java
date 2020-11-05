@@ -30,15 +30,13 @@ public class ClassDefinitionService {
 		return classDefinitionRepository.findByNameAndTenantId(name, tenantId);
 	}
 
-	public ClassDefinition getClassDefinitionById(String id, String tenantId) {
-		return classDefinitionRepository.getByIdAndTenantId(id, tenantId);
+	public ClassDefinition getClassDefinitionById(String id) {
+		return classDefinitionRepository.findOne(id);
 	}
 
-	public List<ClassDefinition> getClassDefinitonsById(List<String> ids, String tenantId) {
+	public List<ClassDefinition> getClassDefinitonsById(List<String> ids) {
 		List<ClassDefinition> classDefinitions = new ArrayList<>();
-		
 		classDefinitionRepository.findAll(ids).forEach(classDefinitions::add);
-
 		return classDefinitions;
 	}
 
@@ -80,9 +78,8 @@ public class ClassDefinitionService {
 		return classDefinitionRepository.save(classDefinitions);
 	}
 
-	public List<ClassDefinition> getClassDefinitionsByArchetype(ClassArchetype archetype, String tenantId) {
-		List<ClassDefinition> classDefinitions = classDefinitionRepository.getByClassArchetypeAndTenantId(archetype,
-				tenantId);
+	public List<ClassDefinition> getClassDefinitionsByArchetype(ClassArchetype archetype) {
+		List<ClassDefinition> classDefinitions = classDefinitionRepository.getByClassArchetype(archetype);
 		return classDefinitions;
 	}
 

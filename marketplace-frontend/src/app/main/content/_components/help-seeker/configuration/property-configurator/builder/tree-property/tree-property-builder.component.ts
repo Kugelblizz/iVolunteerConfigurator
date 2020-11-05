@@ -34,8 +34,6 @@ export class TreePropertyBuilderComponent implements OnInit {
 
   loaded: boolean;
 
-  tenant: Tenant;
-
   async ngOnInit() {
     this.form = this.formBuilder.group({
       name: this.formBuilder.control('', Validators.required),
@@ -91,7 +89,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       }
 
       this.treePropertyDefinitionService
-        .newPropertyDefinition(newTreePropertyDefinition, this.tenant.id)
+        .newPropertyDefinition(newTreePropertyDefinition)
         .toPromise().then((treePropertyDefinition: TreePropertyDefinition) => {
           if (!isNullOrUndefined(treePropertyDefinition)) {
             this.treePropertyDefinition = treePropertyDefinition;

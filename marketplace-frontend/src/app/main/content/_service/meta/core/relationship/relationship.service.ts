@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Marketplace } from '../../../../_model/marketplace';
 import { Relationship } from 'app/main/content/_model/meta/relationship';
 import { isNullOrUndefined } from 'util';
 import { of } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,40 +14,40 @@ export class RelationshipService {
     private http: HttpClient
   ) { }
 
-  getAllRelationships(marketplace: Marketplace) {
-    return this.http.get(`${marketplace.url}/meta/core/relationship/all`);
+  getAllRelationships() {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/meta/core/relationship/all`);
   }
 
-  getRelationshipById(marketplace: Marketplace, id: string) {
-    return this.http.get(`${marketplace.url}/meta/core/relationship/${id}`);
+  getRelationshipById(id: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/meta/core/relationship/${id}`);
   }
 
-  getRelationshipsById(marketplace: Marketplace, ids: string[]) {
+  getRelationshipsById(ids: string[]) {
     if (!isNullOrUndefined(ids)) {
-      return this.http.put(`${marketplace.url}/meta/core/relationship/multiple`, ids);
+      return this.http.put(`${environment.CONFIGURATOR_URL}/meta/core/relationship/multiple`, ids);
     } else {
       return of(null);
     }
   }
 
-  getRelationshipsByStartId(marketplace: Marketplace, startId: string) {
-    return this.http.get(`${marketplace.url}/meta/core/relationship/start/${startId}/all`);
+  getRelationshipsByStartId(startId: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/meta/core/relationship/start/${startId}/all`);
   }
 
-  getRelationshipsByEndId(marketplace: Marketplace, endId: string) {
-    return this.http.get(`${marketplace.url}/meta/core/relationship/end/${endId}/all`);
+  getRelationshipsByEndId(endId: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/meta/core/relationship/end/${endId}/all`);
   }
 
-  addRelationshipsInOneGo(marketplace: Marketplace, relationships: Relationship[]) {
-    return this.http.post(`${marketplace.url}/meta/core/relationship/add`, relationships);
+  addRelationshipsInOneGo(relationships: Relationship[]) {
+    return this.http.post(`${environment.CONFIGURATOR_URL}/meta/core/relationship/add`, relationships);
   }
 
-  addAndUpdateRelationships(marketplace: Marketplace, relationships: Relationship[]) {
-    return this.http.put(`${marketplace.url}/meta/core/relationship/add-or-update`, relationships);
+  addAndUpdateRelationships(relationships: Relationship[]) {
+    return this.http.put(`${environment.CONFIGURATOR_URL}/meta/core/relationship/add-or-update`, relationships);
   }
 
-  deleteRelationships(marketplace: Marketplace, ids: String[]) {
-    return this.http.put(`${marketplace.url}/meta/core/relationship/delete`, ids);
+  deleteRelationships(ids: String[]) {
+    return this.http.put(`${environment.CONFIGURATOR_URL}/meta/core/relationship/delete`, ids);
   }
 
 }

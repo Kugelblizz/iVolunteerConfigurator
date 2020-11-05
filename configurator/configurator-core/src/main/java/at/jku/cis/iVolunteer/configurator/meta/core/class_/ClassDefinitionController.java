@@ -29,25 +29,24 @@ public class ClassDefinitionController {
 	@Autowired private ClassDefinitionMapper classDefinitionMapper;
 
 //	@PreAuthorize("hasAnyRole('TENANT_ADMIN', 'HELP_SEEKER')")
-	@GetMapping("/meta/core/class/definition/all/tenant/{tenantId}")
-	private List<ClassDefinition> getAllClassDefinitions(@PathVariable("tenantId") String tenantId) {
-		return classDefinitionRepository.getByTenantId(tenantId);
+	@GetMapping("/meta/core/class/definition/all/")
+	private List<ClassDefinition> getAllClassDefinitions(String tenantId) {
+		return classDefinitionRepository.findAll();
 	}
 
-	@GetMapping("meta/core/class/definition/all/no-enum/tenant/{tenantId}")
-	public List<ClassDefinition> getAllClassDefinitionsWithoutEnums(@PathVariable("tenantId") String tenantId) {
-		return classDefinitionService.getAllClassDefinitionsWithoutEnums(tenantId);
-	}
+//	@GetMapping("meta/core/class/definition/all/no-enum/tenant/{tenantId}")
+//	public List<ClassDefinition> getAllClassDefinitionsWithoutEnums(@PathVariable("tenantId") String tenantId) {
+//		return classDefinitionService.getAllClassDefinitionsWithoutEnums(tenantId);
+//	}
+//
+//	@GetMapping("meta/core/class/definition/all/no-enum-no-head/tenant/{tenantId}")
+//	public List<ClassDefinition> getAllClassDefinitionsWithoutEnumsAndHeads(@PathVariable("tenantId") String tenantId) {
+//		return classDefinitionService.getAllClassDefinitionsWithoutEnumsAndHeads(tenantId);
+//	}
 
-	@GetMapping("meta/core/class/definition/all/no-enum-no-head/tenant/{tenantId}")
-	public List<ClassDefinition> getAllClassDefinitionsWithoutEnumsAndHeads(@PathVariable("tenantId") String tenantId) {
-		return classDefinitionService.getAllClassDefinitionsWithoutEnumsAndHeads(tenantId);
-	}
-
-	@GetMapping("/meta/core/class/definition/{id}/tenant/{tenantId}")
-	private ClassDefinition getClassDefinitionById(@PathVariable("id") String id,
-			@PathVariable("tenantId") String tenantId) {
-		return classDefinitionService.getClassDefinitionById(id, tenantId);
+	@GetMapping("/meta/core/class/definition/{id}")
+	private ClassDefinition getClassDefinitionById(@PathVariable("id") String id) {
+		return classDefinitionService.getClassDefinitionById(id);
 	}
 
 	@GetMapping("meta/core/class/definition/{slotId}/with-properties")
@@ -60,17 +59,15 @@ public class ClassDefinitionController {
 //		return classDefinitionService.getClassDefinitionById(id);
 //	}
 
-	@GetMapping("/meta/core/class/definition/archetype/{archetype}/tenant/{tenantId}")
-	public List<ClassDefinitionDTO> getClassDefinitionByArchetype(@PathVariable("archetype") ClassArchetype archetype,
-			@PathVariable("tenantId") String tenantId) {
+	@GetMapping("/meta/core/class/definition/archetype/{archetype}")
+	public List<ClassDefinitionDTO> getClassDefinitionByArchetype(@PathVariable("archetype") ClassArchetype archetype) {
 		return classDefinitionMapper
-				.mapToDTO(classDefinitionService.getClassDefinitionsByArchetype(archetype, tenantId));
+				.mapToDTO(classDefinitionService.getClassDefinitionsByArchetype(archetype));
 	}
 
-	@PutMapping("/meta/core/class/definition/multiple/tenant/{tenantId}")
-	private List<ClassDefinition> getClassDefinitonsById(@RequestBody List<String> ids,
-			@PathVariable("tenantId") String tenantId) {
-		return classDefinitionService.getClassDefinitonsById(ids, tenantId);
+	@PutMapping("/meta/core/class/definition/multiple")
+	private List<ClassDefinition> getClassDefinitonsById(@RequestBody List<String> ids) {
+		return classDefinitionService.getClassDefinitonsById(ids);
 	}
 
 	@PostMapping("/meta/core/class/definition/new")
@@ -119,9 +116,7 @@ public class ClassDefinitionController {
 
 	@PutMapping("meta/core/class/definition/form-configuration-preview")
 	private List<FormConfiguration> getFormConfigurationPreview(@RequestBody FormConfigurationPreviewRequest request) {
-
 		List<Relationship> relationships = relationshipMapper.toSources(request.getRelationships());
-
 		List<FormConfiguration> ret = classDefinitionService.getClassDefinitions(request.getClassDefinitions(),
 				relationships, request.getRootClassDefinition());
 		return ret;

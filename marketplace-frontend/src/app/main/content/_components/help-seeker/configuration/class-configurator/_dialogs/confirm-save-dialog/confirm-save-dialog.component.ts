@@ -42,31 +42,31 @@ export class ConfirmClassConfigurationSaveDialogComponent implements OnInit {
   onOKClick() {
     Promise.all([
       this.relationshipService
-        .addAndUpdateRelationships(null, this.data.relationships)
+        .addAndUpdateRelationships(this.data.relationships)
         .toPromise().then((ret: Relationship[]) => {
           this.data.relationships = ret;
         }),
 
       this.classDefinitionService
-        .addOrUpdateClassDefintions(null, this.data.classDefinitions)
+        .addOrUpdateClassDefintions(this.data.classDefinitions)
         .toPromise().then((ret: ClassDefinition[]) => {
           this.data.classDefinitions = ret;
         }),
 
       this.classDefinitionService
-        .deleteClassDefinitions(null, this.data.deletedClassDefintions)
+        .deleteClassDefinitions(this.data.deletedClassDefintions)
         .toPromise().then((ret: any) => {
           this.data.deletedClassDefintions = [];
         }),
 
       this.relationshipService
-        .deleteRelationships(null, this.data.deletedRelationships)
+        .deleteRelationships(this.data.deletedRelationships)
         .toPromise().then((ret: any) => {
           this.data.deletedRelationships = [];
         }),
     ]).then(() => {
       this.classConfigurationService
-        .saveClassConfiguration(null, this.data.classConfiguration)
+        .saveClassConfiguration(this.data.classConfiguration)
         .toPromise().then((ret: ClassConfiguration) => {
           this.data.classConfiguration = ret;
         }).then(() => {

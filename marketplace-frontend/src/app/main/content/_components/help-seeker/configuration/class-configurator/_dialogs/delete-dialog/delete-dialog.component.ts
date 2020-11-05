@@ -34,7 +34,7 @@ export class DeleteClassConfigurationDialogComponent implements OnInit {
 
     this.data.idsToDelete = [];
 
-    this.classConfigurationService.getAllClassConfigurations(null)
+    this.classConfigurationService.getAllClassConfigurations()
       .toPromise()
       .then((classConfigurations: ClassConfiguration[]) => {
         this.allClassConfigurations = classConfigurations;
@@ -57,7 +57,7 @@ export class DeleteClassConfigurationDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.classConfigurationService.deleteClassConfigurations(null, this.data.idsToDelete).toPromise().then((ret) => {
+    this.classConfigurationService.deleteClassConfigurations(this.data.idsToDelete).toPromise().then((ret) => {
       this.dialogRef.close(this.data);
     });
   }

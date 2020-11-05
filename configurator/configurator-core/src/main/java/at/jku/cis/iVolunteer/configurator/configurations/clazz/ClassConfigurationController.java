@@ -90,12 +90,11 @@ public class ClassConfigurationController {
 	
 	@PostMapping("class-configuration/new")
 	public ClassConfiguration createNewClassConfiguration(@RequestBody String[] params) {
-		if (params.length != 3) {
+		if (params.length != 2) {
 			return null;
 		}
 
-		ClassConfiguration newClassConfiguration = createAndSaveNewClassConfiguration(params[0], params[1], params[2],
-				null);
+		ClassConfiguration newClassConfiguration = createAndSaveNewClassConfiguration(params[0], params[1], null);
 		return newClassConfiguration;
 	}
 
@@ -130,7 +129,6 @@ public class ClassConfigurationController {
 	}
 
 	private List<ClassDefinition> updateClassDefinitions(List<ClassDefinition> classDefinitions, ClassConfiguration classConfiguration) {
-				
 		for (ClassDefinition cd : classDefinitions) {
 			cd.setConfigurationId(classConfiguration.getId());
 		}
@@ -174,17 +172,17 @@ public class ClassConfigurationController {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private ClassConfiguration createAndSaveNewClassConfiguration(String tenantId, String configuratorName,
+	private ClassConfiguration createAndSaveNewClassConfiguration(String configuratorName,
 			String description, String configuratorId) {
 
 		List<ClassDefinition> classDefinitions = new ArrayList<>();
 		List<Relationship> relationships = new ArrayList<>();
 
-		List<FlatPropertyDefinition<Object>> properties = this.propertyDefinitionRepository.getAllByTenantId(tenantId);
+		List<FlatPropertyDefinition<Object>> properties = this.propertyDefinitionRepository.findAll();
 
 		ClassDefinition fwPassEintrag = new ClassDefinition();
 		fwPassEintrag.setId(new ObjectId().toHexString());
-		fwPassEintrag.setTenantId(tenantId);
+//		fwPassEintrag.setTenantId(tenantId);
 		fwPassEintrag.setName("Freiwilligenpass-\nEintrag");
 		fwPassEintrag.setRoot(true);
 		fwPassEintrag.setClassArchetype(ClassArchetype.ROOT);
@@ -219,7 +217,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition task = new ClassDefinition();
 		task.setId(new ObjectId().toHexString());
-		task.setTenantId(tenantId);
+//		task.setTenantId(tenantId);
 		task.setName("Tätigkeit");
 		task.setClassArchetype(ClassArchetype.TASK);
 		task.setWriteProtected(true);
@@ -249,7 +247,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition competence = new ClassDefinition();
 		competence.setId(new ObjectId().toHexString());
-		competence.setTenantId(tenantId);
+//		competence.setTenantId(tenantId);
 		competence.setName("Kompetenz");
 		competence.setClassArchetype(ClassArchetype.COMPETENCE);
 		competence.setWriteProtected(true);
@@ -267,7 +265,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition achievement = new ClassDefinition();
 		achievement.setId(new ObjectId().toHexString());
-		achievement.setTenantId(tenantId);
+//		achievement.setTenantId(tenantId);
 		achievement.setName("Verdienst");
 		achievement.setClassArchetype(ClassArchetype.ACHIEVEMENT);
 		achievement.setWriteProtected(true);
@@ -285,7 +283,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition function = new ClassDefinition();
 		function.setId(new ObjectId().toHexString());
-		function.setTenantId(tenantId);
+//		function.setTenantId(tenantId);
 		function.setName("Funktion");
 		function.setClassArchetype(ClassArchetype.FUNCTION);
 		function.setWriteProtected(true);
@@ -304,7 +302,7 @@ public class ClassConfigurationController {
 		///////////////// Philipp Zeug//////////////////////////
 		ClassDefinition myTask = new ClassDefinition();
 		myTask.setId(new ObjectId().toHexString());
-		myTask.setTenantId(tenantId);
+//		myTask.setTenantId(tenantId);
 		myTask.setName("myTask");
 		myTask.setClassArchetype(ClassArchetype.TASK);
 		myTask.setProperties(new ArrayList<>());
@@ -338,7 +336,7 @@ public class ClassConfigurationController {
 
 		ClassConfiguration configurator = new ClassConfiguration();
 		configurator.setTimestamp(new Date());
-		configurator.setTenantId(tenantId);
+//		configurator.setTenantId(tenantId);
 		configurator.setId(configuratorId);
 		configurator.setName(configuratorName);
 		configurator.setDescription(description);

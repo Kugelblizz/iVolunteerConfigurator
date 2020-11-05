@@ -1,27 +1,21 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Marketplace } from "../../_model/marketplace";
-import { MatchingOperatorRelationship } from "../../_model/matching";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatchingOperatorRelationship } from '../../_model/matching';
+import { environment } from 'environments/environment';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class MatchingOperatorRelationshipService {
   constructor(private httpClient: HttpClient) { }
 
-  getMatchingOperatorRelationshipByMatchingConfiguration(
-    marketplace: Marketplace,
-    matchingConfiguratorId: string
-  ) {
+  getMatchingOperatorRelationshipByMatchingConfiguration(matchingConfiguratorId: string) {
     return this.httpClient.get(
-      `${marketplace.url}/matching-operator-relationship/${matchingConfiguratorId}`
+      `${environment.CONFIGURATOR_URL}/matching-operator-relationship/${matchingConfiguratorId}`
     );
   }
 
-  saveMatchingOperatorRelationships(
-    marketplace: Marketplace,
-    relationships: MatchingOperatorRelationship[], matchingConfiguratorId: string
-  ) {
+  saveMatchingOperatorRelationships(relationships: MatchingOperatorRelationship[], matchingConfiguratorId: string) {
     return this.httpClient.post(
-      `${marketplace.url}/matching-operator-relationship/${matchingConfiguratorId}`,
+      `${environment.CONFIGURATOR_URL}/matching-operator-relationship/${matchingConfiguratorId}`,
       relationships
     );
   }

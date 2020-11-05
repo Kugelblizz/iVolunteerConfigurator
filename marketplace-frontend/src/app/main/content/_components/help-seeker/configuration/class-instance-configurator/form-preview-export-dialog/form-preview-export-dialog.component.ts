@@ -55,7 +55,7 @@ export class ClassInstanceFormPreviewExportDialogComponent implements OnInit {
     this.returnedClassInstances = [];
     this.expectedNumberOfResults = 0;
 
-    this.classDefinitionService.getFormConfigurations(null, this.data.classConfigurationIds)
+    this.classDefinitionService.getFormConfigurations(this.data.classConfigurationIds)
       .toPromise()
       .then((formConfigurations: FormConfiguration[]) => {
         this.formConfigurations = formConfigurations;
@@ -132,7 +132,7 @@ export class ClassInstanceFormPreviewExportDialogComponent implements OnInit {
 
     unableToContinueQuestion = evt.formEntry.formItems.find((item) => item.key.endsWith('unableToContinue'));
 
-    this.classDefinitionService.getFormConfigurationChunk(null, pathPrefix, evt.selection.id)
+    this.classDefinitionService.getFormConfigurationChunk(pathPrefix, evt.selection.id)
       .toPromise()
       .then((retFormEntry: FormEntry) => {
         const currentFormEntry = this.getFormEntry(pathPrefix, this.currentFormConfiguration.formEntry.id, this.currentFormConfiguration.formEntry);

@@ -59,7 +59,6 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   allPropertyDefinitions: FlatPropertyDefinition<any>[];
   propertyDefinition: FlatPropertyDefinition<any>;
-  tenant: Tenant;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -346,9 +345,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   createPropertyFromForm(): FlatPropertyDefinition<any> {
     const property: FlatPropertyDefinition<any> = new FlatPropertyDefinition<any>();
-    property.tenantId = this.tenant.id;
     property.custom = true;
-
     property.computed = this.form.value.computed;
 
     if (isNullOrUndefined(this.propertyDefinition)) {

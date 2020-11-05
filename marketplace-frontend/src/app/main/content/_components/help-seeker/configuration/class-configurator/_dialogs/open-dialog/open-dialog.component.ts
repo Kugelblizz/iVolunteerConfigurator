@@ -39,17 +39,17 @@ export class OpenClassConfigurationDialogComponent implements OnInit {
   browseMode: boolean;
   browseDialogData: ClassBrowseSubDialogData;
 
-  tenant: Tenant;
+  // tenant: Tenant;
 
   async ngOnInit() {
     this.classConfigurationService
-      .getClassConfigurationsByTenantId(null, this.tenant.id)
-      .toPromise()
+      .getAllClassConfigurations().toPromise()
       .then((classConfigurations: ClassConfiguration[]) => {
-        this.allClassConfigurations = classConfigurations.filter((c) => {
-          return c.tenantId === this.tenant.id;
-        });
+        // this.allClassConfigurations = classConfigurations.filter((c) => {
+        //   return c.tenantId === this.tenant.id;
+        // });
 
+        this.allClassConfigurations = classConfigurations;
         this.recentClassConfigurations = this.allClassConfigurations;
         this.recentClassConfigurations = this.recentClassConfigurations.sort(
           (a, b) => b.timestamp.valueOf() - a.timestamp.valueOf()
@@ -69,13 +69,13 @@ export class OpenClassConfigurationDialogComponent implements OnInit {
     this.data.relationships = [];
 
     Promise.all([
-      this.classDefinitionService.getClassDefinitionsById(null, c.classDefinitionIds, this.tenant.id)
+      this.classDefinitionService.getClassDefinitionsById(c.classDefinitionIds)
         .toPromise().then((classDefinitions: ClassDefinition[]) => {
           if (!isNullOrUndefined(classDefinitions)) {
             this.data.classDefinitions = classDefinitions;
           }
         }),
-      this.relationshipService.getRelationshipsById(null, c.relationshipIds)
+      this.relationshipService.getRelationshipsById(c.relationshipIds)
         .toPromise().then((relationships: Relationship[]) => {
           if (!isNullOrUndefined(relationships)) {
             this.data.relationships = relationships;

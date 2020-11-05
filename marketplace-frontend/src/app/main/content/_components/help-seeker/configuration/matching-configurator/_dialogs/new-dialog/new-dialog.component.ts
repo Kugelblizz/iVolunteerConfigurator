@@ -56,8 +56,7 @@ export class NewMatchingDialogComponent implements OnInit {
     });
 
 
-    this.classConfigurationService
-      .getClassConfigurationsByTenantId(null, this.tenant.id)
+    this.classConfigurationService.getAllClassConfigurations()
       .toPromise().then((classConfigurations: ClassConfiguration[]) => {
         this.recentClassConfigurations = classConfigurations;
         this.allClassConfigurations = classConfigurations;

@@ -41,7 +41,7 @@ export class NewClassConfigurationDialogComponent implements OnInit {
   async ngOnInit() {
 
     this.classConfigurationService
-      .getClassConfigurationsByTenantId(null, this.tenant.id)
+      .getAllClassConfigurations()
       .toPromise()
       .then((classConfigurations: ClassConfiguration[]) => {
         this.allClassConfigurations = classConfigurations;
@@ -90,20 +90,20 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     const formValues = this.getFormValues();
 
     this.classConfigurationService
-      .createNewClassConfiguration(null, this.tenant.id, formValues.name, formValues.description)
+      .createNewClassConfiguration(formValues.name, formValues.description)
       .toPromise()
       .then((ret: ClassConfiguration) => {
         this.data.classConfiguration = ret;
       }).then(() => {
         Promise.all([
           this.relationshipsService
-            .getRelationshipsById(null, this.data.classConfiguration.relationshipIds)
+            .getRelationshipsById(this.data.classConfiguration.relationshipIds)
             .toPromise()
             .then((ret: Relationship[]) => {
               this.data.relationships = ret;
             }),
           this.classDefintionService
-            .getClassDefinitionsById(null, this.data.classConfiguration.classDefinitionIds, this.tenant.id)
+            .getClassDefinitionsById(this.data.classConfiguration.classDefinitionIds)
             .toPromise()
             .then((ret: ClassDefinition[]) => {
               this.data.classDefinitions = ret;
@@ -120,7 +120,7 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     }
     const formValues = this.getFormValues();
     this.classConfigurationService
-      .saveClassConfigurationMeta(null, this.data.classConfiguration.id, formValues.name, formValues.description)
+      .saveClassConfigurationMeta(this.data.classConfiguration.id, formValues.name, formValues.description)
       .toPromise().then((ret: ClassConfiguration) => {
         this.data.classConfiguration = ret;
         this.dialogRef.close(this.data);

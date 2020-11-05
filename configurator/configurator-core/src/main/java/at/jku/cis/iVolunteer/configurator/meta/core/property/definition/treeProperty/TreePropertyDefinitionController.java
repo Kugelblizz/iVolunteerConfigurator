@@ -41,7 +41,6 @@ public class TreePropertyDefinitionController {
 
 	@PutMapping("/property-definition/tree/save")
 	private TreePropertyDefinition replaceTreePropertyDefinition(@RequestBody TreePropertyDefinition treePropertyDefinition) {
-		
 		return treePropertyDefinitionRepository.save(treePropertyDefinition);
 	}
 

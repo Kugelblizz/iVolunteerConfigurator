@@ -28,7 +28,7 @@ export class TreePropertyDefinitionService {
         return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/tree/by-name/${name}`);
     }
 
-    newPropertyDefinition(treePropertyDefinition: TreePropertyDefinition, tenantId?: string) {
+    newPropertyDefinition(treePropertyDefinition: TreePropertyDefinition) {
         return this.http.post(`${environment.CONFIGURATOR_URL}/property-definition/tree/new`, treePropertyDefinition);
     }
 
