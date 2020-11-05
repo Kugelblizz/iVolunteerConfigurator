@@ -20,8 +20,8 @@ export class FlatPropertyDefinitionService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/flat/all`);
   }
 
-  getPropertyDefinitionById(id: string, tenantId: string) {
-    return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}/tenant/${tenantId}`)
+  getPropertyDefinitionById(id: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}`);
   }
 
   createNewPropertyDefinition(propertyDefinitions: FlatPropertyDefinition<any>[]) {

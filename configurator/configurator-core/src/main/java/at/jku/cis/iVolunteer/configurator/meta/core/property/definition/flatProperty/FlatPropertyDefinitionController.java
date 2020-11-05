@@ -23,11 +23,10 @@ public class FlatPropertyDefinitionController {
 		return propertyDefinitionRepository.findAll();
 	}
 
-	@GetMapping("/property-definition/flat/{id}/tenant/{tenantId}")
-	private FlatPropertyDefinition<Object> getPropertyDefinitionById(@PathVariable("id") String id, 
-			@PathVariable("tenantId") String tenantId) {
+	@GetMapping("/property-definition/flat/{id}")
+	private FlatPropertyDefinition<Object> getPropertyDefinitionById(@PathVariable("id") String id) {
 	
-		FlatPropertyDefinition<Object> findOne = propertyDefinitionRepository.getByIdAndTenantId(id, tenantId);
+		FlatPropertyDefinition<Object> findOne = propertyDefinitionRepository.findOne(id);
 		return findOne;
 		
 	}

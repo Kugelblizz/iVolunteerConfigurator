@@ -99,7 +99,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   private getCurrentPropertyDefinition() {
     return this.propertyDefinitionService
-      .getPropertyDefinitionById(this.entryId, this.tenant.id)
+      .getPropertyDefinitionById(this.entryId)
       .toPromise()
       .then((ret: FlatPropertyDefinition<any>) => {
         this.propertyDefinition = ret;

@@ -171,17 +171,17 @@ export class PropertyListComponent implements OnInit {
   }
 
   newAction(key: string) {
-    // this.router.navigate(['main/property-builder/' + this.marketplace.id], {
-    //   queryParams: { type: key },
-    // });
+    this.router.navigate(['main/property-builder'], {
+      queryParams: { type: key },
+    });
   }
 
   editAction(entry: PropertyEntry) {
     const builderType = entry.type === PropertyType.TREE ? 'tree' : 'flat';
-    // this.router.navigate(
-    //   ['main/property-builder/' + this.marketplace.id + '/' + entry.id],
-    //   { queryParams: { type: builderType } }
-    // );
+    this.router.navigate(
+      ['main/property-builder/' + entry.id],
+      { queryParams: { type: builderType } }
+    );
   }
 
   deleteAction(entry: PropertyEntry) {

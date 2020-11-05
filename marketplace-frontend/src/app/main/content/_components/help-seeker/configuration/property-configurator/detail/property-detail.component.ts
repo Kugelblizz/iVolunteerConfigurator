@@ -63,7 +63,7 @@ export class PropertyDetailComponent implements OnInit {
 
     if (ref === 'list') {
       this.propertyDefinitionService
-        .getPropertyDefinitionById(propId, this.tenant.id)
+        .getPropertyDefinitionById(propId)
         .toPromise()
         .then((propertyDefintion: FlatPropertyDefinition<any>) => {
           this.propertyDefintion = propertyDefintion;

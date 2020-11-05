@@ -10,8 +10,9 @@ import { HeaderModule } from 'app/main/content/_components/_shared/header/header
 import { BuilderContainerModule } from './builder-container/builder-container.module';
 
 const routes = [
-  { path: ':marketplaceId/:entryId', component: PropertyBuildFormComponent },
-  { path: ':marketplaceId', component: PropertyBuildFormComponent },
+  // { path: ':marketplaceId/:entryId', component: PropertyBuildFormComponent },
+  { path: '', component: PropertyBuildFormComponent },
+  { path: ':entryId', component: PropertyBuildFormComponent },
 ];
 
 @NgModule({
