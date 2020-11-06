@@ -1,7 +1,10 @@
 package at.jku.cis.iVolunteer.configurator.core;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -9,9 +12,10 @@ public class InitializationController {
 
 	@Autowired private InitializationService initializationService;
 	
-	@PutMapping("/init/add-test-data")
-	public void addTestData() {
-		addAllProperties();
+	@PutMapping("/init/configurator/all")
+	public void addTestData(@RequestBody List<String> tenantIds) {
+//		addAllProperties();
+		initializationService.init(tenantIds);
 	}
 
 	
@@ -85,7 +89,7 @@ public class InitializationController {
 	
 
 	
-	@PutMapping("/init/wipe-marketplace")
+	@PutMapping("/init/wipe-configurator")
 	public void wipeMarketplace() {
 		deleteClassConfigurations();
 		deleteClassDefinitions();

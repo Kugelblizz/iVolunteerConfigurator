@@ -12,12 +12,12 @@ import { environment } from "environments/environment";
 export class TreePropertyDefinitionService {
     constructor(private http: HttpClient) { }
 
-    getAllPropertyDefinitions(marketplace: Marketplace) {
+    getAllPropertyDefinitions() {
         return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/tree/all`);
     }
 
-    getAllPropertyDefinitionsForTenant() {
-        return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/tree/all`);
+    getAllPropertyDefinitionsForTenant(tenantId: string) {
+        return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/tree/all/tenant/${tenantId}`);
     }
 
     getPropertyDefinitionById(id: string) {

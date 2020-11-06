@@ -16,7 +16,7 @@ export const navigation_configurator = [
     title: 'Einträge erfassen',
     type: 'item',
     icon: 'pencil',
-    url: '/main/tasks/all'
+    url: '/main/task-select'
   },
   {
     id: 'config',

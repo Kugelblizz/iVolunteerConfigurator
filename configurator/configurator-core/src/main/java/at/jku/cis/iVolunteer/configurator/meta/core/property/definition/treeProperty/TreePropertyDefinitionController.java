@@ -23,6 +23,11 @@ public class TreePropertyDefinitionController {
 	private List<TreePropertyDefinition> getAllTreePropertyDefinitions() {
 		return treePropertyDefinitionRepository.findAll();
 	}
+	
+	@GetMapping("/property-definition/tree/all/tenant/{tenantId}")
+	private List<TreePropertyDefinition> getAllTreePropertyDefinitions(@PathVariable("tenantId") String tenantId) {
+		return treePropertyDefinitionRepository.getByTenantId(tenantId);
+	}
 
 	@GetMapping("/property-definition/tree/{id}")
 	private TreePropertyDefinition getTreePropertyDefinitionById(@PathVariable("id") String id) {

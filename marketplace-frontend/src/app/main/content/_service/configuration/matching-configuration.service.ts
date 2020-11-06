@@ -1,61 +1,50 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Marketplace } from "../../_model/marketplace";
 import { MatchingConfiguration } from "../../_model/meta/configurations";
+import { environment } from "environments/environment";
 
 @Injectable({
   providedIn: "root"
 })
 export class MatchingConfigurationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAllMatchingConfigurations(marketplace: Marketplace) {
-    return this.http.get(`${marketplace.url}/matching-configuration/all`);
+  getAllMatchingConfigurations() {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/matching-configuration/all`);
   }
 
-  getOneMatchingConfiguration(marketplace: Marketplace, id: string) {
-    return this.http.get(`${marketplace.url}/matching-configuration/${id}`);
+  getOneMatchingConfiguration(id: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/matching-configuration/${id}`);
   }
 
-  getMatchingConfigurationByClassConfigurationIds(
-    marketplace: Marketplace,
-    leftClassConfiguratorId: string,
-    rightClassConfiguratorId: string
-  ) {
+  getMatchingConfigurationByClassConfigurationIds(leftClassConfiguratorId: string, rightClassConfiguratorId: string) {
     return this.http.get(
-      `${marketplace.url}/matching-configuration/by-class-configurators/${leftClassConfiguratorId}/${rightClassConfiguratorId}`
+      `${environment.CONFIGURATOR_URL}/matching-configuration/by-class-configurators/${leftClassConfiguratorId}/${rightClassConfiguratorId}`
     );
   }
 
-  getMatchingConfigurationByUnorderedClassConfigurationIds(
-    marketplace: Marketplace,
-    configuratorId1: string,
-    configuratorId2: string
-  ) {
+  getMatchingConfigurationByUnorderedClassConfigurationIds(configuratorId1: string, configuratorId2: string) {
     return this.http.get(
-      `${marketplace.url}/matching-configuration/by-class-configurators/${configuratorId1}/${configuratorId2}/unordered`
+      `${environment.CONFIGURATOR_URL}/matching-configuration/by-class-configurators/${configuratorId1}/${configuratorId2}/unordered`
     );
   }
 
-  saveMatchingConfiguration(
-    marketplace: Marketplace,
-    matchingConfiguration: MatchingConfiguration
-  ) {
+  saveMatchingConfiguration(matchingConfiguration: MatchingConfiguration) {
     return this.http.post(
-      `${marketplace.url}/matching-configuration/save`,
+      `${environment.CONFIGURATOR_URL}/matching-configuration/save`,
       matchingConfiguration
     );
   }
 
-  deleteMatchingConfiguration(marketplace: Marketplace, id: string) {
+  deleteMatchingConfiguration(id: string) {
     return this.http.delete(
-      `${marketplace.url}/matching-configuration/${id}/delete`
+      `${environment.CONFIGURATOR_URL}/matching-configuration/${id}/delete`
     );
   }
 
-  deleteMatchingConfigurations(marketplace: Marketplace, ids: string[]) {
+  deleteMatchingConfigurations(ids: string[]) {
     return this.http.put(
-      `${marketplace.url}/matching-configuration/delete-multiple`,
+      `${environment.CONFIGURATOR_URL}/matching-configuration/delete-multiple`,
       ids
     );
   }

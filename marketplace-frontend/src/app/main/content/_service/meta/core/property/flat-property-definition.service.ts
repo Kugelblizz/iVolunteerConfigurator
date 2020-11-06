@@ -20,6 +20,10 @@ export class FlatPropertyDefinitionService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/flat/all`);
   }
 
+  getAllPropertyDefinitonsForTenant(tenantId: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/flat/all/tenant/${tenantId}`);
+  }
+
   getPropertyDefinitionById(id: string) {
     return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}`);
   }

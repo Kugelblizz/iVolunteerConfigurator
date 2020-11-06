@@ -22,6 +22,11 @@ public class FlatPropertyDefinitionController {
 	private List<FlatPropertyDefinition<Object>> getAllPropertyDefinitions() {
 		return propertyDefinitionRepository.findAll();
 	}
+	
+	@GetMapping("/property-definition/flat/all/tenant/{tenantId}")
+	private List<FlatPropertyDefinition<Object>> getAllPropertyDefinitions(@PathVariable("tenantId") String tenantId) {
+		return propertyDefinitionRepository.getByTenantId(tenantId); 
+	}
 
 	@GetMapping("/property-definition/flat/{id}")
 	private FlatPropertyDefinition<Object> getPropertyDefinitionById(@PathVariable("id") String id) {

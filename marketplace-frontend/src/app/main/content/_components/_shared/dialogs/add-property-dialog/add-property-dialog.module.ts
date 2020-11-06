@@ -7,8 +7,8 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule, MatInputModule, MatFormFieldModule, MatProgressSpinnerModule, MatTabsModule } from '@angular/material';
-import { PropertyCreationDialogModule } from '../../../help-seeker/configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.module';
-import { PropertyCreationDialogComponent } from '../../../help-seeker/configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.component';
+import { PropertyCreationDialogModule } from '../../../configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.module';
+import { PropertyCreationDialogComponent } from '../../../configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.component';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 @NgModule({

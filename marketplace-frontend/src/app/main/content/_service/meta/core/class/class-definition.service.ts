@@ -50,10 +50,7 @@ export class ClassDefinitionService {
     );
   }
 
-  changeClassDefinitionName(
-    id: string,
-    newName: string
-  ) {
+  changeClassDefinitionName(id: string, newName: string) {
     return this.http.put(
       `${environment.CONFIGURATOR_URL}/meta/core/class/definition/${id}/change-name`,
       newName
@@ -68,7 +65,7 @@ export class ClassDefinitionService {
 
   getByArchetype(archetype: ClassArchetype, tenantId: string) {
     return this.http.get(
-      `${environment.CONFIGURATOR_URL}/meta/core/class/definition/archetype/${archetype}/tenant/${tenantId}`
+      `${environment.CONFIGURATOR_URL}/meta/core/class/definition/archetype/${archetype}`
     );
   }
 
@@ -90,10 +87,7 @@ export class ClassDefinitionService {
     );
   }
 
-  getFormConfigurationChunk(
-    currentClassDefinitionId: string,
-    choiceId: string
-  ) {
+  getFormConfigurationChunk(currentClassDefinitionId: string, choiceId: string) {
     const params = [currentClassDefinitionId, choiceId];
     return this.http.put(
       `${environment.CONFIGURATOR_URL}/meta/core/class/definition/form-configuration-chunk`, params

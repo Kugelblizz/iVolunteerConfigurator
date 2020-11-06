@@ -17,6 +17,10 @@ export class ClassConfigurationService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/all`);
   }
 
+  getAllClassConfigurationByTenantId(tenantId: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/all/tenant/${tenantId}`);
+  }
+
   getAllClassConfigurationById(id: string) {
     return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/${id}`);
   }

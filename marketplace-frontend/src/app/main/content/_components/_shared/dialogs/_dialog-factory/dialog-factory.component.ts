@@ -4,11 +4,11 @@ import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.compone
 import {
   NewClassConfigurationDialogComponent,
   NewClassConfigurationDialogData
-} from "../../../help-seeker/configuration/class-configurator/_dialogs/new-dialog/new-dialog.component";
+} from "../../../configuration/class-configurator/_dialogs/new-dialog/new-dialog.component";
 import {
   OpenClassConfigurationDialogComponent,
   OpenClassConfigurationDialogData
-} from "../../../help-seeker/configuration/class-configurator/_dialogs/open-dialog/open-dialog.component";
+} from "../../../configuration/class-configurator/_dialogs/open-dialog/open-dialog.component";
 import {
   ClassConfiguration,
   MatchingConfiguration,
@@ -19,39 +19,39 @@ import { Relationship } from "app/main/content/_model/meta/relationship";
 import {
   ConfirmClassConfigurationSaveDialogComponent,
   ConfirmClassConfigurationSaveDialogData
-} from "../../../help-seeker/configuration/class-configurator/_dialogs/confirm-save-dialog/confirm-save-dialog.component";
+} from "../../../configuration/class-configurator/_dialogs/confirm-save-dialog/confirm-save-dialog.component";
 import {
   DeleteClassConfigurationDialogComponent,
   DeleteClassConfigurationDialogData
-} from "../../../help-seeker/configuration/class-configurator/_dialogs/delete-dialog/delete-dialog.component";
+} from "../../../configuration/class-configurator/_dialogs/delete-dialog/delete-dialog.component";
 import {
   ClassInstanceFormPreviewDialogComponent,
   ClassInstanceFormPreviewDialogData
-} from "../../../help-seeker/configuration/class-instance-configurator/form-preview-dialog/form-preview-dialog.component";
+} from "../../../configuration/class-instance-configurator/form-preview-dialog/form-preview-dialog.component";
 import {
   ClassInstanceFormPreviewExportDialogComponent,
   ClassInstanceFormPreviewExportDialogData
-} from "../../../help-seeker/configuration/class-instance-configurator/form-preview-export-dialog/form-preview-export-dialog.component";
+} from "../../../configuration/class-instance-configurator/form-preview-export-dialog/form-preview-export-dialog.component";
 import {
   ChangeIconDialogComponent,
   ChangeIconDialogData
-} from "../../../help-seeker/configuration/class-configurator/_dialogs/icon-dialog/icon-dialog.component";
+} from "../../../configuration/class-configurator/_dialogs/icon-dialog/icon-dialog.component";
 import {
   PropertyCreationDialogComponent,
   PropertyCreationDialogData
-} from "../../../help-seeker/configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.component";
+} from "../../../configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.component";
 import {
   NewMatchingDialogComponent,
   NewMatchingDialogData
-} from "../../../help-seeker/configuration/matching-configurator/_dialogs/new-dialog/new-dialog.component";
+} from "../../../configuration/matching-configurator/_dialogs/new-dialog/new-dialog.component";
 import {
   OpenMatchingDialogComponent,
   OpenMatchingDialogData
-} from "../../../help-seeker/configuration/matching-configurator/_dialogs/open-dialog/open-dialog.component";
+} from "../../../configuration/matching-configurator/_dialogs/open-dialog/open-dialog.component";
 import {
   DeleteMatchingDialogComponent,
   DeleteMatchingDialogData
-} from "../../../help-seeker/configuration/matching-configurator/_dialogs/delete-dialog/delete-dialog.component";
+} from "../../../configuration/matching-configurator/_dialogs/delete-dialog/delete-dialog.component";
 import {
   AddPropertyDialogComponent,
   AddPropertyDialogData
@@ -65,7 +65,7 @@ import { User } from "app/main/content/_model/user";
 import {
   AddClassDefinitionDialogComponent,
   AddClassDefinitionDialogData
-} from "../../../help-seeker/configuration/matching-configurator/_dialogs/add-class-definition-dialog/add-class-definition-dialog.component";
+} from "../../../configuration/matching-configurator/_dialogs/add-class-definition-dialog/add-class-definition-dialog.component";
 
 @Directive({
   selector: "app-dialog-factory"
@@ -132,13 +132,13 @@ export class DialogFactoryDirective {
       });
   }
 
-  openOpenClassConfigurationDialog() {
+  openOpenClassConfigurationDialog(tenantId: string) {
     const dialogRef = this.dialog.open(OpenClassConfigurationDialogComponent, {
       width: "500px",
       minWidth: "500px",
       height: "400px",
       minHeight: "400px",
-      data: { configurator: undefined },
+      data: { configurator: undefined, tenantId: tenantId },
       disableClose: true
     });
 
@@ -476,7 +476,8 @@ export class DialogFactoryDirective {
   openAddPropertyDialog(
     classDefinition: ClassDefinition,
     allClassDefinitions: ClassDefinition[],
-    allRelationships: Relationship[]
+    allRelationships: Relationship[],
+    tenantId: string,
   ) {
     const dialogRef = this.dialog.open(AddPropertyDialogComponent, {
       width: "500px",
@@ -486,7 +487,8 @@ export class DialogFactoryDirective {
       data: {
         classDefinition: classDefinition,
         allClassDefinitions: allClassDefinitions,
-        allRelationships: allRelationships
+        allRelationships: allRelationships,
+        tenantId: tenantId,
       }
     });
 

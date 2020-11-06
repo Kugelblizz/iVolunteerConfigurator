@@ -18,13 +18,11 @@ import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tr
 import { ClassPropertyService } from 'app/main/content/_service/meta/core/property/class-property.service';
 import {
   PropertyCreationDialogComponent, PropertyCreationDialogData,
-} from '../../../help-seeker/configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.component';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
-import { Tenant } from 'app/main/content/_model/tenant';
+} from '../../../configuration/class-configurator/_dialogs/property-creation-dialog/property-creation-dialog.component';
 
 export interface AddPropertyDialogData {
   classDefinition: ClassDefinition;
-
+  tenantId: string;
   allClassDefinitions: ClassDefinition[];
   allRelationships: Relationship[];
 }
@@ -64,7 +62,6 @@ export class AddPropertyDialogComponent implements OnInit {
   loaded: boolean;
   tabIndex: number;
 
-  tenant: Tenant;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -72,7 +69,7 @@ export class AddPropertyDialogComponent implements OnInit {
     this.tabIndex = 0;
 
     Promise.all([
-      this.flatPropertyDefinitionService.getAllPropertyDefinitons()
+      this.flatPropertyDefinitionService.getAllPropertyDefinitonsForTenant(this.data.tenantId)
         .toPromise()
         .then((ret: FlatPropertyDefinition<any>[]) => {
           this.flatPropertyDataSource.data = ret;
@@ -93,7 +90,7 @@ export class AddPropertyDialogComponent implements OnInit {
           this.flatPropertySelection.select(...this.initialFlatPropertyDefinitions);
         }),
       this.treePropertyDefinitionService
-        .getAllPropertyDefinitionsForTenant()
+        .getAllPropertyDefinitionsForTenant(this.data.tenantId)
         .toPromise()
         .then((ret: TreePropertyDefinition[]) => {
           this.treePropertyDataSource.data = ret;
@@ -186,10 +183,7 @@ export class AddPropertyDialogComponent implements OnInit {
       );
 
     this.classPropertyService
-      .getClassPropertyFromDefinitionById(
-        null, addedFlatProperties.map((p) => p.id),
-        addedTreeProperties.map((e) => e.id)
-      )
+      .getClassPropertyFromDefinitionById(addedFlatProperties.map((p) => p.id), addedTreeProperties.map((e) => e.id))
       .toPromise()
       .then((ret: ClassProperty<any>[]) => {
         this.data.classDefinition.properties.push(...ret);

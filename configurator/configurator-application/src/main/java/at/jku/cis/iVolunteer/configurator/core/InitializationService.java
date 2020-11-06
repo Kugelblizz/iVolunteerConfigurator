@@ -1,5 +1,6 @@
 package at.jku.cis.iVolunteer.configurator.core;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -7,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfigurationController;
 import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfigurationRepository;
 import at.jku.cis.iVolunteer.configurator.configurations.matching.collector.MatchingEntityMappingConfigurationRepository;
 import at.jku.cis.iVolunteer.configurator.configurations.matching.configuration.MatchingConfigurationRepository;
@@ -26,73 +28,85 @@ public class InitializationService {
 	@Autowired protected MatchingConfigurationRepository matchingConfigurationRepository;
 	@Autowired protected MatchingEntityMappingConfigurationRepository matchingCollectorConfigurationRepository;
 	@Autowired protected TreePropertyDefinitionRepository treePropertyDefinitionRepository;
+	@Autowired protected ClassConfigurationController classConfigurationController;
 
 
 	@Autowired public StandardPropertyDefinitions standardPropertyDefinitions;
 
 
-
+	private List<String> tenantIds;
+	
+	
 	@PostConstruct
-	public void init() {
-		addiVolunteerPropertyDefinitions();
-		addGenericPropertyDefintions();
-		addHeaderPropertyDefintions();
+	public void initOnConstruct() {
+		init(Collections.singletonList("5f92c841eada0c0d9dfa877a"));
+	}
+
+	public void init(List<String> tenantIds) {
+		this.tenantIds = tenantIds;
+		
+		if (tenantIds != null) {
+			addiVolunteerPropertyDefinitions();
+			addGenericPropertyDefintions();
+			addHeaderPropertyDefintions();
+			addClassConfigurations();
+		}
 	}
 
 	public void addiVolunteerPropertyDefinitions() {
-//		List<Tenant> tenants = getTenants();
-//		tenants.forEach(tenant -> {
+
+		tenantIds.forEach(tenant -> {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAlliVolunteer()) {
-				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant).size() == 0) {
+					pd.setTenantId(tenant);
 					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
-//		});
+		});
 	}
 
 	public void addFlexProdPropertyDefinitions() {
-//		List<Tenant> tenants = getTenants();
-//		tenants.forEach(tenant -> {
+		tenantIds.forEach(tenant -> {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions
 					.getAllFlexProdProperties()) {
-				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant).size() == 0) {
+					pd.setTenantId(tenant);
 					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
-//		});
+		});
 	}
 
 	public void addGenericPropertyDefintions() {
-//		List<Tenant> tenants = getTenants();
-//		tenants.forEach(tenant -> {
+		tenantIds.forEach(tenant -> {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllGeneric()) {
-				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant).size() == 0) {
+					pd.setTenantId(tenant);
 					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
-//		});
+		});
 	}
 
 	public void addHeaderPropertyDefintions() {
-//		List<Tenant> tenants = getTenants();
-//		tenants.forEach(tenant -> {
+		tenantIds.forEach(tenant -> {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllHeader()) {
-				if (flatPropertyDefinitionRepository.getByName(pd.getName()).size() == 0) {
+				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant).size() == 0) {
+					pd.setTenantId(tenant);
 					flatPropertyDefinitionRepository.save(pd);
 				}
 			}
-//		});
+		});
 	}
 
 	public void addClassConfigurations() {
-//		List<Tenant> tenants = getTenants();
-//
-//		for (Tenant t : tenants) {
-//			for (int i = 1; i <= 5; i++) {
-//				this.classConfigurationController
-//						.createNewClassConfiguration(new String[] { t.getId(), "slot" + i, "" });
-//			}
-//		}
+
+		for (String tenantId : tenantIds) {
+			for (int i = 1; i <= 5; i++) {
+				this.classConfigurationController
+						.createNewClassConfiguration(new String[] { tenantId, "slot" + i, "" });
+			}
+		}
 	}
 
 
