@@ -65,7 +65,7 @@ export class ClassDefinitionService {
 
   getByArchetype(archetype: ClassArchetype, tenantId: string) {
     return this.http.get(
-      `${environment.CONFIGURATOR_URL}/meta/core/class/definition/archetype/${archetype}`
+      `${environment.CONFIGURATOR_URL}/meta/core/class/definition/archetype/${archetype}/tenant/${tenantId}`
     );
   }
 

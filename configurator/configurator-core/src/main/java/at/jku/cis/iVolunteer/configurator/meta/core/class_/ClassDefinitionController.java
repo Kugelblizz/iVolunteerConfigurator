@@ -29,11 +29,15 @@ public class ClassDefinitionController {
 	@Autowired private ClassDefinitionMapper classDefinitionMapper;
 
 //	@PreAuthorize("hasAnyRole('TENANT_ADMIN', 'HELP_SEEKER')")
-	@GetMapping("/meta/core/class/definition/all/")
-	private List<ClassDefinition> getAllClassDefinitions(String tenantId) {
+	@GetMapping("/meta/core/class/definition/all")
+	private List<ClassDefinition> getAllClassDefinitions() {
 		return classDefinitionRepository.findAll();
 	}
 
+	@GetMapping("/meta/core/class/definition/all/tenant/{tenantId}")
+	private List<ClassDefinition> getAllClassDefinitionsByTenantId(String tenantId) {
+		return classDefinitionRepository.getByTenantId(tenantId);
+	}
 //	@GetMapping("meta/core/class/definition/all/no-enum/tenant/{tenantId}")
 //	public List<ClassDefinition> getAllClassDefinitionsWithoutEnums(@PathVariable("tenantId") String tenantId) {
 //		return classDefinitionService.getAllClassDefinitionsWithoutEnums(tenantId);
@@ -59,10 +63,11 @@ public class ClassDefinitionController {
 //		return classDefinitionService.getClassDefinitionById(id);
 //	}
 
-	@GetMapping("/meta/core/class/definition/archetype/{archetype}")
-	public List<ClassDefinitionDTO> getClassDefinitionByArchetype(@PathVariable("archetype") ClassArchetype archetype) {
-		return classDefinitionMapper
-				.mapToDTO(classDefinitionService.getClassDefinitionsByArchetype(archetype));
+	@GetMapping("/meta/core/class/definition/archetype/{archetype}/tenant/{tenantId}")
+	public List<ClassDefinitionDTO> getClassDefinitionByArchetype(@PathVariable("archetype") ClassArchetype archetype,
+			@PathVariable("tenantId") String tenantId) {
+
+			return classDefinitionMapper.mapToDTO(classDefinitionService.getClassDefinitionsByArchetype(archetype, tenantId));
 	}
 
 	@PutMapping("/meta/core/class/definition/multiple")

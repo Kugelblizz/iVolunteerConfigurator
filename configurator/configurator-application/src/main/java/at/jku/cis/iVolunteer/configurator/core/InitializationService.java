@@ -1,5 +1,8 @@
 package at.jku.cis.iVolunteer.configurator.core;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,6 +59,7 @@ public class InitializationService {
 			addHeaderPropertyDefintions();
 			addClassConfigurations();
 		}
+		
 	}
 
 	public void addiVolunteerPropertyDefinitions() {

@@ -35,7 +35,7 @@ export class FuseTaskSelectComponent implements OnInit {
         this.tenantId = params['tenantId'];
       }
     });
-    const tasks = <ClassDefinition[]>await this.classDefinitionService.getByArchetype(ClassArchetype.TASK, null).toPromise();
+    const tasks = <ClassDefinition[]>await this.classDefinitionService.getByArchetype(ClassArchetype.TASK, this.tenantId).toPromise();
 
     this.dataSource.data = tasks
       .filter(t => t.configurationId != null)

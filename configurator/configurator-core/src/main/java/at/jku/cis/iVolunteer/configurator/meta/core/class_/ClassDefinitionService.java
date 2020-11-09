@@ -78,8 +78,14 @@ public class ClassDefinitionService {
 		return classDefinitionRepository.save(classDefinitions);
 	}
 
-	public List<ClassDefinition> getClassDefinitionsByArchetype(ClassArchetype archetype) {
-		List<ClassDefinition> classDefinitions = classDefinitionRepository.getByClassArchetype(archetype);
+	public List<ClassDefinition> getClassDefinitionsByArchetype(ClassArchetype archetype, String tenantId) {
+		
+		List<ClassDefinition> classDefinitions;
+		if (tenantId == null) {
+		classDefinitions = classDefinitionRepository.getByClassArchetype(archetype);
+		} else {
+			classDefinitions = classDefinitionRepository.getByClassArchetypeAndTenantId(archetype, tenantId);
+		}
 		return classDefinitions;
 	}
 

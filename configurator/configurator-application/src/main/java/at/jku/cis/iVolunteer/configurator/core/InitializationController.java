@@ -1,8 +1,12 @@
 package at.jku.cis.iVolunteer.configurator.core;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +20,24 @@ public class InitializationController {
 	public void addTestData(@RequestBody List<String> tenantIds) {
 //		addAllProperties();
 		initializationService.init(tenantIds);
+
 	}
 
+	@GetMapping("/init/test-url-encoding")
+	public void initTest() {
+	String url = "http://localhost:4200/main/class-configurator?tenantId=5f92c841eada0c0d9dfa877a";
+		
+		try {
+			String encoded = URLEncoder.encode(url, "UTF-8");
+			System.out.println(encoded);
+			
+			String decoded = URLDecoder.decode(encoded, "UTF-8");
+			System.out.println(decoded);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Properties

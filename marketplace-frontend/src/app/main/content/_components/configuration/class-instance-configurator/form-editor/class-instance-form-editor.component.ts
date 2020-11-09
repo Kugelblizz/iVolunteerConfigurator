@@ -54,7 +54,7 @@ export class ClassInstanceFormEditorComponent implements OnInit {
     this.returnedClassInstances = [];
 
     this.route.queryParams.subscribe(params => {
-      if (isNullOrUndefined(params['tenantId'])) {
+      if (isNullOrUndefined(params['tenantId']) || isNullOrUndefined(params['redirect'])) {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];

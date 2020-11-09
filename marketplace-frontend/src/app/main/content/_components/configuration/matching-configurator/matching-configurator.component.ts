@@ -82,7 +82,7 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
   async ngOnInit() {
 
     this.route.queryParams.subscribe(params => {
-      if (isNullOrUndefined(params['tenantId'])) {
+      if (isNullOrUndefined(params['tenantId']) || isNullOrUndefined(params['redirect'])) {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];

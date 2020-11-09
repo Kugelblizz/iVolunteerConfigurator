@@ -1,6 +1,10 @@
+
+// &redirect=http%3A%2F%2Flocalhost%3A4200%2Fmain%2Fclass-configurator%3FtenantId%3D5f92c841eada0c0d9dfa877a
+
+
 // http://localhost:4200/main/task-select?tenantId=5f92c841eada0c0d9dfa877a
 
-// http://localhost:4200/main/class-configurator?tenantId=5f92c841eada0c0d9dfa877a
+// http://localhost:4200/main/class-configurator?tenantId=5f92c841eada0c0d9dfa877a&redirect=http%3A%2F%2Flocalhost%3A4200%2Fmain%2Fclass-configurator%3FtenantId%3D5f92c841eada0c0d9dfa877a
 // http://localhost:4200/main/properties/all?tenantId=5f92c841eada0c0d9dfa877a
 // http://localhost:4200/main/matching-configurator?tenantId=5f92c841eada0c0d9dfa877a
 
