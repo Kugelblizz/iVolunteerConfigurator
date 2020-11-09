@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Marketplace } from 'app/main/content/_model/marketplace';
 import { ClassConfiguration } from '../../_model/meta/configurations';
 import { environment } from 'environments/environment';
+import { ConfirmClassConfigurationSaveDialogData } from '../../_components/configuration/class-configurator/_dialogs/confirm-save-dialog/confirm-save-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ClassConfigurationService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/all`);
   }
 
-  getAllClassConfigurationByTenantId(tenantId: string) {
+  getAllClassConfigurationsByTenantId(tenantId: string) {
     return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/all/tenant/${tenantId}`);
   }
 
@@ -42,16 +43,21 @@ export class ClassConfigurationService {
     return this.http.post(`${environment.CONFIGURATOR_URL}/class-configuration/new-empty`, [name, description]);
   }
 
-  createNewClassConfiguration(name: string, description: string) {
+  createNewClassConfiguration(name: string, description: string, tenantId: string) {
     const params: string[] = [];
     params.push(name);
     params.push(description);
+    params.push(tenantId);
 
     return this.http.post(`${environment.CONFIGURATOR_URL}/class-configuration/new`, params);
   }
 
   saveClassConfiguration(classConfiguration: ClassConfiguration) {
     return this.http.put(`${environment.CONFIGURATOR_URL}/class-configuration/save`, classConfiguration);
+  }
+
+  saveFullClassConfiguration(req: ConfirmClassConfigurationSaveDialogData) {
+    return this.http.put(`${environment.CONFIGURATOR_URL}/class-configuration/save-everything`, req);
   }
 
 

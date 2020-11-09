@@ -3,10 +3,10 @@ import { MatchingConfiguration } from 'app/main/content/_model/meta/configuratio
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { isNullOrUndefined } from 'util';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 
 export class DeleteMatchingDialogData {
   idsToDelete: string[];
+  tenantId: string;
 }
 
 @Component({
@@ -17,8 +17,6 @@ export class DeleteMatchingDialogData {
 export class DeleteMatchingDialogComponent implements OnInit {
   allMatchingConfigurations: MatchingConfiguration[];
   checkboxStates: boolean[];
-
-  globalInfo: GlobalInfo;
 
   loaded: boolean;
 
@@ -31,7 +29,7 @@ export class DeleteMatchingDialogComponent implements OnInit {
   async ngOnInit() {
     this.data.idsToDelete = [];
 
-    this.matchingConfigurationService.getAllMatchingConfigurations()
+    this.matchingConfigurationService.getAllMatchingConfigurationsByTenantId(this.data.tenantId)
       .toPromise().then((matchingConfigurations: MatchingConfiguration[]) => {
         this.allMatchingConfigurations = matchingConfigurations;
         this.checkboxStates = Array(matchingConfigurations.length);

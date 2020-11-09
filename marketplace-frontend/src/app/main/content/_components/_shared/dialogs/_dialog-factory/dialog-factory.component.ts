@@ -103,7 +103,9 @@ export class DialogFactoryDirective {
    */
 
   openNewClassConfigurationDialog(
-    currentClassConfiguration?: ClassConfiguration
+    tenantId: string,
+    currentClassConfiguration?: ClassConfiguration,
+
   ) {
     const dialogRef = this.dialog.open(NewClassConfigurationDialogComponent, {
       width: "500px",
@@ -111,7 +113,8 @@ export class DialogFactoryDirective {
       height: "400px",
       minHeight: "400px",
       data: {
-        classConfiguration: currentClassConfiguration
+        classConfiguration: currentClassConfiguration,
+        tenantId: tenantId
       },
       disableClose: true
     });
@@ -163,7 +166,8 @@ export class DialogFactoryDirective {
     classDefinitions: ClassDefinition[],
     relationships: Relationship[],
     deletedClassDefintions: string[],
-    deletedRelationships: string[]
+    deletedRelationships: string[],
+    tenantId: string
   ) {
     const dialogRef = this.dialog.open(
       ConfirmClassConfigurationSaveDialogComponent,
@@ -175,7 +179,8 @@ export class DialogFactoryDirective {
           relationships: relationships,
 
           deletedClassDefintions: deletedClassDefintions,
-          deletedRelationships: deletedRelationships
+          deletedRelationships: deletedRelationships,
+          tenantId: tenantId
         }
       }
     );
@@ -197,7 +202,7 @@ export class DialogFactoryDirective {
       });
   }
 
-  openDeleteClassConfigurationDialog() {
+  openDeleteClassConfigurationDialog(tenantId: string) {
     const dialogRef = this.dialog.open(
       DeleteClassConfigurationDialogComponent,
       {
@@ -205,7 +210,7 @@ export class DialogFactoryDirective {
         minWidth: "500px",
         height: "400px",
         minHeight: "400px",
-        data: { configurator: undefined },
+        data: { configurator: undefined, tenantId },
         disableClose: true
       }
     );
@@ -355,13 +360,13 @@ export class DialogFactoryDirective {
   /*
    *  Matching-Configurator Dialogs
    */
-  openNewMatchingDialog() {
+  openNewMatchingDialog(tenantId: string) {
     const dialogRef = this.dialog.open(NewMatchingDialogComponent, {
       width: "500px",
       minWidth: "500px",
       height: "450px",
       minHeight: "450px",
-      data: {},
+      data: { tenantId },
       disableClose: true
     });
 
@@ -382,13 +387,13 @@ export class DialogFactoryDirective {
       });
   }
 
-  openOpenMatchingDialog() {
+  openOpenMatchingDialog(tenantId: string) {
     const dialogRef = this.dialog.open(OpenMatchingDialogComponent, {
       width: "500px",
       minWidth: "500px",
       height: "400px",
       minHeight: "400px",
-      data: {},
+      data: { tenantId },
       disableClose: true
     });
 
@@ -411,13 +416,13 @@ export class DialogFactoryDirective {
       });
   }
 
-  openDeleteMatchingDialog() {
+  openDeleteMatchingDialog(tenantId: string) {
     const dialogRef = this.dialog.open(DeleteMatchingDialogComponent, {
       width: "500px",
       minWidth: "500px",
       height: "400px",
       minHeight: "400px",
-      data: {},
+      data: { tenantId },
       disableClose: true
     });
 

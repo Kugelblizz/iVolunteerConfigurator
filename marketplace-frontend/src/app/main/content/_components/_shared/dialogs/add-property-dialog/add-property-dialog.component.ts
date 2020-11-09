@@ -198,9 +198,9 @@ export class AddPropertyDialogComponent implements OnInit {
       height: '90vh',
       minHeight: '90vh',
       data: {
-        marketplace: null,
         allFlatPropertyDefinitions: this.flatPropertyDataSource.data,
         builderType: type,
+        tenantId: this.data.tenantId,
       },
       disableClose: true,
     });

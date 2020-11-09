@@ -24,6 +24,11 @@ public class MatchingConfigurationController {
 		return matchingConfigurationRepository.findAll();
 	}
 	
+	@GetMapping("matching-configuration/all/tenant/{tenantId}")
+	public List<MatchingConfiguration> getAllMatchingConfigurations(@PathVariable("tenantId") String tenantId) {
+		return matchingConfigurationRepository.findByTenantId(tenantId);
+	}
+	
 	@GetMapping("matching-configuration/{id}")
 	public MatchingConfiguration getAllMatchingConfigurationsById(@PathVariable("id") String id) {
 		return matchingConfigurationRepository.findOne(id);

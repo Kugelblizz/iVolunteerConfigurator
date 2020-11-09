@@ -186,7 +186,7 @@ export class PropertyListComponent implements OnInit {
 
   newAction(key: string) {
     this.router.navigate(['main/property-builder'], {
-      queryParams: { type: key },
+      queryParams: { type: key, tenantId: this.tenantId },
     });
   }
 

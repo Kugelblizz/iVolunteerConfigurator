@@ -10,6 +10,7 @@ export interface PropertyCreationDialogData {
   flatPropertyDefinition: FlatPropertyDefinition<any>;
   treePropertyDefinition: TreePropertyDefinition;
   builderType: 'flat' | 'tree';
+  tenantId: string;
 }
 
 @Component({

@@ -14,6 +14,7 @@ export interface ConfirmClassConfigurationSaveDialogData {
 
   deletedClassDefintions: string[];
   deletedRelationships: string[];
+  tenantId: string;
 
 }
 

@@ -24,6 +24,7 @@ export class TreePropertyBuilderComponent implements OnInit {
   @Input() tenantAdmin: User;
   @Input() entryId: string;
   @Input() sourceString: string;
+  @Input() tenantId: string;
   @Output() result: EventEmitter<{ builderType: string, value: TreePropertyDefinition }> = new EventEmitter();
   @Output() management: EventEmitter<String> = new EventEmitter();
 
@@ -88,6 +89,8 @@ export class TreePropertyBuilderComponent implements OnInit {
         newTreePropertyDefinition.requiredMessage = null;
       }
 
+      newTreePropertyDefinition.tenantId = this.tenantId;
+
       this.treePropertyDefinitionService
         .newPropertyDefinition(newTreePropertyDefinition)
         .toPromise().then((treePropertyDefinition: TreePropertyDefinition) => {
@@ -104,6 +107,8 @@ export class TreePropertyBuilderComponent implements OnInit {
   }
 
   handleResult(event: { type: string; payload: TreePropertyDefinition }) {
+
+    event.payload.tenantId = this.tenantId;
 
     if (event.type === 'save') {
       event.payload.description = this.form.controls['description'].value;

@@ -16,6 +16,7 @@ export interface NewClassConfigurationDialogData {
   classConfiguration: ClassConfiguration;
   relationships: Relationship[];
   classDefinitions: ClassDefinition[];
+  tenantId: string;
 }
 
 @Component({
@@ -31,7 +32,6 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     private relationshipsService: RelationshipService,
     private classDefintionService: ClassDefinitionService,
   ) { }
-  tenant: Tenant;
 
   dialogForm: FormGroup;
   allClassConfigurations: ClassConfiguration[];
@@ -88,11 +88,11 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     }
 
     const formValues = this.getFormValues();
+    console.log(this.data.tenantId);
 
     this.classConfigurationService
-      .createNewClassConfiguration(formValues.name, formValues.description)
-      .toPromise()
-      .then((ret: ClassConfiguration) => {
+      .createNewClassConfiguration(formValues.name, formValues.description, this.data.tenantId)
+      .toPromise().then((ret: ClassConfiguration) => {
         this.data.classConfiguration = ret;
       }).then(() => {
         Promise.all([

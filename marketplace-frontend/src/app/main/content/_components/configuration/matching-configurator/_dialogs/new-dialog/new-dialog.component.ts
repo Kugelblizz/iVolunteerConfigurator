@@ -13,6 +13,7 @@ export interface NewMatchingDialogData {
   rightClassConfiguration: ClassConfiguration;
   rightIsUser: boolean;
   label: string;
+  tenantId: string;
 }
 
 @Component({
@@ -44,7 +45,7 @@ export class NewMatchingDialogComponent implements OnInit {
       label: new FormControl('', Validators.required)
     });
 
-    this.classConfigurationService.getAllClassConfigurations()
+    this.classConfigurationService.getAllClassConfigurationsByTenantId(this.data.tenantId)
       .toPromise().then((classConfigurations: ClassConfiguration[]) => {
         this.recentClassConfigurations = classConfigurations;
         this.allClassConfigurations = classConfigurations;

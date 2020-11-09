@@ -40,6 +40,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
   @Input() tenantAdmin: User;
   @Input() entryId: string;
   @Input() sourceString: string;
+  @Input() tenantId: string;
   @Output() result: EventEmitter<{
     builderType: string;
     value: FlatPropertyDefinition<any>;
@@ -324,6 +325,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       const property = this.createPropertyFromForm();
+      property.tenantId = this.tenantId;
 
       this.propertyDefinitionService.createNewPropertyDefinition([property])
         .toPromise().then((ret: FlatPropertyDefinition<any>[]) => {

@@ -1,4 +1,6 @@
 // http://localhost:4200/main/class-configurator?tenantId=5f92c841eada0c0d9dfa877a
+// http://localhost:4200/main/properties/all?tenantId=5f92c841eada0c0d9dfa877a
+// http://localhost:4200/main/matching-configurator?tenantId=5f92c841eada0c0d9dfa877a
 
 
 

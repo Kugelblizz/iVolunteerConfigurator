@@ -6,6 +6,7 @@ import { isNullOrUndefined } from 'util';
 
 export class DeleteClassConfigurationDialogData {
   idsToDelete: string[];
+  tenantId: string;
 }
 
 @Component({
@@ -34,7 +35,7 @@ export class DeleteClassConfigurationDialogComponent implements OnInit {
 
     this.data.idsToDelete = [];
 
-    this.classConfigurationService.getAllClassConfigurations()
+    this.classConfigurationService.getAllClassConfigurationsByTenantId(this.data.tenantId)
       .toPromise()
       .then((classConfigurations: ClassConfiguration[]) => {
         this.allClassConfigurations = classConfigurations;

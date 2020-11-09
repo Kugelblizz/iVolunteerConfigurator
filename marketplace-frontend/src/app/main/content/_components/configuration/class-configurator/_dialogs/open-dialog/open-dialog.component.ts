@@ -38,18 +38,10 @@ export class OpenClassConfigurationDialogComponent implements OnInit {
   browseMode: boolean;
   browseDialogData: ClassBrowseSubDialogData;
 
-  // tenant: Tenant;
-
   async ngOnInit() {
     this.classConfigurationService
-      .getAllClassConfigurationByTenantId(this.data.tenantId).toPromise()
+      .getAllClassConfigurationsByTenantId(this.data.tenantId).toPromise()
       .then((classConfigurations: ClassConfiguration[]) => {
-        // this.allClassConfigurations = classConfigurations.filter((c) => {
-        //   return c.tenantId === this.tenant.id;
-        // });
-
-        console.log("tenantId: " + this.data.tenantId);
-
 
         this.allClassConfigurations = classConfigurations;
         this.recentClassConfigurations = this.allClassConfigurations;

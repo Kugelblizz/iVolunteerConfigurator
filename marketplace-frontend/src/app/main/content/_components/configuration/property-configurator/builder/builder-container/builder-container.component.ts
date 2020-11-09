@@ -15,6 +15,7 @@ export class BuilderContainerComponent implements OnInit {
   @Input() builderType: string;
   @Input() entryId: string;
   @Input() sourceString: string;
+  @Input() tenantId: string;
   @Output() result: EventEmitter<FlatPropertyDefinition<any>> = new EventEmitter<FlatPropertyDefinition<any>>();
   @Output() management: EventEmitter<String> = new EventEmitter();
 

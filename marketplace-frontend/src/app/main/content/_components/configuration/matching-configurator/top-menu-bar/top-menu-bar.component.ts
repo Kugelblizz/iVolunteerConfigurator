@@ -91,6 +91,7 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   titleBarTextContainer: ElementRef;
 
   @Input() eventResponseAction: string;
+  @Input() tenantId: string;
   @Output() menuOptionClickedEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -168,7 +169,7 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   }
 
   newClicked(event: any, item: SubMenuItem) {
-    this.dialogFactory.openNewMatchingDialog().then((ret: any) => {
+    this.dialogFactory.openNewMatchingDialog(this.tenantId).then((ret: any) => {
       if (!isNullOrUndefined(ret)) {
         this.menuOptionClickedEvent.emit({ id: 'editor_new', payload: ret });
       }
@@ -178,7 +179,7 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   editClicked() { }
 
   openClicked(event: any, item: SubMenuItem) {
-    this.dialogFactory.openOpenMatchingDialog().then((ret: any) => {
+    this.dialogFactory.openOpenMatchingDialog(this.tenantId).then((ret: any) => {
       if (!isNullOrUndefined(ret)) {
         this.menuOptionClickedEvent.emit({ id: 'editor_open', payload: ret });
       } else {
@@ -203,7 +204,7 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   }
 
   deleteClicked(event: any, item: SubMenuItem) {
-    this.dialogFactory.openDeleteMatchingDialog().then((ret: any) => {
+    this.dialogFactory.openDeleteMatchingDialog(this.tenantId).then((ret: any) => {
       if (!isNullOrUndefined(ret)) {
         this.menuOptionClickedEvent.emit({ id: 'editor_delete', payload: ret });
       } else {

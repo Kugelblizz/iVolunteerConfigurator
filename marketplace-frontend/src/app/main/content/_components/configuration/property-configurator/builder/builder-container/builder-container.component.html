@@ -10,14 +10,14 @@
   </div>
 
   <div *ngIf="builderType == 'flat'">
-    <app-flat-property-builder [tenantAdmin]="tenantAdmin" [entryId]="entryId" [sourceString]="sourceString"
-      (result)="handleResultEvent($event)">
+    <app-flat-property-builder [tenantId]="tenantId" [tenantAdmin]="tenantAdmin" [entryId]="entryId"
+      [sourceString]="sourceString" (result)="handleResultEvent($event)">
     </app-flat-property-builder>
   </div>
 
   <div *ngIf="builderType == 'tree'">
-    <app-tree-property-builder [tenantAdmin]="tenantAdmin" [entryId]="entryId" [sourceString]="sourceString"
-      (result)="handleResultEvent($event)" (management)="handleManagementEvent($event)">
+    <app-tree-property-builder [tenantId]="tenantId" [tenantAdmin]="tenantAdmin" [entryId]="entryId"
+      [sourceString]="sourceString" (result)="handleResultEvent($event)" (management)="handleManagementEvent($event)">
     </app-tree-property-builder>
   </div>
 </div>

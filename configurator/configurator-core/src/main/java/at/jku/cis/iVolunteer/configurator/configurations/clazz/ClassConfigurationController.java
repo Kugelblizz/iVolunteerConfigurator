@@ -20,6 +20,7 @@ import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionReposi
 import at.jku.cis.iVolunteer.configurator.meta.core.class_.CollectionService;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
+import at.jku.cis.iVolunteer.configurator.model.SaveClassConfigurationRequest;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfigurationDTO;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.collector.MatchingEntityMappingConfiguration;
@@ -48,7 +49,7 @@ public class ClassConfigurationController {
 	List<ClassConfiguration> getAllClassConfigurations() {
 		return classConfigurationRepository.findAll();
 	}
-	
+
 	@GetMapping("class-configuration/all/tenant/{tenantId}")
 	List<ClassConfiguration> getAllClassConfigurations(@PathVariable("tenantId") String tenantId) {
 		return classConfigurationRepository.findByTenantId(tenantId);
@@ -67,17 +68,18 @@ public class ClassConfigurationController {
 	@GetMapping("class-configuration/all-in-one/{id}")
 	public ClassConfigurationDTO getAllForClassConfigurationInOne(@PathVariable("id") String id) {
 		ClassConfiguration classConfiguration = classConfigurationRepository.findOne(id);
-		
+
 		List<ClassDefinition> classDefinitions = new ArrayList<>();
-		classDefinitionRepository.findAll(classConfiguration.getClassDefinitionIds()).forEach(classDefinitions::add);;
-		
+		classDefinitionRepository.findAll(classConfiguration.getClassDefinitionIds()).forEach(classDefinitions::add);
+		;
+
 		List<Relationship> relationships = new ArrayList<>();
 		relationshipRepository.findAll(classConfiguration.getRelationshipIds()).forEach(relationships::add);
-		
+
 		ClassConfigurationDTO dto = new ClassConfigurationDTO(classConfiguration, classDefinitions, relationships);
 		return dto;
 	}
-	
+
 	@PostMapping("class-configuration/new-empty")
 	public ClassConfiguration createNewEmptyClassConfiguration(@RequestBody String[] params) {
 		if (params.length != 2) {
@@ -92,20 +94,26 @@ public class ClassConfigurationController {
 		return saveClassConfiguration(classConfiguration);
 	}
 
-	
 	@PostMapping("class-configuration/new")
 	public ClassConfiguration createNewClassConfiguration(@RequestBody String[] params) {
-		if (params.length != 2) {
+		if (params.length != 3) {
 			return null;
 		}
 
-		ClassConfiguration newClassConfiguration = createAndSaveNewClassConfiguration(params[0], params[1], null);
+		ClassConfiguration newClassConfiguration = createAndSaveNewClassConfiguration(params[0], params[1], params[2],
+				null);
 		return newClassConfiguration;
+	}
+
+	@PutMapping("class-configuration/save-everything")
+	public ClassConfiguration saveEverything(@RequestBody SaveClassConfigurationRequest req) {
+		System.out.println("tessst");
+		return null;
 	}
 
 	@PutMapping("class-configuration/save")
 	public ClassConfiguration saveClassConfiguration(@RequestBody ClassConfiguration updatedClassConfiguration) {
-		
+
 		updatedClassConfiguration.setTimestamp(new Date());
 
 		ClassConfiguration classConfiguration = classConfigurationRepository.save(updatedClassConfiguration);
@@ -113,13 +121,13 @@ public class ClassConfigurationController {
 		List<ClassDefinition> classDefinitions = new ArrayList<>();
 		classDefinitionRepository.findAll(updatedClassConfiguration.getClassDefinitionIds())
 				.forEach(classDefinitions::add);
-		
+
 		if (classDefinitions != null) {
 			classDefinitions = updateClassDefinitions(classDefinitions, classConfiguration);
 		}
-		
-		classDefinitionRepository.save(classDefinitions);		
-		
+
+		classDefinitionRepository.save(classDefinitions);
+
 		// Build MatchingCollector
 		MatchingEntityMappings mappings = collectionService
 				.collectAllClassDefinitionsWithPropertiesAsMatchingEntityMappings(classConfiguration.getId());
@@ -133,19 +141,20 @@ public class ClassConfigurationController {
 		return classConfiguration;
 	}
 
-	private List<ClassDefinition> updateClassDefinitions(List<ClassDefinition> classDefinitions, ClassConfiguration classConfiguration) {
+	private List<ClassDefinition> updateClassDefinitions(List<ClassDefinition> classDefinitions,
+			ClassConfiguration classConfiguration) {
 		for (ClassDefinition cd : classDefinitions) {
 			cd.setConfigurationId(classConfiguration.getId());
 		}
-		
+
 		List<Relationship> relationships = new ArrayList<>();
 		relationshipRepository.findAll(classConfiguration.getRelationshipIds()).forEach(relationships::add);
-		
+
 		collectionService.assignLevelsToClassDefinitions(classDefinitions, relationships);
-		
+
 		return classDefinitions;
 	}
-	
+
 	@PutMapping("class-configuration/{id}/save-meta")
 	public ClassConfiguration saveClassConfigurationMeta(@RequestBody String[] params, @PathVariable String id) {
 		ClassConfiguration classConfiguration = classConfigurationRepository.findOne(id);
@@ -177,8 +186,8 @@ public class ClassConfigurationController {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private ClassConfiguration createAndSaveNewClassConfiguration(String configuratorName,
-			String description, String configuratorId) {
+	private ClassConfiguration createAndSaveNewClassConfiguration(String configuratorName, String description,
+			String tenantId, String configuratorId) {
 
 		List<ClassDefinition> classDefinitions = new ArrayList<>();
 		List<Relationship> relationships = new ArrayList<>();
@@ -187,7 +196,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition fwPassEintrag = new ClassDefinition();
 		fwPassEintrag.setId(new ObjectId().toHexString());
-//		fwPassEintrag.setTenantId(tenantId);
+		fwPassEintrag.setTenantId(tenantId);
 		fwPassEintrag.setName("Freiwilligenpass-\nEintrag");
 		fwPassEintrag.setRoot(true);
 		fwPassEintrag.setClassArchetype(ClassArchetype.ROOT);
@@ -196,17 +205,20 @@ public class ClassConfigurationController {
 		fwPassEintrag.setProperties(new ArrayList<ClassProperty<Object>>());
 		fwPassEintrag.setLevel(0);
 
-		FlatPropertyDefinition idProperty = properties.stream().filter(p -> p.getName().equals("ID")).findFirst().get();
+		FlatPropertyDefinition idProperty = properties.stream()
+				.filter(p -> p.getName().equals("ID") && p.getTenantId().equals(tenantId)).findFirst().get();
 		fwPassEintrag.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(idProperty));
 
-		FlatPropertyDefinition nameProperty = properties.stream().filter(p -> p.getName().equals("Name")).findFirst().get();
+		FlatPropertyDefinition nameProperty = properties.stream()
+				.filter(p -> p.getName().equals("Name") && p.getTenantId().equals(tenantId)).findFirst().get();
 		fwPassEintrag.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(nameProperty));
 
 //		FlatPropertyDefinition evidenzProperty = properties.stream().filter(p -> p.getName().equals("evidenz")).findFirst()
 //				.get();
 //		fwPassEintrag.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(evidenzProperty));
-		
-		FlatPropertyDefinition imageLinkProperty = properties.stream().filter(p -> p.getName().equals("Description")).findFirst().get();
+
+		FlatPropertyDefinition imageLinkProperty = properties.stream()
+				.filter(p -> p.getName().equals("Description") && p.getTenantId().equals(tenantId)).findFirst().get();
 		fwPassEintrag.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(imageLinkProperty));
 //		
 //		FlatPropertyDefinition descriptionProperty = properties.stream().filter(p -> p.getName().equals("Image Link")).findFirst().get();
@@ -214,31 +226,28 @@ public class ClassConfigurationController {
 //		
 //		FlatPropertyDefinition expiredProperty = properties.stream().filter(p -> p.getName().equals("Expired")).findFirst().get();
 //		fwPassEintrag.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(expiredProperty));
-	
-		
-		
 
 		classDefinitions.add(fwPassEintrag);
 
 		ClassDefinition task = new ClassDefinition();
 		task.setId(new ObjectId().toHexString());
-//		task.setTenantId(tenantId);
+		task.setTenantId(tenantId);
 		task.setName("Tätigkeit");
 		task.setClassArchetype(ClassArchetype.TASK);
 		task.setWriteProtected(true);
 		task.setProperties(new ArrayList<>());
 		task.setLevel(0);
 
-		FlatPropertyDefinition dateFromProperty = properties.stream().filter(p -> p.getName().equals("Starting Date"))
-				.findFirst().get();
+		FlatPropertyDefinition dateFromProperty = properties.stream()
+				.filter(p -> p.getName().equals("Starting Date") && p.getTenantId().equals(tenantId)).findFirst().get();
 		task.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(dateFromProperty));
 
-		FlatPropertyDefinition dateToProperty = properties.stream().filter(p -> p.getName().equals("End Date")).findFirst()
-				.get();
+		FlatPropertyDefinition dateToProperty = properties.stream()
+				.filter(p -> p.getName().equals("End Date") && p.getTenantId().equals(tenantId)).findFirst().get();
 		task.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(dateToProperty));
-		
-		FlatPropertyDefinition locationProperty = properties.stream().filter(p -> p.getName().equals("Location")).findFirst()
-				.get();
+
+		FlatPropertyDefinition locationProperty = properties.stream()
+				.filter(p -> p.getName().equals("Location") && p.getTenantId().equals(tenantId)).findFirst().get();
 		task.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(locationProperty));
 
 		classDefinitions.add(task);
@@ -252,7 +261,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition competence = new ClassDefinition();
 		competence.setId(new ObjectId().toHexString());
-//		competence.setTenantId(tenantId);
+		competence.setTenantId(tenantId);
 		competence.setName("Kompetenz");
 		competence.setClassArchetype(ClassArchetype.COMPETENCE);
 		competence.setWriteProtected(true);
@@ -270,7 +279,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition achievement = new ClassDefinition();
 		achievement.setId(new ObjectId().toHexString());
-//		achievement.setTenantId(tenantId);
+		achievement.setTenantId(tenantId);
 		achievement.setName("Verdienst");
 		achievement.setClassArchetype(ClassArchetype.ACHIEVEMENT);
 		achievement.setWriteProtected(true);
@@ -288,7 +297,7 @@ public class ClassConfigurationController {
 
 		ClassDefinition function = new ClassDefinition();
 		function.setId(new ObjectId().toHexString());
-//		function.setTenantId(tenantId);
+		function.setTenantId(tenantId);
 		function.setName("Funktion");
 		function.setClassArchetype(ClassArchetype.FUNCTION);
 		function.setWriteProtected(true);
@@ -307,27 +316,32 @@ public class ClassConfigurationController {
 		///////////////// Philipp Zeug//////////////////////////
 		ClassDefinition myTask = new ClassDefinition();
 		myTask.setId(new ObjectId().toHexString());
-//		myTask.setTenantId(tenantId);
+		myTask.setTenantId(tenantId);
 		myTask.setName("myTask");
 		myTask.setClassArchetype(ClassArchetype.TASK);
 		myTask.setProperties(new ArrayList<>());
 
-		FlatPropertyDefinition tt1 = properties.stream().filter(p -> p.getName().equals("TaskType1")).findFirst().get();
+		FlatPropertyDefinition tt1 = properties.stream()
+				.filter(p -> p.getName().equals("TaskType1") && p.getTenantId().equals(tenantId)).findFirst().get();
 		myTask.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(tt1));
 
-		FlatPropertyDefinition tt2 = properties.stream().filter(p -> p.getName().equals("TaskType2")).findFirst().get();
+		FlatPropertyDefinition tt2 = properties.stream()
+				.filter(p -> p.getName().equals("TaskType2") && p.getTenantId().equals(tenantId)).findFirst().get();
 		myTask.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(tt2));
 
-		FlatPropertyDefinition tt3 = properties.stream().filter(p -> p.getName().equals("TaskType3")).findFirst().get();
+		FlatPropertyDefinition tt3 = properties.stream()
+				.filter(p -> p.getName().equals("TaskType3") && p.getTenantId().equals(tenantId)).findFirst().get();
 		myTask.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(tt3));
 
 //		FlatPropertyDefinition location = properties.stream().filter(p -> p.getName().equals("Location")).findFirst().get();
 //		myTask.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(location));
 
-		FlatPropertyDefinition rank = properties.stream().filter(p -> p.getName().equals("Rank")).findFirst().get();
+		FlatPropertyDefinition rank = properties.stream()
+				.filter(p -> p.getName().equals("Rank") && p.getTenantId().equals(tenantId)).findFirst().get();
 		myTask.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(rank));
 
-		FlatPropertyDefinition duration = properties.stream().filter(p -> p.getName().equals("Duration")).findFirst().get();
+		FlatPropertyDefinition duration = properties.stream()
+				.filter(p -> p.getName().equals("Duration") && p.getTenantId().equals(tenantId)).findFirst().get();
 		myTask.getProperties().add(propertyDefinitionToClassPropertyMapper.toTarget(duration));
 
 		classDefinitions.add(myTask);
@@ -341,7 +355,7 @@ public class ClassConfigurationController {
 
 		ClassConfiguration configurator = new ClassConfiguration();
 		configurator.setTimestamp(new Date());
-//		configurator.setTenantId(tenantId);
+		configurator.setTenantId(tenantId);
 		configurator.setId(configuratorId);
 		configurator.setName(configuratorName);
 		configurator.setDescription(description);

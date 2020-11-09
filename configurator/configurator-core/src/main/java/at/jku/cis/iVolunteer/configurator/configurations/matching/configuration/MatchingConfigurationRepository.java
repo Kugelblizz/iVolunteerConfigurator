@@ -11,6 +11,8 @@ public interface MatchingConfigurationRepository extends MongoRepository<Matchin
 	public MatchingConfiguration findByLeftSideIdAndRightSideId(
 			String leftSideId, String rightSideId);
 	
+	public List<MatchingConfiguration> findByTenantId(String tenantId);
+	
 	public List<MatchingConfiguration> findByHash(String hash);
 	
 }

@@ -102,11 +102,12 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
   titleBarTextContainer: ElementRef;
 
   @Input() eventResponse: TopMenuResponse;
+  @Input() tenantId: string;
   @Output() menuOptionClickedEvent: EventEmitter<any> = new EventEmitter();
 
   currentClassConfiguration: ClassConfiguration;
 
-  tenantId: string;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -115,9 +116,9 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.tenantId = params['tenantId'];
-    });
+    // this.route.queryParams.subscribe(params => {
+    //   this.tenantId = params['tenantId'];
+    // });
   }
 
   ngAfterViewInit() {
@@ -199,7 +200,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
 
   private performNew() {
     this.dialogFactory
-      .openNewClassConfigurationDialog()
+      .openNewClassConfigurationDialog(this.tenantId)
       .then((ret: NewClassConfigurationDialogData) => {
         if (!isNullOrUndefined(ret)) {
           this.currentClassConfiguration = ret.classConfiguration;
@@ -216,7 +217,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
 
   private performEdit() {
     this.dialogFactory
-      .openNewClassConfigurationDialog(this.currentClassConfiguration)
+      .openNewClassConfigurationDialog(this.tenantId, this.currentClassConfiguration)
       .then((ret: NewClassConfigurationDialogData) => {
         if (!isNullOrUndefined(ret)) {
           this.currentClassConfiguration = ret.classConfiguration;
@@ -285,7 +286,8 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
     relationships: Relationship[],
     deletedClassDefinitions: string[],
     deletedRelationships: string[],
-    actionAfter: string
+    actionAfter: string,
+    tenantId: string
   ) {
     this.dialogFactory
       .openSaveClassConfigurationConfirmationDialog(
@@ -293,7 +295,8 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
         classDefintions,
         relationships,
         deletedClassDefinitions,
-        deletedRelationships
+        deletedRelationships,
+        tenantId
       )
       .then(ret => {
         if (isNullOrUndefined(ret)) {
@@ -313,7 +316,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
 
   deleteClicked() {
     this.dialogFactory
-      .openDeleteClassConfigurationDialog()
+      .openDeleteClassConfigurationDialog(this.tenantId)
       .then((ret: DeleteClassConfigurationDialogData) => {
         if (!isNullOrUndefined(ret)) {
           this.menuOptionClickedEvent.emit({
@@ -358,7 +361,8 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
           eventRelationships,
           eventDeletedClassDefinitions,
           eventDeletedRelationships,
-          eventFollowingAction
+          eventFollowingAction,
+          this.tenantId
         );
       }
     } else if (eventResponseAction === 'open') {

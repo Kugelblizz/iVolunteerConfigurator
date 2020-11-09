@@ -7,6 +7,7 @@ import { MatchingBrowseSubDialogData } from 'app/main/content/_components/config
 
 export interface OpenMatchingDialogData {
   matchingConfiguration: MatchingConfiguration;
+  tenantId: string;
 }
 
 @Component({
@@ -30,7 +31,7 @@ export class OpenMatchingDialogComponent implements OnInit {
 
   async ngOnInit() {
     this.matchingConfigurationService
-      .getAllMatchingConfigurations()
+      .getAllMatchingConfigurationsByTenantId(this.data.tenantId)
       .toPromise().then((matchingConfigurations: MatchingConfiguration[]) => {
         this.recentMatchingConfigurations = matchingConfigurations;
         this.allMatchingConfigurations = matchingConfigurations;

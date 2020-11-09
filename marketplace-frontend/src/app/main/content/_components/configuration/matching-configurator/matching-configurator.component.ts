@@ -493,7 +493,7 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
     const matchingConfiguration = new MatchingConfiguration({
       rightSideId: rightClassConfiguration.id, rightSideName: rightClassConfiguration.name, rightIsUser,
       leftSideId: leftClassConfiguration.id, leftSideName: leftClassConfiguration.name, leftIsUser,
-      name: label
+      name: label, tenantId: this.tenantId
     });
 
     this.matchingConfigurationService.saveMatchingConfiguration(matchingConfiguration)

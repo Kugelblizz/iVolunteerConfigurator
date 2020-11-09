@@ -13,6 +13,10 @@ export class MatchingConfigurationService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/matching-configuration/all`);
   }
 
+  getAllMatchingConfigurationsByTenantId(tenantId: string) {
+    return this.http.get(`${environment.CONFIGURATOR_URL}/matching-configuration/all/tenant/${tenantId}`);
+  }
+
   getOneMatchingConfiguration(id: string) {
     return this.http.get(`${environment.CONFIGURATOR_URL}/matching-configuration/${id}`);
   }

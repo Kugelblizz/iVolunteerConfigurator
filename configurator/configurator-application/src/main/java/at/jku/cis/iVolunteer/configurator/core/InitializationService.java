@@ -1,5 +1,6 @@
 package at.jku.cis.iVolunteer.configurator.core;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +40,11 @@ public class InitializationService {
 	
 	@PostConstruct
 	public void initOnConstruct() {
-		init(Collections.singletonList("5f92c841eada0c0d9dfa877a"));
+		List<String> tenants = new ArrayList<>();
+		tenants.add("5f92c841eada0c0d9dfa877b");
+		tenants.add("5f92c841eada0c0d9dfa877a");
+		
+		init(tenants);
 	}
 
 	public void init(List<String> tenantIds) {
@@ -104,7 +109,7 @@ public class InitializationService {
 		for (String tenantId : tenantIds) {
 			for (int i = 1; i <= 5; i++) {
 				this.classConfigurationController
-						.createNewClassConfiguration(new String[] { tenantId, "slot" + i, "" });
+						.createNewClassConfiguration(new String[] {"slot" + i, "",  tenantId });
 			}
 		}
 	}

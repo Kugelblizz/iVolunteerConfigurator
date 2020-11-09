@@ -12,7 +12,6 @@ export class MatchingBrowseSubDialogData {
     date: Date;
   }[];
 
-  globalInfo: GlobalInfo;
 }
 
 @Component({

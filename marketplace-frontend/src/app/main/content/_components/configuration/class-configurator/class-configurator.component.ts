@@ -582,15 +582,12 @@ export class ClassConfiguratorComponent implements OnInit, AfterContentInit {
     }
   }
 
-  addClassWithRelationship(
-    iconCell: MyMxCell,
-    sourceId: string
+  addClassWithRelationship(iconCell: MyMxCell, sourceId: string
   ): { class: ClassDefinition; relationship: Relationship } {
     const addedClass = new ClassDefinition();
     addedClass.configurationId = this.classConfiguration.id;
 
-    const parentClassArchetype = (iconCell.getParent() as MyMxCell)
-      .classArchetype;
+    const parentClassArchetype = (iconCell.getParent() as MyMxCell).classArchetype;
 
     addedClass.id = this.objectIdService.getNewObjectId();
 
@@ -599,7 +596,7 @@ export class ClassConfiguratorComponent implements OnInit, AfterContentInit {
       'Neue Klasse\n(' +
       ClassArchetype.getClassArchetypeLabel(addedClass.classArchetype) +
       ')';
-    // addedClass.tenantId = this.globalInfo.tenants[0].id;
+    addedClass.tenantId = this.tenantId;
     addedClass.properties = [];
 
     const addedRelationship = new Relationship();
