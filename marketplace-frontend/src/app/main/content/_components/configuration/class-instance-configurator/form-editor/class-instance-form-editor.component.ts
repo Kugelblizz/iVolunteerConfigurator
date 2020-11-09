@@ -20,9 +20,6 @@ import { Tenant } from 'app/main/content/_model/tenant';
   providers: [DynamicFormItemService, DynamicFormItemControlService]
 })
 export class ClassInstanceFormEditorComponent implements OnInit {
-  // tenantAdmin: User;
-  // tenant: Tenant;
-
   formConfigurations: FormConfiguration[];
   currentFormConfiguration: FormConfiguration;
   selectedVolunteers: User[];
@@ -35,7 +32,6 @@ export class ClassInstanceFormEditorComponent implements OnInit {
 
   canSubmitForm = true;
   errorOccurredInForm = false;
-
 
   @ViewChild('contentDiv', { static: false }) contentDiv: ElementRef;
   resultClassInstance: ClassInstance;
@@ -54,26 +50,18 @@ export class ClassInstanceFormEditorComponent implements OnInit {
 
   async ngOnInit() {
 
-    let marketplaceId: string;
     const childClassIds: string[] = [];
-
     this.returnedClassInstances = [];
 
     this.route.queryParams.subscribe(params => {
       if (isNullOrUndefined(params['tenantId'])) {
-        console.error('tenantId not set');
         this.router.navigate(['main/invalid-parameters']);
-        // TODO redirect
       } else {
-        console.log("tenantId set")
         this.tenantId = params['tenantId'];
       }
     });
 
     Promise.all([
-      this.route.params.subscribe(params => {
-        marketplaceId = params['marketplaceId'];
-      }),
       this.route.queryParams.subscribe(queryParams => {
         let i = 0;
         while (!isNullOrUndefined(queryParams[i])) {

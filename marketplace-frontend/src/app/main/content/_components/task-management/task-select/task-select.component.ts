@@ -30,11 +30,8 @@ export class FuseTaskSelectComponent implements OnInit {
   async ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (isNullOrUndefined(params['tenantId'])) {
-        console.error('tenantId not set');
         this.router.navigate(['main/invalid-parameters']);
-        // TODO redirect
       } else {
-        console.log("tenantId set")
         this.tenantId = params['tenantId'];
       }
     });
@@ -48,7 +45,7 @@ export class FuseTaskSelectComponent implements OnInit {
 
   onRowSelect(row) {
     this.router.navigate([`main/instance-editor`], {
-      queryParams: [row.id]
+      queryParams: { 0: row.id, tenantId: this.tenantId }
     });
   }
 }
