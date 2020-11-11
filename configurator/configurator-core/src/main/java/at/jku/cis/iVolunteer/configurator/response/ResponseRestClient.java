@@ -21,7 +21,6 @@ public class ResponseRestClient {
 	@Autowired private RestTemplate restTemplate;
 
 	public HttpStatus sendClassConfiguratorResponse(String url, ClassConfiguratorResponseRequestBody body) {
-		System.out.println(url);
 		ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
 		return resp.getStatusCode();
 	}

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClassInstance } from 'app/main/content/_model/meta/class';
 import { ResponseService } from '../../../response.service';
 import { isNullOrUndefined } from 'util';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,11 @@ export class ClassInstanceService {
     // );
 
     if (isNullOrUndefined(classInstances) || classInstances.length <= 0) {
-      return null;
+      return new Promise(() => null);
     }
 
     const classInstance = classInstances.pop();
-    this.responseService.sendClassInstanceConfiguratorResponse(redirectUrl, classInstance).toPromise().then(() => {
+    return this.responseService.sendClassInstanceConfiguratorResponse(redirectUrl, classInstance).toPromise().then(() => {
       return classInstance;
     });
   }

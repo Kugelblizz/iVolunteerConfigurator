@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Marketplace } from 'app/main/content/_model/marketplace';
 import { MatTableDataSource } from '@angular/material';
 import { ClassArchetype } from 'app/main/content/_model/meta/class';
 import { FormBuilder } from '@angular/forms';
@@ -19,6 +18,7 @@ export class FuseTaskSelectComponent implements OnInit {
   user: User;
   userRole: UserRole;
   tenantId: string;
+  redirectUrl: string;
 
   constructor(
     formBuilder: FormBuilder,
@@ -29,10 +29,11 @@ export class FuseTaskSelectComponent implements OnInit {
 
   async ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if (isNullOrUndefined(params['tenantId'])) {
+      if (isNullOrUndefined(params['tenantId']) || isNullOrUndefined(params['redirect'])) {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];
+        this.redirectUrl = params['redirect'];
       }
     });
     const tasks = <ClassDefinition[]>await this.classDefinitionService.getByArchetype(ClassArchetype.TASK, this.tenantId).toPromise();
@@ -45,7 +46,7 @@ export class FuseTaskSelectComponent implements OnInit {
 
   onRowSelect(row) {
     this.router.navigate([`main/instance-editor`], {
-      queryParams: { 0: row.id, tenantId: this.tenantId }
+      queryParams: { cdId: row.id, tenantId: this.tenantId, redirect: this.redirectUrl }
     });
   }
 }

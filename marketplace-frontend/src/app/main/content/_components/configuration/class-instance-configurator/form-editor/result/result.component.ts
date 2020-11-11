@@ -37,7 +37,7 @@ export class InstanceCreationResultComponent implements OnInit {
   handleAnotherClick() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([`main/instance-editor/${this.resultClassInstance.marketplaceId}`], { queryParams: this.queryParams });
+    this.router.navigate([`main/instance-editor`], { queryParams: this.queryParams });
   }
 
   handleFinishedClick() {

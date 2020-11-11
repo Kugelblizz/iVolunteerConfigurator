@@ -17,6 +17,7 @@ import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipCon
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassInstanceConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.MatchingConfiguratorResponseRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.UrlClassInstanceRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.UrlIdRequestBody;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingConfiguration;
@@ -55,7 +56,6 @@ public class SendResponseController {
 		}
 
 		responseRequestBody.setIdsToDelete(body.getIdsToDelete());
-
 		responseRequestBody.setAction(body.getAction());
 
 		HttpStatus status = responseRestClient.sendClassConfiguratorResponse(body.getUrl(), responseRequestBody);
@@ -63,25 +63,17 @@ public class SendResponseController {
 	}
 
 	@PostMapping("/send-response/class-instance-configurator")
-	public void sendClassInstanceConfiguratorResponse(@RequestBody Map<String, ?> body) {
+	public void sendClassInstanceConfiguratorResponse(@RequestBody UrlClassInstanceRequestBody body) {
 		ClassInstanceConfiguratorResponseRequestBody responseRequestBody = new ClassInstanceConfiguratorResponseRequestBody();
-		responseRequestBody.setClassInstance((ClassInstance) body.get("classInstance"));
-
-		HttpStatus status = responseRestClient.sendClassInstanceConfiguratorResponse((String) body.get("url"),
+		responseRequestBody.setClassInstance(body.getClassInstance());
+		
+		HttpStatus status = responseRestClient.sendClassInstanceConfiguratorResponse(body.getUrl(),
 				responseRequestBody);
-
-		for (String s : body.keySet()) {
-			System.out.println(s);
-			System.out.println(body.get(s));
-		}
-
 	}
 
 	@PostMapping("/send-response/matching-configurator")
 	public void sendMatchingConfiguratorResponse(@RequestBody UrlIdRequestBody body) {
-		
 		MatchingConfiguratorResponseRequestBody responseRequestBody = new MatchingConfiguratorResponseRequestBody();
-
 		MatchingConfiguration matchingConfiguration = matchingConfigurationService.getMatchingConfigurationById(body.getIdToSave());
 		responseRequestBody.setMatchingConfiguration(matchingConfiguration);
 		
@@ -95,7 +87,6 @@ public class SendResponseController {
 
 		HttpStatus status = responseRestClient.sendMatchingConfiguratorResponse(body.getUrl(),
 				responseRequestBody);
-
 	}
 
 }

@@ -10,8 +10,8 @@ import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PropertyInstance, PropertyType, ClassProperty } from 'app/main/content/_model/meta/property/property';
 import { isNullOrUndefined } from 'util';
-import { User, UserRole } from 'app/main/content/_model/user';
-import { Tenant } from 'app/main/content/_model/tenant';
+import { User } from 'app/main/content/_model/user';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 @Component({
   selector: "app-class-instance-form-editor",
@@ -46,7 +46,7 @@ export class ClassInstanceFormEditorComponent implements OnInit {
     private classInstanceService: ClassInstanceService,
     private formItemService: DynamicFormItemService,
     private formItemControlService: DynamicFormItemControlService,
-    private objectIdService: ObjectIdService
+    private objectIdService: ObjectIdService,
   ) { }
 
   async ngOnInit() {
@@ -55,37 +55,37 @@ export class ClassInstanceFormEditorComponent implements OnInit {
     this.returnedClassInstances = [];
 
     this.route.queryParams.subscribe(params => {
-      if (isNullOrUndefined(params['tenantId']) || isNullOrUndefined(params['redirect'])) {
+      if (isNullOrUndefined(params['tenantId']) || isNullOrUndefined(params['redirect'] || isNullOrUndefined(params['cdId']))) {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];
         this.redirectUrl = params['redirect'];
+        childClassIds.push(params['cdId']);
       }
     });
 
-    Promise.all([
-      this.route.queryParams.subscribe(queryParams => {
-        let i = 0;
-        while (!isNullOrUndefined(queryParams[i])) {
-          childClassIds.push(queryParams[i]);
-          i++;
-        }
-      })
-    ]).then(() => {
-      this.classDefinitionService
-        .getFormConfigurations(childClassIds)
-        .toPromise()
-        .then((formConfigurations: FormConfiguration[]) => {
-          this.formConfigurations = formConfigurations;
+    // Promise.all([
+    //   this.route.queryParams.subscribe(queryParams => {
+    //     let i = 0;
+    //     while (!isNullOrUndefined(queryParams[i])) {
+    //       childClassIds.push(queryParams[i]);
+    //       i++;
+    //     }
+    //   })
+    // ]).then(() => {
+    this.classDefinitionService
+      .getFormConfigurations(childClassIds)
+      .toPromise().then((formConfigurations: FormConfiguration[]) => {
+        this.formConfigurations = formConfigurations;
 
-          for (const config of this.formConfigurations) {
-            config.formEntry = this.addFormItemsAndFormGroup(config.formEntry, config.formEntry.id);
-          }
-        }).then(() => {
-          this.currentFormConfiguration = this.formConfigurations.pop();
-          this.loaded = true;
-        });
-    });
+        for (const config of this.formConfigurations) {
+          config.formEntry = this.addFormItemsAndFormGroup(config.formEntry, config.formEntry.id);
+        }
+      }).then(() => {
+        this.currentFormConfiguration = this.formConfigurations.pop();
+        this.loaded = true;
+      });
+    // });
   }
 
   private addFormItemsAndFormGroup(formEntry: FormEntry, idPrefix: string) {
@@ -211,8 +211,8 @@ export class ClassInstanceFormEditorComponent implements OnInit {
       }
     }
 
-    this.classInstanceService.createNewClassInstances(classInstances, this.redirectUrl).toPromise().then((ret: ClassInstance[]) => {
-      this.resultClassInstance = ret.pop();
+    this.classInstanceService.createNewClassInstances(classInstances, this.redirectUrl).then((ret: ClassInstance) => {
+      this.resultClassInstance = ret;
       this.contentDiv.nativeElement.scrollTo(0, 0);
       this.showResultPage = true;
     });

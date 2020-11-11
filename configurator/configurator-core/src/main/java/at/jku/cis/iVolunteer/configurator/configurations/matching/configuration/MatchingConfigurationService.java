@@ -5,16 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfigurationRepository;
-import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingConfiguration;
 
 @Service
 public class MatchingConfigurationService {
 
-	@Autowired private ClassConfigurationRepository configuratorRepository;
 	@Autowired private MatchingConfigurationRepository matchingConfigurationRepository;
 	
 	public MatchingConfiguration getMatchingConfigurationById(String id) {
@@ -44,30 +40,12 @@ public class MatchingConfigurationService {
 		return null;
 	}
 	
-	
-	
-//	public List<MatchingConfiguration> getByTenantId(String tenantId){
-//		
-//		
-//		return null;
-//	}
-
 	public MatchingConfiguration saveMatchingConfiguration(MatchingConfiguration matchingConfiguration) {
 		if (matchingConfiguration.getId() == null) {
 			String leftClassConfigurationId = matchingConfiguration.getLeftSideId();
 			String rightClassConfigurationId = matchingConfiguration.getRightSideId();
 			String hash = createHashFromClassConfigurationIds(leftClassConfigurationId, rightClassConfigurationId);
 			matchingConfiguration.setHash(hash);
-			
-//			ClassConfiguration leftConfiguration = configuratorRepository.findOne(leftClassConfigurationId);
-//			ClassConfiguration rightConfiguration = configuratorRepository.findOne(rightClassConfigurationId);
-//
-//			matchingConfiguration.setLeftSideName(leftConfiguration.getName());
-//			matchingConfiguration.setRightSideName(rightConfiguration.getName());
-//
-//			if (matchingConfiguration.getName() == null) {
-//				matchingConfiguration.setName(leftConfiguration.getName() + " --> " + rightConfiguration.getName());
-//			}
 		}
 
 		matchingConfiguration.setTimestamp(new Date());
