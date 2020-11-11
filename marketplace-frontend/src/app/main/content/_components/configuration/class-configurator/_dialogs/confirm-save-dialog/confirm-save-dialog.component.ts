@@ -4,17 +4,18 @@ import { ClassConfigurationService } from 'app/main/content/_service/configurati
 import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
 import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { Relationship } from 'app/main/content/_model/meta/relationship';
-import { RelationshipService } from 'app/main/content/_service/meta/core/relationship/relationship.service';
-import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 export interface ConfirmClassConfigurationSaveDialogData {
   classConfiguration: ClassConfiguration;
   classDefinitions: ClassDefinition[];
   relationships: Relationship[];
 
-  deletedClassDefintions: string[];
-  deletedRelationships: string[];
+  deletedClassDefinitionIds: string[];
+  deletedRelationshipIds: string[];
   tenantId: string;
+
+  redirectUrl?: string;
 
 }
 
@@ -29,8 +30,7 @@ export class ConfirmClassConfigurationSaveDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ConfirmClassConfigurationSaveDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmClassConfigurationSaveDialogData,
     private classConfigurationService: ClassConfigurationService,
-    private relationshipService: RelationshipService,
-    private classDefinitionService: ClassDefinitionService,
+    private responseService: ResponseService,
   ) {
   }
 
@@ -41,39 +41,16 @@ export class ConfirmClassConfigurationSaveDialogComponent implements OnInit {
   }
 
   onOKClick() {
-    Promise.all([
-      this.relationshipService
-        .addAndUpdateRelationships(this.data.relationships)
-        .toPromise().then((ret: Relationship[]) => {
-          this.data.relationships = ret;
-        }),
+    const { classConfiguration, classDefinitions, relationships, deletedClassDefinitionIds, deletedRelationshipIds, tenantId } = this.data;
 
-      this.classDefinitionService
-        .addOrUpdateClassDefintions(this.data.classDefinitions)
-        .toPromise().then((ret: ClassDefinition[]) => {
-          this.data.classDefinitions = ret;
-        }),
-
-      this.classDefinitionService
-        .deleteClassDefinitions(this.data.deletedClassDefintions)
-        .toPromise().then((ret: any) => {
-          this.data.deletedClassDefintions = [];
-        }),
-
-      this.relationshipService
-        .deleteRelationships(this.data.deletedRelationships)
-        .toPromise().then((ret: any) => {
-          this.data.deletedRelationships = [];
-        }),
-    ]).then(() => {
-      this.classConfigurationService
-        .saveClassConfiguration(this.data.classConfiguration)
-        .toPromise().then((ret: ClassConfiguration) => {
-          this.data.classConfiguration = ret;
-        }).then(() => {
-          this.dialogRef.close(this.data);
-        });
+    this.classConfigurationService.saveFullClassConfiguration(
+      { classConfiguration, classDefinitions, relationships, deletedClassDefinitionIds, deletedRelationshipIds, tenantId }
+    ).toPromise().then((ret: ClassConfiguration) => {
+      this.responseService.sendClassConfiguratorResponse(this.data.redirectUrl, ret.id).toPromise().then(() => {
+        this.dialogRef.close();
+      });
     });
+
   }
 
   onNoClick(): void {

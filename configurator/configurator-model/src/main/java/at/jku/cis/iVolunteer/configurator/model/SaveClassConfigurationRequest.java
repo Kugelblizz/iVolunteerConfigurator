@@ -4,15 +4,16 @@ import java.util.List;
 
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
-import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.Relationship;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.RelationshipDTO;
 
 public class SaveClassConfigurationRequest {
 	ClassConfiguration classConfiguration;
 	List<ClassDefinition> classDefinitions;
-	List<Relationship> relationships;
+	List<RelationshipDTO> relationships;
 	List<String> deletedClassDefinitionIds;
 	List<String> deletedRelationshipIds;
 	String tenantId;
+	
 	
 	public ClassConfiguration getClassConfiguration() {
 		return classConfiguration;
@@ -26,10 +27,10 @@ public class SaveClassConfigurationRequest {
 	public void setClassDefinitions(List<ClassDefinition> classDefinitions) {
 		this.classDefinitions = classDefinitions;
 	}
-	public List<Relationship> getRelationships() {
+	public List<RelationshipDTO> getRelationships() {
 		return relationships;
 	}
-	public void setRelationships(List<Relationship> relationships) {
+	public void setRelationships(List<RelationshipDTO> relationships) {
 		this.relationships = relationships;
 	}
 	public List<String> getDeletedClassDefinitionIds() {

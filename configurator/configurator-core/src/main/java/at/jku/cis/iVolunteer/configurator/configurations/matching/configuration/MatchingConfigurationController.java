@@ -31,7 +31,7 @@ public class MatchingConfigurationController {
 	
 	@GetMapping("matching-configuration/{id}")
 	public MatchingConfiguration getAllMatchingConfigurationsById(@PathVariable("id") String id) {
-		return matchingConfigurationRepository.findOne(id);
+		return matchingConfigurationService.getAllMatchingConfigurationsById(id);
 	}
 
 	@GetMapping("matching-configuration/by-class-configurators/{leftClassConfigurationId}/{rightClassConfigurationId}")

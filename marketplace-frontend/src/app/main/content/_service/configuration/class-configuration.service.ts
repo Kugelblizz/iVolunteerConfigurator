@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Marketplace } from 'app/main/content/_model/marketplace';
 import { ClassConfiguration } from '../../_model/meta/configurations';
 import { environment } from 'environments/environment';
 import { ConfirmClassConfigurationSaveDialogData } from '../../_components/configuration/class-configurator/_dialogs/confirm-save-dialog/confirm-save-dialog.component';
@@ -57,7 +56,7 @@ export class ClassConfigurationService {
   }
 
   saveFullClassConfiguration(req: ConfirmClassConfigurationSaveDialogData) {
-    return this.http.put(`${environment.CONFIGURATOR_URL}/class-configuration/save-everything`, req);
+    return this.http.put(`${environment.CONFIGURATOR_URL}/class-configuration/save-all-in-one`, req);
   }
 
 

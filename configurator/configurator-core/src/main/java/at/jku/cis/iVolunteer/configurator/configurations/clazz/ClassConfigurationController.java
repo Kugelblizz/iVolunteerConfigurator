@@ -19,6 +19,7 @@ import at.jku.cis.iVolunteer.configurator.configurations.matching.collector.Matc
 import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.class_.CollectionService;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
+import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipController;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
 import at.jku.cis.iVolunteer.configurator.model.SaveClassConfigurationRequest;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
@@ -42,6 +43,7 @@ public class ClassConfigurationController {
 	@Autowired private MatchingEntityMappingConfigurationRepository matchingCollectorConfigurationRepository;
 	@Autowired private ClassDefinitionRepository classDefinitionRepository;
 	@Autowired private RelationshipRepository relationshipRepository;
+	@Autowired private RelationshipController relationshipController;
 	@Autowired private FlatPropertyDefinitionRepository propertyDefinitionRepository;
 	@Autowired private PropertyDefinitionToClassPropertyMapper propertyDefinitionToClassPropertyMapper;
 
@@ -105,10 +107,15 @@ public class ClassConfigurationController {
 		return newClassConfiguration;
 	}
 
-	@PutMapping("class-configuration/save-everything")
+	@PutMapping("class-configuration/save-all-in-one")
 	public ClassConfiguration saveEverything(@RequestBody SaveClassConfigurationRequest req) {
-		System.out.println("tessst");
-		return null;
+		this.relationshipController.addOrUpdateRelationships(req.getRelationships());
+		this.classDefinitionRepository.save(req.getClassDefinitions());
+		this.classDefinitionRepository.deleteByIdIn(req.getDeletedClassDefinitionIds());
+		this.relationshipRepository.deleteByIdIn(req.getDeletedRelationshipIds());
+		ClassConfiguration ret = this.saveClassConfiguration(req.getClassConfiguration());
+				
+		return ret;
 	}
 
 	@PutMapping("class-configuration/save")

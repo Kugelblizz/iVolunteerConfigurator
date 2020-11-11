@@ -37,6 +37,9 @@ export class TopMenuResponse {
   deletedClassDefinitions?: string[];
   deletedRelationships?: string[];
 
+  tenantId?: string;
+  redirectUrl: string;
+
   constructor() {
     this.classDefintions = [];
     this.relationships = [];
@@ -287,7 +290,8 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
     deletedClassDefinitions: string[],
     deletedRelationships: string[],
     actionAfter: string,
-    tenantId: string
+    tenantId: string,
+    redirectUrl: string
   ) {
     this.dialogFactory
       .openSaveClassConfigurationConfirmationDialog(
@@ -296,7 +300,8 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
         relationships,
         deletedClassDefinitions,
         deletedRelationships,
-        tenantId
+        tenantId,
+        redirectUrl
       )
       .then(ret => {
         if (isNullOrUndefined(ret)) {
@@ -351,6 +356,8 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
     const eventDeletedClassDefinitions = this.eventResponse
       .deletedClassDefinitions;
     const eventDeletedRelationships = this.eventResponse.deletedRelationships;
+    const eventTenantId = this.eventResponse.tenantId;
+    const eventRedirectUrl = this.eventResponse.redirectUrl;
 
     this.eventResponse = new TopMenuResponse();
     if (eventResponseAction === 'save') {
@@ -362,7 +369,8 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
           eventDeletedClassDefinitions,
           eventDeletedRelationships,
           eventFollowingAction,
-          this.tenantId
+          eventTenantId,
+          eventRedirectUrl
         );
       }
     } else if (eventResponseAction === 'open') {

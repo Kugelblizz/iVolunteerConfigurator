@@ -45,7 +45,7 @@ public class RelationshipController {
 	}
 
 	@PutMapping("/meta/core/relationship/add-or-update")
-	List<RelationshipDTO> addOrUpdateRelationships(@RequestBody List<RelationshipDTO> relationships) {
+	public List<RelationshipDTO> addOrUpdateRelationships(@RequestBody List<RelationshipDTO> relationships) {
 		return relationshipMapper.toTargets(relationshipRepository.save(relationshipMapper.toSources(relationships)));
 	}
 

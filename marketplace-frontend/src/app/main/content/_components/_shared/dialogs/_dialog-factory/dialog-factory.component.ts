@@ -165,22 +165,24 @@ export class DialogFactoryDirective {
     classConfiguration: ClassConfiguration,
     classDefinitions: ClassDefinition[],
     relationships: Relationship[],
-    deletedClassDefintions: string[],
-    deletedRelationships: string[],
-    tenantId: string
+    deletedClassDefinitionIds: string[],
+    deletedRelationshipIds: string[],
+    tenantId: string,
+    redirectUrl: string,
   ) {
     const dialogRef = this.dialog.open(
       ConfirmClassConfigurationSaveDialogComponent,
       {
         width: "500px",
         data: {
-          classConfiguration: classConfiguration,
-          classDefinitions: classDefinitions,
-          relationships: relationships,
+          classConfiguration,
+          classDefinitions,
+          relationships,
 
-          deletedClassDefintions: deletedClassDefintions,
-          deletedRelationships: deletedRelationships,
-          tenantId: tenantId
+          deletedClassDefinitionIds,
+          deletedRelationshipIds,
+          tenantId,
+          redirectUrl,
         }
       }
     );

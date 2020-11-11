@@ -37,6 +37,7 @@ export class ClassInstanceFormEditorComponent implements OnInit {
   resultClassInstance: ClassInstance;
 
   tenantId: string;
+  redirectUrl: string;
 
   constructor(
     private router: Router,
@@ -58,6 +59,7 @@ export class ClassInstanceFormEditorComponent implements OnInit {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];
+        this.redirectUrl = params['redirect'];
       }
     });
 
@@ -192,8 +194,8 @@ export class ClassInstanceFormEditorComponent implements OnInit {
         this.currentFormConfiguration.formEntry,
         result.value[this.currentFormConfiguration.formEntry.id]
       );
-      // classInstance.tenantId = tenantId;
-      // classInstance.issuerId = tenantId;
+      classInstance.tenantId = this.tenantId;
+      classInstance.issuerId = this.tenantId;
       classInstances.push(classInstance);
     } else {
       for (const volunteer of this.selectedVolunteers) {
@@ -201,15 +203,15 @@ export class ClassInstanceFormEditorComponent implements OnInit {
           this.currentFormConfiguration.formEntry,
           result.value[this.currentFormConfiguration.formEntry.id]
         );
-        // classInstance.tenantId = tenantId;
-        // classInstance.issuerId = tenantId;
+        classInstance.tenantId = this.tenantId;
+        classInstance.issuerId = this.tenantId;
         classInstance.userId = volunteer.id;
 
         classInstances.push(classInstance);
       }
     }
 
-    this.classInstanceService.createNewClassInstances(classInstances).toPromise().then((ret: ClassInstance[]) => {
+    this.classInstanceService.createNewClassInstances(classInstances, this.redirectUrl).toPromise().then((ret: ClassInstance[]) => {
       this.resultClassInstance = ret.pop();
       this.contentDiv.nativeElement.scrollTo(0, 0);
       this.showResultPage = true;

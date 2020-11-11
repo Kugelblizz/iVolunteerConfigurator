@@ -18,6 +18,7 @@ export class ConfiguratorComponent implements OnInit {
   loaded = false;
   tenantId: string;
   classConfigurationId: string;
+  redirectUrl: string;
 
   constructor(private route: ActivatedRoute,
     private router: Router) { }
@@ -31,6 +32,7 @@ export class ConfiguratorComponent implements OnInit {
       } else {
         this.tenantId = params['tenantId'];
         this.classConfigurationId = params['classConfigurationId'];
+        this.redirectUrl = params['redirect'];
       }
     });
 

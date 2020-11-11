@@ -69,6 +69,7 @@ export class ClassConfiguratorComponent implements OnInit, AfterContentInit {
   overlayEvent: PointerEvent;
 
   @Input() tenantId: string;
+  @Input() redirectUrl: string;
 
   /**
    * ******INITIALIZATION******
@@ -900,6 +901,8 @@ export class ClassConfiguratorComponent implements OnInit, AfterContentInit {
     this.eventResponse = new TopMenuResponse();
     this.eventResponse.action = 'open';
     this.eventResponse.classConfigurationId = id;
+    this.eventResponse.tenantId = this.tenantId;
+
   }
 
   private createSaveEvent(event: any) {
@@ -910,6 +913,8 @@ export class ClassConfiguratorComponent implements OnInit, AfterContentInit {
     this.eventResponse.relationships = this.relationships;
     this.eventResponse.deletedClassDefinitions = this.deletedClassIds;
     this.eventResponse.deletedRelationships = this.deletedRelationshipIds;
+    this.eventResponse.tenantId = this.tenantId;
+    this.eventResponse.redirectUrl = this.redirectUrl;
   }
 
   private openGraph(

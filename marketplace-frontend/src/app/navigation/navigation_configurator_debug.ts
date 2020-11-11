@@ -1,12 +1,30 @@
 
-// &redirect=http%3A%2F%2Flocalhost%3A4200%2Fmain%2Fclass-configurator%3FtenantId%3D5f92c841eada0c0d9dfa877a
 
 
-// http://localhost:4200/main/task-select?tenantId=5f92c841eada0c0d9dfa877a
+/***Task Select - Instantiation */
+// http://localhost:4200/main/task-select?tenantId=5f92c841eada0c0d9dfa877a&redirect=http%3A%2F%2Flocalhost%3A8080%2Fresponse%2Fclass-instance-configurator
 
-// http://localhost:4200/main/class-configurator?tenantId=5f92c841eada0c0d9dfa877a&redirect=http%3A%2F%2Flocalhost%3A4200%2Fmain%2Fclass-configurator%3FtenantId%3D5f92c841eada0c0d9dfa877a
+
+//http://localhost:8080/response/class-instance-configurator --body: instance
+
+/***Class Configurator*/
+// http://localhost:4200/main/class-configurator?tenantId=5f92c841eada0c0d9dfa877a&redirect=http%3A%2F%2Flocalhost%3A8080%2Fresponse%2Fclass-configurator
+
+
+//http://localhost:8080/response/class-configurator  --body: class-configuraton + classDefinitions + relationships
+
+/***Matching Configurator*/
+// http://localhost:4200/main/matching-configurator?tenantId=5f92c841eada0c0d9dfa877a&redirect=http%3A%2F%2Flocalhost%3A8080%2Fresponse%2Fmatching-configurator
+
+
+//http://localhost:8080/response/matching-configurator --body: matching-configuration + matching-relationships
+
+
+/***Property Configurator */
 // http://localhost:4200/main/properties/all?tenantId=5f92c841eada0c0d9dfa877a
-// http://localhost:4200/main/matching-configurator?tenantId=5f92c841eada0c0d9dfa877a
+
+
+
 
 
 

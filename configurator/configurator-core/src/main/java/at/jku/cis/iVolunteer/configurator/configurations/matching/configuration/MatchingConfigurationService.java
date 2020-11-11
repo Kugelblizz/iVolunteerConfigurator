@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfigurationRepository;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
@@ -15,6 +16,10 @@ public class MatchingConfigurationService {
 
 	@Autowired private ClassConfigurationRepository configuratorRepository;
 	@Autowired private MatchingConfigurationRepository matchingConfigurationRepository;
+	
+	public MatchingConfiguration getAllMatchingConfigurationsById(@PathVariable("id") String id) {
+		return matchingConfigurationRepository.findOne(id);
+	}
 
 	public MatchingConfiguration getMatchingConfiguratorByClassConfigurationIds(String leftSideId,
 			String rightSideId) {

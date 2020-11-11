@@ -15,6 +15,7 @@ import { isNullOrUndefined } from 'util';
 import { AddClassDefinitionDialogData } from './_dialogs/add-class-definition-dialog/add-class-definition-dialog.component';
 import { NewMatchingDialogData } from './_dialogs/new-dialog/new-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 const HEADER_WIDTH = 400;
 const HEADER_HEIGHT = 50;
@@ -55,7 +56,8 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
     private matchingConfigurationService: MatchingConfigurationService,
     private matchingOperatorRelationshipService: MatchingOperatorRelationshipService,
     private objectIdService: ObjectIdService,
-    private dialogFactory: DialogFactoryDirective
+    private dialogFactory: DialogFactoryDirective,
+    private responseService: ResponseService,
   ) { }
 
   eventResponseAction: string;
@@ -78,14 +80,15 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
   includeConnectors: boolean;
 
   tenantId: string;
+  redirectUrl: string;
 
   async ngOnInit() {
-
     this.route.queryParams.subscribe(params => {
       if (isNullOrUndefined(params['tenantId']) || isNullOrUndefined(params['redirect'])) {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];
+        this.redirectUrl = params['redirect'];
       }
     });
 
@@ -423,6 +426,7 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
     this.updateModel();
     await this.matchingConfigurationService.saveMatchingConfiguration(this.data.matchingConfiguration).toPromise();
     await this.matchingOperatorRelationshipService.saveMatchingOperatorRelationships(this.data.relationships, this.data.matchingConfiguration.id).toPromise();
+    await this.responseService.sendMatchingConfiguratorResponse(this.redirectUrl, this.data.matchingConfiguration.id).toPromise();
     this.redrawContent();
   }
 
