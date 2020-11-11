@@ -17,7 +17,10 @@ public class MatchingConfigurationService {
 	@Autowired private ClassConfigurationRepository configuratorRepository;
 	@Autowired private MatchingConfigurationRepository matchingConfigurationRepository;
 	
-	public MatchingConfiguration getAllMatchingConfigurationsById(@PathVariable("id") String id) {
+	public MatchingConfiguration getMatchingConfigurationById(String id) {
+		if (id == null) {
+			return null;
+		}
 		return matchingConfigurationRepository.findOne(id);
 	}
 

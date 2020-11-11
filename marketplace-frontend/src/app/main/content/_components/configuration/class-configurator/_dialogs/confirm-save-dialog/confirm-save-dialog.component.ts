@@ -46,7 +46,7 @@ export class ConfirmClassConfigurationSaveDialogComponent implements OnInit {
     this.classConfigurationService.saveFullClassConfiguration(
       { classConfiguration, classDefinitions, relationships, deletedClassDefinitionIds, deletedRelationshipIds, tenantId }
     ).toPromise().then((ret: ClassConfiguration) => {
-      this.responseService.sendClassConfiguratorResponse(this.data.redirectUrl, ret.id).toPromise().then(() => {
+      this.responseService.sendClassConfiguratorResponse(this.data.redirectUrl, ret.id, null, 'save').toPromise().then(() => {
         this.dialogRef.close();
       });
     });

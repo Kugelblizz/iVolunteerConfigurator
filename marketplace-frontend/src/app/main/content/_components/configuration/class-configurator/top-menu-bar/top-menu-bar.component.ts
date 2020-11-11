@@ -106,6 +106,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
 
   @Input() eventResponse: TopMenuResponse;
   @Input() tenantId: string;
+  @Input() redirectUrl: string;
   @Output() menuOptionClickedEvent: EventEmitter<any> = new EventEmitter();
 
   currentClassConfiguration: ClassConfiguration;
@@ -121,6 +122,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
   ngOnInit() {
     // this.route.queryParams.subscribe(params => {
     //   this.tenantId = params['tenantId'];
+    //   this.redirectUrl = params['redirect'];
     // });
   }
 
@@ -321,7 +323,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
 
   deleteClicked() {
     this.dialogFactory
-      .openDeleteClassConfigurationDialog(this.tenantId)
+      .openDeleteClassConfigurationDialog(this.tenantId, this.redirectUrl)
       .then((ret: DeleteClassConfigurationDialogData) => {
         if (!isNullOrUndefined(ret)) {
           this.menuOptionClickedEvent.emit({

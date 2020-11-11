@@ -34,6 +34,9 @@ public class RelationshipController {
 
 	@PutMapping("/meta/core/relationship/multiple")
 	public List<RelationshipDTO> getRelationshipsByIdAsDTO(@RequestBody List<String> ids) {
+		if (ids == null) {
+			return null;
+		}
 		List<Relationship> relationships = getRelationshipsById(ids);
 		return relationshipMapper.toTargets(relationships);
 	}

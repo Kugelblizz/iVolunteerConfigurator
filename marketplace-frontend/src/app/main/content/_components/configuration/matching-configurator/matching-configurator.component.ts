@@ -424,9 +424,10 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
 
   private async performSave() {
     this.updateModel();
-    await this.matchingConfigurationService.saveMatchingConfiguration(this.data.matchingConfiguration).toPromise();
+    const ret = <MatchingConfiguration>await this.matchingConfigurationService.saveMatchingConfiguration(this.data.matchingConfiguration).toPromise();
+    this.data.matchingConfiguration = ret;
     await this.matchingOperatorRelationshipService.saveMatchingOperatorRelationships(this.data.relationships, this.data.matchingConfiguration.id).toPromise();
-    await this.responseService.sendMatchingConfiguratorResponse(this.redirectUrl, this.data.matchingConfiguration.id).toPromise();
+    await this.responseService.sendMatchingConfiguratorResponse(this.redirectUrl, ret.id, null, 'save').toPromise();
     this.redrawContent();
   }
 
@@ -498,7 +499,8 @@ export class MatchingConfiguratorComponent implements OnInit, AfterContentInit {
     });
 
     this.matchingConfigurationService.saveMatchingConfiguration(matchingConfiguration)
-      .toPromise().then(() => {
+      .toPromise().then((ret: MatchingConfiguration) => {
+        matchingConfiguration.id = ret.id;
         this.loadClassesAndRelationships(matchingConfiguration);
       });
   }

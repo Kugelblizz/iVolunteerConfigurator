@@ -59,6 +59,9 @@ public class ClassConfigurationController {
 
 	@GetMapping("class-configuration/{id}")
 	public ClassConfiguration getClassConfigurationById(@PathVariable("id") String id) {
+		if (id == null) {
+			return null;
+		}
 		return classConfigurationRepository.findOne(id);
 	}
 

@@ -35,6 +35,9 @@ public class ClassDefinitionService {
 	}
 
 	public List<ClassDefinition> getClassDefinitonsById(List<String> ids) {
+		if (ids == null) {
+			return null;
+		}
 		List<ClassDefinition> classDefinitions = new ArrayList<>();
 		classDefinitionRepository.findAll(ids).forEach(classDefinitions::add);
 		return classDefinitions;

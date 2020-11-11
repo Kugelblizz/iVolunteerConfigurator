@@ -3,10 +3,12 @@ import { ClassConfiguration } from 'app/main/content/_model/meta/configurations'
 import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
 import { isNullOrUndefined } from 'util';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 export class DeleteClassConfigurationDialogData {
   idsToDelete: string[];
   tenantId: string;
+  redirectUrl: string;
 }
 
 @Component({
@@ -29,6 +31,7 @@ export class DeleteClassConfigurationDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DeleteClassConfigurationDialogData>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteClassConfigurationDialogData,
     private classConfigurationService: ClassConfigurationService,
+    private responseService: ResponseService
   ) { }
 
   async ngOnInit() {
@@ -59,7 +62,9 @@ export class DeleteClassConfigurationDialogComponent implements OnInit {
 
   onSubmit() {
     this.classConfigurationService.deleteClassConfigurations(this.data.idsToDelete).toPromise().then((ret) => {
-      this.dialogRef.close(this.data);
+      this.responseService.sendClassConfiguratorResponse(this.data.redirectUrl, null, this.data.idsToDelete, "delete").toPromise().then(() => {
+        this.dialogRef.close(this.data);
+      });
     });
   }
 

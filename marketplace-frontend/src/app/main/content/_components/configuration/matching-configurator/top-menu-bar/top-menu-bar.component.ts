@@ -92,6 +92,7 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
 
   @Input() eventResponseAction: string;
   @Input() tenantId: string;
+  @Input() redirectUrl: string;
   @Output() menuOptionClickedEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -204,7 +205,7 @@ export class MatchingTopMenuBarComponent implements AfterViewInit {
   }
 
   deleteClicked(event: any, item: SubMenuItem) {
-    this.dialogFactory.openDeleteMatchingDialog(this.tenantId).then((ret: any) => {
+    this.dialogFactory.openDeleteMatchingDialog(this.tenantId, this.redirectUrl).then((ret: any) => {
       if (!isNullOrUndefined(ret)) {
         this.menuOptionClickedEvent.emit({ id: 'editor_delete', payload: ret });
       } else {

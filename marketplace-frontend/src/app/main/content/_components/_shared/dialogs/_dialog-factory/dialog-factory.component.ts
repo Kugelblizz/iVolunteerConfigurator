@@ -204,7 +204,7 @@ export class DialogFactoryDirective {
       });
   }
 
-  openDeleteClassConfigurationDialog(tenantId: string) {
+  openDeleteClassConfigurationDialog(tenantId: string, redirectUrl: string) {
     const dialogRef = this.dialog.open(
       DeleteClassConfigurationDialogComponent,
       {
@@ -212,7 +212,7 @@ export class DialogFactoryDirective {
         minWidth: "500px",
         height: "400px",
         minHeight: "400px",
-        data: { configurator: undefined, tenantId },
+        data: { configurator: undefined, tenantId, redirectUrl },
         disableClose: true
       }
     );
@@ -418,13 +418,13 @@ export class DialogFactoryDirective {
       });
   }
 
-  openDeleteMatchingDialog(tenantId: string) {
+  openDeleteMatchingDialog(tenantId: string, redirectUrl: string) {
     const dialogRef = this.dialog.open(DeleteMatchingDialogComponent, {
       width: "500px",
       minWidth: "500px",
       height: "400px",
       minHeight: "400px",
-      data: { tenantId },
+      data: { tenantId, redirectUrl },
       disableClose: true
     });
 

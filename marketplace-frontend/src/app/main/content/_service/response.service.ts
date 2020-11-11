@@ -12,16 +12,21 @@ export class ResponseService {
     private http: HttpClient
   ) { }
 
-  public sendClassConfiguratorResponse(url: string, id: string) {
-    return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/class-configurator`, { url, id });
+  public sendClassConfiguratorResponse(url: string, idToSave: string, idsToDelete: string[], action: string) {
+    return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/class-configurator`, { url, idToSave, idsToDelete, action });
   }
 
   public sendClassInstanceConfiguratorResponse(url: string, classInstance: ClassInstance) {
     return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/class-instance-configurator`, { url, classInstance });
   }
 
-  public sendMatchingConfiguratorResponse(url: string, id: string) {
-    return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/matching-configurator`, { url, id });
+  public sendMatchingConfiguratorResponse(url: string, idToSave: string, idsToDelete: string[], action: string) {
+    console.log(url);
+    console.log(idToSave);
+    console.log(idsToDelete);
+    console.log(action);
+
+    return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/matching-configurator`, { url, idToSave, idsToDelete, action });
   }
 
 

@@ -8,10 +8,17 @@ import at.jku.cis.iVolunteer.configurator.model.configurations.matching.Matching
 public class MatchingConfiguratorResponseRequestBody {
 //	--body: matching-configuration + matching-relationships
 	
+	String action;
 	MatchingConfiguration matchingConfiguration;
 	List<MatchingOperatorRelationship> matchingRelationships;
+	List<String> idsToDelete;
 	
-	
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String action) {
+		this.action = action;
+	}
 	public MatchingConfiguration getMatchingConfiguration() {
 		return matchingConfiguration;
 	}
@@ -24,6 +31,12 @@ public class MatchingConfiguratorResponseRequestBody {
 	public void setMatchingRelationships(List<MatchingOperatorRelationship> matchingRelationships) {
 		this.matchingRelationships = matchingRelationships;
 	}
+	public List<String> getIdsToDelete() {
+		return idsToDelete;
+	}
+	public void setIdsToDelete(List<String> idsToDelete) {
+		this.idsToDelete = idsToDelete;
+	}
 	
-	
+
 }

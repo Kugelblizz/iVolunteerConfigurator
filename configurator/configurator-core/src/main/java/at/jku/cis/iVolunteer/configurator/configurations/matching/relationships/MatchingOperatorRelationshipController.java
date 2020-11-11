@@ -20,6 +20,9 @@ public class MatchingOperatorRelationshipController {
 	@GetMapping("matching-operator-relationship/{matchingConfigurationId}")
 	public List<MatchingOperatorRelationship> getMatchingOperatorRelationshipByMatchingConfiguration(
 			@PathVariable String matchingConfigurationId) {
+		if (matchingConfigurationId == null) {
+			return null;
+		}
 		return matchingOperatorRelationshipRepository.findByMatchingConfigurationId(matchingConfigurationId);
 	}
 

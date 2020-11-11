@@ -3,10 +3,12 @@ import { MatchingConfiguration } from 'app/main/content/_model/meta/configuratio
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { isNullOrUndefined } from 'util';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 export class DeleteMatchingDialogData {
   idsToDelete: string[];
   tenantId: string;
+  redirectUrl: string;
 }
 
 @Component({
@@ -23,7 +25,8 @@ export class DeleteMatchingDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DeleteMatchingDialogData>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteMatchingDialogData,
-    private matchingConfigurationService: MatchingConfigurationService
+    private matchingConfigurationService: MatchingConfigurationService,
+    private responseService: ResponseService,
   ) { }
 
   async ngOnInit() {
@@ -59,9 +62,12 @@ export class DeleteMatchingDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.matchingConfigurationService
-      .deleteMatchingConfigurations(this.data.idsToDelete).toPromise().then((ret) => { });
+    this.matchingConfigurationService.deleteMatchingConfigurations(this.data.idsToDelete).toPromise().then((ret) => {
+      this.responseService.sendMatchingConfiguratorResponse(this.data.redirectUrl, null, this.data.idsToDelete, 'delete').toPromise().then(() => {
+        this.dialogRef.close(this.data);
 
-    this.dialogRef.close(this.data);
+      });
+    });
+
   }
 }
