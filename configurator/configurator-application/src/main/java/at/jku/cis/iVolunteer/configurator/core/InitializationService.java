@@ -41,17 +41,19 @@ public class InitializationService {
 	private List<String> tenantIds;
 	
 	
-	@PostConstruct
-	public void initOnConstruct() {
-		List<String> tenants = new ArrayList<>();
-		tenants.add("5f92c841eada0c0d9dfa877b");
-		tenants.add("5f92c841eada0c0d9dfa877a");
-		
-		init(tenants);
-	}
+//	@PostConstruct
+//	public void initOnConstruct() {
+////		List<String> tenants = new ArrayList<>();
+////		tenants.add("5f92c841eada0c0d9dfa877b");
+////		tenants.add("5f92c841eada0c0d9dfa877a");
+////		
+////		init(tenants);
+//	}
 
 	public void init(List<String> tenantIds) {
 		this.tenantIds = tenantIds;
+		
+		
 		
 		if (tenantIds != null) {
 			addiVolunteerPropertyDefinitions();
@@ -137,6 +139,17 @@ public class InitializationService {
 	
 	public void deleteProperties() {
 		flatPropertyDefinitionRepository.deleteAll();
+		treePropertyDefinitionRepository.deleteAll();
+	}
+	
+	
+	public void wipeConfigurator() {
+		deleteClassDefinitions();
+		deleteRelationships();
+		deleteClassConfigurations();
+		deleteMatchingConfigurations();
+		deleteProperties();
+		matchingConfigurationRepository.deleteAll();
 	}
 
 }

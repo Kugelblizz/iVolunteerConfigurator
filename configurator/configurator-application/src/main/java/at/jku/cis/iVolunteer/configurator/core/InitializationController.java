@@ -20,9 +20,10 @@ public class InitializationController {
 	@PutMapping("/init/configurator/all")
 	public void addTestData(@RequestBody List<String> tenantIds) {
 //		addAllProperties();
+		System.out.println("test put mapping");
 		initializationService.init(tenantIds);
-
 	}
+	
 
 	@GetMapping("/init/test-url-encoding")
 	public void initTest() {
@@ -104,6 +105,11 @@ public class InitializationController {
 	 * Matching
 	 */
 
+	@PutMapping("init/delete-matching-configurations")
+	public void deleteMatchingConfigurations() {
+		initializationService.deleteMatchingConfigurations();
+	}
+	
 	@PutMapping("/init/delete-matching-collector-configurations")
 	public void deleteMatchingCollectorConfigurations() {
 		initializationService.matchingCollectorConfigurationRepository.deleteAll();
@@ -116,6 +122,7 @@ public class InitializationController {
 		deleteRelationships();
 		deleteProperties();
 		deleteMatchingCollectorConfigurations();
+		deleteMatchingConfigurations();
 		deleteEnumDefinitions();
 	}
 
