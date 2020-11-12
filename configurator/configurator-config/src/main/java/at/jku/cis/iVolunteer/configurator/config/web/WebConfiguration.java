@@ -14,7 +14,8 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry corsRegistry) {
 		// @formatter:off
         corsRegistry.addMapping("/**")
-        		.allowedOrigins("http://localhost:4200", "http://ivolunteer.cis.jku.at:4200")
+//        		.allowedOrigins("http://localhost:4200", "http://ivolunteer.cis.jku.at:4200")
+        		.allowedOrigins("*")
                 .allowedMethods("*")
                 .maxAge(3600L)
                 .allowedHeaders("*")

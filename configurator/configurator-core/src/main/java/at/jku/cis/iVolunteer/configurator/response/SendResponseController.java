@@ -45,7 +45,6 @@ public class SendResponseController {
 		responseRequestBody.setClassConfiguration(classConfiguration);
 
 		if (classConfiguration != null) {
-
 			List<ClassDefinition> classDefinitions = classDefinitionService
 					.getClassDefinitonsById(classConfiguration.getClassDefinitionIds());
 			responseRequestBody.setClassDefinitions(classDefinitions);
@@ -59,7 +58,6 @@ public class SendResponseController {
 		responseRequestBody.setAction(body.getAction());
 
 		HttpStatus status = responseRestClient.sendClassConfiguratorResponse(body.getUrl(), responseRequestBody);
-
 	}
 
 	@PostMapping("/send-response/class-instance-configurator")
@@ -67,8 +65,7 @@ public class SendResponseController {
 		ClassInstanceConfiguratorResponseRequestBody responseRequestBody = new ClassInstanceConfiguratorResponseRequestBody();
 		responseRequestBody.setClassInstance(body.getClassInstance());
 		
-		HttpStatus status = responseRestClient.sendClassInstanceConfiguratorResponse(body.getUrl(),
-				responseRequestBody);
+		HttpStatus status = responseRestClient.sendClassInstanceConfiguratorResponse(body.getUrl(), responseRequestBody);
 	}
 
 	@PostMapping("/send-response/matching-configurator")
