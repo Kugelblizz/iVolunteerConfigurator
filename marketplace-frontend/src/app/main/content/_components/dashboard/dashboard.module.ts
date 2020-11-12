@@ -21,7 +21,6 @@ import { FuseWidgetModule } from "@fuse/components";
 import { MatBadgeModule, MatPaginatorModule, MatSortModule, MatCardModule } from "@angular/material";
 import { FuseTruncatePipeModule } from "app/main/content/_pipe/truncate-pipe.module";
 import { HeaderModule } from "app/main/content/_components/_shared/header/header.module";
-import { HighchartsChartModule } from "highcharts-angular";
 import { DialogFactoryModule } from "app/main/content/_components/_shared/dialogs/_dialog-factory/dialog-factory.module";
 
 const routes = [
@@ -58,7 +57,6 @@ const routes = [
     MatSortModule,
     MatCardModule,
     FuseTruncatePipeModule,
-    HighchartsChartModule,
 
     DialogFactoryModule,
 
