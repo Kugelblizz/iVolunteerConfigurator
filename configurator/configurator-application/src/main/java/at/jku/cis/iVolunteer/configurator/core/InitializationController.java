@@ -12,16 +12,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import at.jku.cis.iVolunteer.configurator.model._httprequests.InitConfiguratorRequest;
+
 @RestController
 public class InitializationController {
 
 	@Autowired private InitializationService initializationService;
 
 	@PutMapping("/init/configurator/all")
-	public void addTestData(@RequestBody List<String> tenantIds) {
+	public void addTestData(@RequestBody InitConfiguratorRequest body) {
 //		addAllProperties();
-		System.out.println("test put mapping");
-		initializationService.init(tenantIds);
+		initializationService.init(body);
 	}
 	
 
@@ -114,9 +115,14 @@ public class InitializationController {
 	public void deleteMatchingCollectorConfigurations() {
 		initializationService.matchingCollectorConfigurationRepository.deleteAll();
 	}
+	
+	@PutMapping("/init/delete-matching-operator-relationships")
+	public void deleteMachingOperatorRelationships() {
+		initializationService.matchingOperatorRelationshipRepository.deleteAll();
+	}
 
 	@PutMapping("/init/wipe-configurator")
-	public void wipeMarketplace() {
+	public void wipeConfigurator() {
 		deleteClassConfigurations();
 		deleteClassDefinitions();
 		deleteRelationships();

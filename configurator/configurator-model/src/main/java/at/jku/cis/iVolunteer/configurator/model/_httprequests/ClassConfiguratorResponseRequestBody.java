@@ -4,6 +4,8 @@ import java.util.List;
 
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.flatProperty.FlatPropertyDefinition;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyDefinition;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.Relationship;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.RelationshipDTO;
 
@@ -17,6 +19,8 @@ public class ClassConfiguratorResponseRequestBody {
 	private List<RelationshipDTO> relationships;	
 	private List<String> idsToDelete;
 
+	private List<FlatPropertyDefinition<Object>> flatPropertyDefinitions;
+	private List<TreePropertyDefinition> treePropertyDefinitions;
 	
 	
 	public String getAction() {
@@ -49,6 +53,19 @@ public class ClassConfiguratorResponseRequestBody {
 	public void setIdsToDelete(List<String> idsToDelete) {
 		this.idsToDelete = idsToDelete;
 	}
+	public List<FlatPropertyDefinition<Object>> getFlatPropertyDefinitions() {
+		return flatPropertyDefinitions;
+	}
+	public void setFlatPropertyDefinitions(List<FlatPropertyDefinition<Object>> flatPropertyDefinitions) {
+		this.flatPropertyDefinitions = flatPropertyDefinitions;
+	}
+	public List<TreePropertyDefinition> getTreePropertyDefinitions() {
+		return treePropertyDefinitions;
+	}
+	public void setTreePropertyDefinitions(List<TreePropertyDefinition> treePropertyDefinitions) {
+		this.treePropertyDefinitions = treePropertyDefinitions;
+	}
+	
 	
 	
 	

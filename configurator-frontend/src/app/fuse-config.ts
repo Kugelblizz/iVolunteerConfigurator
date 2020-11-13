@@ -6,18 +6,18 @@
  * about changing these options per component basis.
  */
 export const fuseConfig = {
-    layout          : {
-        navigation      : 'left', // 'right', 'left', 'top', 'none'
+    layout: {
+        navigation: 'none', // 'right', 'left', 'top', 'none'
         navigationFolded: false, // true, false
-        toolbar         : 'below', // 'above', 'below', 'none'
-        footer          : 'none', // 'above', 'below', 'none'
-        mode            : 'fullwidth' // 'boxed', 'fullwidth'
+        toolbar: 'none', // 'above', 'below', 'none'
+        footer: 'none', // 'above', 'below', 'none'
+        mode: 'fullwidth' // 'boxed', 'fullwidth'
     },
-    colorClasses    : {
+    colorClasses: {
         toolbar: 'mat-white-500-bg',
-        navbar : 'mat-grey-100-bg',
-        footer : 'mat-dark-900-bg'
+        navbar: 'mat-grey-100-bg',
+        footer: 'mat-dark-900-bg'
     },
     customScrollbars: true,
-    routerAnimation : 'fadeIn' // fadeIn, slideUp, slideDown, slideRight, slideLeft, none
+    routerAnimation: 'fadeIn' // fadeIn, slideUp, slideDown, slideRight, slideLeft, none
 };

@@ -191,7 +191,7 @@ export class PropertyListComponent implements OnInit {
     const builderType = entry.type === PropertyType.TREE ? 'tree' : 'flat';
     this.router.navigate(
       ['main/property-builder/' + entry.id],
-      { queryParams: { type: builderType } }
+      { queryParams: { type: builderType, tenantId: this.tenantId } }
     );
   }
 

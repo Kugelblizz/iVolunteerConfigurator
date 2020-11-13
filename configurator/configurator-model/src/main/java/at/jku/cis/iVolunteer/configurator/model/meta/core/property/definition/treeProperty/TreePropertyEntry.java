@@ -3,13 +3,15 @@ package at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.t
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 public class TreePropertyEntry {
 	String id;
 	String value;
 	boolean selectable;
 	int level;
 	int[] position;
-	
+
 	List<TreePropertyEntry> parents;
 
 	public TreePropertyEntry() {
@@ -31,6 +33,16 @@ public class TreePropertyEntry {
 		this.value = value;
 		this.selectable = selectable;
 		this.level = level;
+		this.parents = new ArrayList<>();
+	}
+
+	public TreePropertyEntry(String value, boolean selectable, int level, boolean generateId) {
+		this.value = value;
+		this.selectable = selectable;
+		this.level = level;
+		if (generateId) {
+			this.id = new ObjectId().toHexString();
+		}
 		this.parents = new ArrayList<>();
 	}
 
@@ -81,7 +93,5 @@ public class TreePropertyEntry {
 	public void setParents(List<TreePropertyEntry> parents) {
 		this.parents = parents;
 	}
-	
-	
 
 }
