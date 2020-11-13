@@ -670,7 +670,6 @@ export class ClassConfiguratorComponent implements OnInit, AfterContentInit {
       this.overlayEvent = event.getProperty('event');
 
       this.overlayContent = new OptionsOverlayContentData();
-      // this.overlayContent.tenantAdmin = this.globalInfo.user;
       this.overlayContent.allClassDefinitions = this.classDefinitions;
       this.overlayContent.tenantId = this.tenantId;
 

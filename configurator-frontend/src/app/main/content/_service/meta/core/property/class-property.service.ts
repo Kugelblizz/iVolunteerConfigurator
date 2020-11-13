@@ -21,7 +21,7 @@ export class ClassPropertyService {
   }
 
   getClassPropertyById(classDefintionId: string, classPropertyId: string) {
-    return this.http.get(`${environment.CONFIGURATOR_URL}/meta/core/property/class/${classDefintionId}/${classPropertyId}`)
+    return this.http.get(`${environment.CONFIGURATOR_URL}/meta/core/property/class/${classDefintionId}/${classPropertyId}`);
   }
 
   updateClassProperty(classDefintionId: string, classProperty: ClassProperty<any>) {
@@ -30,7 +30,7 @@ export class ClassPropertyService {
 
   getClassPropertyFromDefinitionById(flatPropertyDefinitionIds: string[], treePropertyDefinitionIds: string[]) {
     const requestObject: ClassPropertyRequestObject = { flatPropertyDefinitionIds: flatPropertyDefinitionIds, treePropertyDefinitionIds: treePropertyDefinitionIds };
-    return this.http.put(`${environment.CONFIGURATOR_URL}/meta/core/property/class/get-classproperty-from-definition-by-id/`, requestObject);
+    return this.http.put(`${environment.CONFIGURATOR_URL}/meta/core/property/class/get-classproperty-from-definition-by-id`, requestObject);
   }
 
   addPropertiesToClassDefinitionById(id: string, propIds: String[]) {

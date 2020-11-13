@@ -2,7 +2,6 @@ import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { isNullOrUndefined } from 'util';
-import { Tenant } from 'app/main/content/_model/tenant';
 import { MatchingEntityMappingConfiguration, ClassConfigurationDTO } from 'app/main/content/_model/meta/configurations';
 import { MatchingEntity } from 'app/main/content/_model/matching';
 import { mxgraph } from 'mxgraph';
@@ -39,8 +38,6 @@ export class AddClassDefinitionGraphDialogComponent implements OnInit {
     private classConfigurationServce: ClassConfigurationService,
   ) { }
 
-
-  tenant: Tenant;
 
   graph: mxgraph.mxGraph;
   @ViewChild('graphContainer', { static: true }) graphContainer: ElementRef;

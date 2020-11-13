@@ -61,7 +61,6 @@ import {
   RemovePropertyDialogComponent
 } from "../remove-dialog/remove-dialog.component";
 import { isNullOrUndefined } from "util";
-import { User } from "app/main/content/_model/user";
 import {
   AddClassDefinitionDialogComponent,
   AddClassDefinitionDialogData
@@ -261,13 +260,13 @@ export class DialogFactoryDirective {
       });
   }
 
-  openPropertyCreationDialog(tenantAdmin: User) {
+  openPropertyCreationDialog() {
     const dialogRef = this.dialog.open(PropertyCreationDialogComponent, {
       width: "90vw",
       minWidth: "90vw",
       height: "90vh",
       minHeight: "90vh",
-      data: { tenantAdmin: tenantAdmin },
+      data: {},
       disableClose: true
     });
 

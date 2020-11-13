@@ -9,12 +9,10 @@ import { ClassProperty } from 'app/main/content/_model/meta/property/property';
 import { isNullOrUndefined } from 'util';
 import { FormControl } from '@angular/forms';
 import { DynamicFormItemBase } from 'app/main/content/_model/dynamic-forms/item';
-import { User } from 'app/main/content/_model/user';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
-import { Tenant } from 'app/main/content/_model/tenant';
 
 export interface ClassInstanceFormPreviewExportDialogData {
   classConfigurationIds: string[];
+  tenantId: string;
 }
 
 @Component({
@@ -36,8 +34,6 @@ export class ClassInstanceFormPreviewExportDialogComponent implements OnInit {
 
   results: FormEntryReturnEventData[] = [];
 
-  tenantAdmin: User;
-  tenant: Tenant;
 
   constructor(
     public dialogRef: MatDialogRef<
@@ -220,7 +216,7 @@ export class ClassInstanceFormPreviewExportDialogComponent implements OnInit {
   // }
 
   private doExport() {
-    const json = '{' + '"tenantId": "' + this.tenant.id;
+    const json = '{' + '"tenantId": "' + this.data.tenantId;
     '", ' + this.addClassToJSON(this.currentFormConfiguration.formEntry) + '}';
 
     this.exportFile([json]);

@@ -4,9 +4,6 @@ import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tr
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
 import { isNullOrUndefined } from 'util';
 import { MatDialog } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
-import { User } from 'app/main/content/_model/user';
-import { Tenant } from 'app/main/content/_model/tenant';
 
 @Component({
   selector: "app-tree-property-builder",
@@ -21,7 +18,6 @@ export class TreePropertyBuilderComponent implements OnInit {
     private treePropertyDefinitionService: TreePropertyDefinitionService,
   ) { }
 
-  @Input() tenantAdmin: User;
   @Input() entryId: string;
   @Input() sourceString: string;
   @Input() tenantId: string;

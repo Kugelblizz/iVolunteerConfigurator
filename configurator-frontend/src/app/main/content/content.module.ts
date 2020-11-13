@@ -22,15 +22,6 @@ const routes: Route[] = [
       ).then((m) => m.PropertyListModule),
     canActivate: [AnonymGuard]
   },
-
-  {
-    path: 'main/property/detail/view',
-    loadChildren: () =>
-      import(
-        './_components/configuration/property-configurator/detail/property-detail.module'
-      ).then((m) => m.PropertyDetailModule),
-    canActivate: [AnonymGuard]
-  },
   {
     path: 'main/property-builder',
     loadChildren: () =>
@@ -54,22 +45,6 @@ const routes: Route[] = [
       import(
         './_components/configuration/class-instance-configurator/form-editor/class-instance-form-editor.module'
       ).then((m) => m.ClassInstanceFormEditorModule),
-    canActivate: [AnonymGuard]
-  },
-  {
-    path: 'main/rules/all',
-    loadChildren: () =>
-      import(
-        './_components/configuration/rule-view/rule-overview.module'
-      ).then((m) => m.FuseRuleOverviewModule),
-    canActivate: [AnonymGuard]
-  },
-  {
-    path: 'main/rule',
-    loadChildren: () =>
-      import(
-        './_components/configuration/rule-configurator/rule-configurator.module'
-      ).then((m) => m.FuseRuleConfiguratorModule),
     canActivate: [AnonymGuard]
   },
   {

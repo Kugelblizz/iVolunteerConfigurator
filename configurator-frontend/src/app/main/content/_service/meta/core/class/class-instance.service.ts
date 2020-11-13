@@ -13,9 +13,6 @@ export class ClassInstanceService {
     private responseService: ResponseService) { }
 
   createNewClassInstances(classInstances: ClassInstance[], redirectUrl: string) {
-    // return this.http.post(
-    //   `${environment.CONFIGURATOR_URL}/class/instance/new`, classInstances
-    // );
 
     if (isNullOrUndefined(classInstances) || classInstances.length <= 0) {
       return new Promise(() => null);

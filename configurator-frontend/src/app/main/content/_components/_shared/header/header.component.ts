@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Tenant } from "../../../_model/tenant";
 
 @Component({
   selector: "customizable-header",

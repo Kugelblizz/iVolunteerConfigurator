@@ -29,11 +29,6 @@ export class ClassConfigurationService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/by-name/${name}`);
   }
 
-  // getClassConfigurationsByTenantId(marketplace: Marketplace, tenantId: string) {
-  //   return this.http.get(`${marketplace.url}/class-configuration/all/tenant/${tenantId}`);
-
-  // }
-
   getAllForClassConfigurationInOne(id: string) {
     return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/all-in-one/${id}`);
   }

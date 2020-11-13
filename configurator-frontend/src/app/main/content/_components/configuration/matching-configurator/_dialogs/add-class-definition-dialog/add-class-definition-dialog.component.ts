@@ -5,7 +5,6 @@ import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { isNullOrUndefined } from 'util';
-import { Tenant } from 'app/main/content/_model/tenant';
 import { MatchingEntityMappingConfiguration } from 'app/main/content/_model/meta/configurations';
 import { MatchingEntity } from 'app/main/content/_model/matching';
 import { AddClassDefinitionGraphDialogComponent, AddClassDefinitionGraphDialogData } from '../add-class-definition-graph-dialog/add-class-definition-graph-dialog.component';
@@ -36,7 +35,6 @@ export class AddClassDefinitionDialogComponent implements OnInit {
 
   loaded: boolean;
   tabIndex: number;
-  tenant: Tenant;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 

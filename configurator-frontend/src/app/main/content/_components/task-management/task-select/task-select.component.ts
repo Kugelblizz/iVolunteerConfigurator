@@ -5,7 +5,6 @@ import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import { ClassDefinition } from 'app/main/content/_model/meta/class';
-import { User, UserRole } from 'app/main/content/_model/user';
 import { isNullOrUndefined } from 'util';
 
 @Component({
@@ -15,8 +14,6 @@ import { isNullOrUndefined } from 'util';
 export class FuseTaskSelectComponent implements OnInit {
   dataSource = new MatTableDataSource<ClassDefinition>();
   displayedColumns = ['name', 'configuration'];
-  user: User;
-  userRole: UserRole;
   tenantId: string;
   redirectUrl: string;
 

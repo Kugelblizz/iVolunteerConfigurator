@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNullOrUndefined } from 'util';
 import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 
 export interface ChangeIconDialogData {
   imagePath: string;
@@ -42,7 +41,6 @@ export class ChangeIconDialogComponent implements OnInit {
   ];
 
   prevTile = undefined;
-  globalInfo: GlobalInfo;
 
   async ngOnInit() {
     this.numbers = [];

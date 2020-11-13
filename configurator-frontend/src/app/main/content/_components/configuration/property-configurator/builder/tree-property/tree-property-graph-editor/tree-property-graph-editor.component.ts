@@ -6,7 +6,6 @@ import { TreePropertyDefinition, TreePropertyEntry, TreePropertyRelationship } f
 import { CConstants } from '../../../../class-configurator/utils-and-constants';
 import { isNullOrUndefined } from 'util';
 import { TreePropertyOptionsOverlayContentData } from './options-overlay/options-overlay-content/options-overlay-content.component';
-import { User } from 'app/main/content/_model/user';
 
 declare var require: any;
 
@@ -26,7 +25,6 @@ const mx: typeof mxgraph = require('mxgraph')({
 export class TreePropertyGraphEditorComponent implements AfterContentInit {
   constructor(private objectIdService: ObjectIdService) { }
 
-  @Input() tenantAdmin: User;
   @Input() treePropertyDefinition: TreePropertyDefinition;
   @Output() result: EventEmitter<{ type: string; payload: TreePropertyDefinition; }> = new EventEmitter();
   @Output() management: EventEmitter<String> = new EventEmitter();
@@ -252,7 +250,7 @@ export class TreePropertyGraphEditorComponent implements AfterContentInit {
   }
 
   onBackClick() {
-    this.result.emit({ type: 'back', payload: undefined });
+    this.result.emit({ type: 'back', payload: this.treePropertyDefinition });
   }
 
   onSaveAndBackClick() {

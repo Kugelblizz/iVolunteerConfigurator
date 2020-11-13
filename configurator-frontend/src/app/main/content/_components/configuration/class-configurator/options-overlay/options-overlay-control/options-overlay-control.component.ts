@@ -2,7 +2,6 @@
 import {
   ViewChild, ElementRef, Component, ChangeDetectorRef, Input, EventEmitter, Output, OnInit, OnChanges
 } from '@angular/core';
-import { User } from 'app/main/content/_model/user';
 import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { Relationship } from 'app/main/content/_model/meta/relationship';
 

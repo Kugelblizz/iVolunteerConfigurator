@@ -4,8 +4,6 @@ import { isNullOrUndefined } from 'util';
 import { FlatPropertyDefinition, PropertyType } from 'app/main/content/_model/meta/property/property';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { propertyNameUniqueValidator } from 'app/main/content/_validator/property-name-unique.validator';
-import { User } from 'app/main/content/_model/user';
-import { Tenant } from 'app/main/content/_model/tenant';
 import { ConstraintType, PropertyConstraint } from 'app/main/content/_model/meta/constraint';
 
 export interface PropertyTypeOption {
@@ -37,7 +35,6 @@ const availableConstraints = [
   styleUrls: ['./flat-property-builder.component.scss'],
 })
 export class FlatPropertyBuilderComponent implements OnInit {
-  @Input() tenantAdmin: User;
   @Input() entryId: string;
   @Input() sourceString: string;
   @Input() tenantId: string;

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FlatPropertyDefinition } from 'app/main/content/_model/meta/property/property';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { isNullOrUndefined } from 'util';
-import { User } from 'app/main/content/_model/user';
 
 @Component({
   selector: "app-builder-container",
@@ -10,7 +9,6 @@ import { User } from 'app/main/content/_model/user';
   styleUrls: ['./builder-container.component.scss'],
 })
 export class BuilderContainerComponent implements OnInit {
-  @Input() tenantAdmin: User;
   @Input() allPropertyDefinitions: FlatPropertyDefinition<any>[];
   @Input() builderType: string;
   @Input() entryId: string;

@@ -9,8 +9,6 @@ import { RelationshipService } from 'app/main/content/_service/meta/core/relatio
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import { stringUniqueValidator } from 'app/main/content/_validator/string-unique.validator';
 import { isNullOrUndefined } from 'util';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
-import { Tenant } from 'app/main/content/_model/tenant';
 
 export interface NewClassConfigurationDialogData {
   classConfiguration: ClassConfiguration;

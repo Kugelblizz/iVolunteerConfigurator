@@ -3,9 +3,8 @@
   </customizable-header>
 
   <div class="mat-white-bg mat-elevation-z4 p-24 mt-24" *ngIf="loaded">
-    <app-builder-container [tenantId]="tenantId" [tenantAdmin]="tenantAdmin" [builderType]="builderType"
-      [entryId]="entryId" sourceString="builder" (result)="handleResultEvent($event)"
-      (management)="handleManagementEvent($event, buildForm)">
+    <app-builder-container [tenantId]="tenantId" [builderType]="builderType" [entryId]="entryId" sourceString="builder"
+      (result)="handleResultEvent($event)" (management)="handleManagementEvent($event, buildForm)">
     </app-builder-container>
   </div>
 

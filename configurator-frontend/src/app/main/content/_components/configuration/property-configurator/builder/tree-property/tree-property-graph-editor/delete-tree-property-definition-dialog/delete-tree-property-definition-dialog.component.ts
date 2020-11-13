@@ -3,10 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tree-property';
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
 import { isNullOrUndefined } from 'util';
-import { User } from 'app/main/content/_model/user';
 
 export class DeleteTreePropertyDefinitionDialogData {
-  tenantAdmin: User;
   idsToDelete: string[];
   tenantId: string;
 }

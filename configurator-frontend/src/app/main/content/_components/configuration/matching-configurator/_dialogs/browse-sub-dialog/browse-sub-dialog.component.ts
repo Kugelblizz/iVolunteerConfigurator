@@ -1,5 +1,4 @@
 import { OnInit, Component, Input, Output, EventEmitter } from '@angular/core';
-import { GlobalInfo } from 'app/main/content/_model/global-info';
 
 export class MatchingBrowseSubDialogData {
   title: string;

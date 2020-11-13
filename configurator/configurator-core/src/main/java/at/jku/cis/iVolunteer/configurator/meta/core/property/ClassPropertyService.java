@@ -1,37 +1,37 @@
-//package at.jku.cis.iVolunteer.configurator.meta.core.property;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.stream.Collectors;
-//import java.util.stream.IntStream;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import org.springframework.web.bind.annotation.RequestBody;
-//
-//import at.jku.cis.iVolunteer.configurator._mapper.property.TreePropertyDefinitionToClassPropertyMapper;
-//import at.jku.cis.iVolunteer.configurator._mapper.property.PropertyDefinitionToClassPropertyMapper;
-//import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionRepository;
-//import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
-//import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
-//import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
-//import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
-//import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.ClassProperty;
-//import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.flatProperty.FlatPropertyDefinition;
-//import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyDefinition;
-//import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.Relationship;
-//import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.RelationshipType;
-//
-//@Service
-//public class ClassPropertyService {
-//
-//	@Autowired private ClassDefinitionRepository classDefinitionRepository;
-//	@Autowired private FlatPropertyDefinitionRepository propertyDefinitionRepository;
-//	@Autowired private RelationshipRepository relationshipRepository;
-//	@Autowired private PropertyDefinitionToClassPropertyMapper propertyDefinitionToClassPropertyMapper;
-//	@Autowired private TreePropertyDefinitionRepository treePropertyDefinitionRepository;
-//	@Autowired private TreePropertyDefinitionToClassPropertyMapper enumDefinitionToClassPropertyMapper;
-//
+package at.jku.cis.iVolunteer.configurator.meta.core.property;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import at.jku.cis.iVolunteer.configurator._mapper.property.TreePropertyDefinitionToClassPropertyMapper;
+import at.jku.cis.iVolunteer.configurator._mapper.property.PropertyDefinitionToClassPropertyMapper;
+import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionRepository;
+import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
+import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
+import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.ClassProperty;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.flatProperty.FlatPropertyDefinition;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyDefinition;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.Relationship;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.RelationshipType;
+
+@Service
+public class ClassPropertyService {
+
+	@Autowired private ClassDefinitionRepository classDefinitionRepository;
+	@Autowired private FlatPropertyDefinitionRepository propertyDefinitionRepository;
+	@Autowired private RelationshipRepository relationshipRepository;
+	@Autowired private PropertyDefinitionToClassPropertyMapper propertyDefinitionToClassPropertyMapper;
+	@Autowired private TreePropertyDefinitionRepository treePropertyDefinitionRepository;
+	@Autowired private TreePropertyDefinitionToClassPropertyMapper enumDefinitionToClassPropertyMapper;
+
 //	
 //	public List<ClassProperty<Object>> getAllClassPropertiesFromClass(String classDefinitionId) {
 //		ClassDefinition classDefinition = classDefinitionRepository.findOne(classDefinitionId);
@@ -122,25 +122,26 @@
 //		               .findFirst().orElse(null);
 //		
 //	}
-//	
-//	List<ClassProperty<Object>> getClassPropertyFromDefinitionById(List<String> flatPropertyIds, List<String> treePropertyIds) {
-//		List<FlatPropertyDefinition<Object>> flatProperties = new ArrayList<>();
-//		List<TreePropertyDefinition> treeProperties = new ArrayList<>();
-//		
-//		if (flatPropertyIds != null) {
-//			propertyDefinitionRepository.findAll(flatPropertyIds).forEach(flatProperties::add);
-//		}
-//		if (treePropertyIds != null) {
-//			treePropertyDefinitionRepository.findAll(treePropertyIds).forEach(treeProperties::add);
-//		}
-//		
-//		List<ClassProperty<Object>> flatClassProperties = createClassPropertiesFromDefinitions(flatProperties);
-//		List<ClassProperty<Object>> treeClassProperties = createClassPropertiesFromEnumDefinitions(treeProperties);
-//		
-//		flatClassProperties.addAll(treeClassProperties);
-//		return flatClassProperties;
-//	}
 //
+	
+	List<ClassProperty<Object>> getClassPropertyFromDefinitionById(List<String> flatPropertyIds, List<String> treePropertyIds) {
+		List<FlatPropertyDefinition<Object>> flatProperties = new ArrayList<>();
+		List<TreePropertyDefinition> treeProperties = new ArrayList<>();
+		
+		if (flatPropertyIds != null) {
+			propertyDefinitionRepository.findAll(flatPropertyIds).forEach(flatProperties::add);
+		}
+		if (treePropertyIds != null) {
+			treePropertyDefinitionRepository.findAll(treePropertyIds).forEach(treeProperties::add);
+		}
+		
+		List<ClassProperty<Object>> flatClassProperties = createClassPropertiesFromDefinitions(flatProperties);
+		List<ClassProperty<Object>> treeClassProperties = createClassPropertiesFromEnumDefinitions(treeProperties);
+		
+		flatClassProperties.addAll(treeClassProperties);
+		return flatClassProperties;
+	}
+
 //	// TODO: Philipp: tenantId check required?
 //	List<ClassProperty<Object>> addPropertiesToClassDefinitionById(String id, @RequestBody List<String> propertyIds) {
 //		
@@ -182,21 +183,21 @@
 //		clazz = classDefinitionRepository.save(clazz);
 //		return clazz;
 //	}
-//
-//	private List<ClassProperty<Object>> createClassPropertiesFromDefinitions(List<FlatPropertyDefinition<Object>> propertyDefinitions) {
-//		List<ClassProperty<Object>> cProps = new ArrayList<>();
-//		for (FlatPropertyDefinition<Object> pd : propertyDefinitions) {
-//			cProps.add(propertyDefinitionToClassPropertyMapper.toTarget(pd));
-//		}
-//		return cProps;
-//	}
-//	
-//	private List<ClassProperty<Object>> createClassPropertiesFromEnumDefinitions(List<TreePropertyDefinition> enums) {
-//		List<ClassProperty<Object>> cProps = new ArrayList<>();
-//		for (TreePropertyDefinition ed : enums) {
-//			cProps.add(enumDefinitionToClassPropertyMapper.toTarget(ed));
-//		}
-//		return cProps;
-//	}
-//
-//}
+	
+	private List<ClassProperty<Object>> createClassPropertiesFromDefinitions(List<FlatPropertyDefinition<Object>> propertyDefinitions) {
+		List<ClassProperty<Object>> cProps = new ArrayList<>();
+		for (FlatPropertyDefinition<Object> pd : propertyDefinitions) {
+			cProps.add(propertyDefinitionToClassPropertyMapper.toTarget(pd));
+		}
+		return cProps;
+	}
+	
+	private List<ClassProperty<Object>> createClassPropertiesFromEnumDefinitions(List<TreePropertyDefinition> enums) {
+		List<ClassProperty<Object>> cProps = new ArrayList<>();
+		for (TreePropertyDefinition ed : enums) {
+			cProps.add(enumDefinitionToClassPropertyMapper.toTarget(ed));
+		}
+		return cProps;
+	}
+
+}

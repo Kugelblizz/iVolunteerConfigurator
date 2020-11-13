@@ -8,8 +8,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
 import { isNullOrUndefined } from 'util';
-import { User } from 'app/main/content/_model/user';
-import { Tenant } from 'app/main/content/_model/tenant';
 
 export interface PropertyEntry {
   id: string;
@@ -28,9 +26,6 @@ export interface PropertyEntry {
 export class PropertyListComponent implements OnInit {
   dataSource = new MatTableDataSource<PropertyEntry>();
   displayedColumns = ['type', 'name', 'filler', 'actions'];
-
-  tenantAdmin: User;
-  tenants: Tenant[];
 
   propertyDefinitions: FlatPropertyDefinition<any>[];
   treePropertyDefinitions: TreePropertyDefinition[];

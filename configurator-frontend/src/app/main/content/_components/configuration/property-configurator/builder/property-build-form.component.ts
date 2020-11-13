@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FlatPropertyDefinition } from 'app/main/content/_model/meta/property/property';
 import { isNullOrUndefined } from 'util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'app/main/content/_model/user';
-import { Tenant } from 'app/main/content/_model/tenant';
 
 @Component({
   selector: "app-property-build-form",
@@ -12,7 +10,6 @@ import { Tenant } from 'app/main/content/_model/tenant';
 })
 export class PropertyBuildFormComponent implements OnInit {
   entryId: string;
-  tenantAdmin: User;
   loaded: boolean;
   displayBuilder: boolean;
   builderType: string;

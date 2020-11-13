@@ -10,7 +10,6 @@ import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PropertyInstance, PropertyType, ClassProperty } from 'app/main/content/_model/meta/property/property';
 import { isNullOrUndefined } from 'util';
-import { User } from 'app/main/content/_model/user';
 import { ResponseService } from 'app/main/content/_service/response.service';
 
 @Component({
@@ -22,7 +21,6 @@ import { ResponseService } from 'app/main/content/_service/response.service';
 export class ClassInstanceFormEditorComponent implements OnInit {
   formConfigurations: FormConfiguration[];
   currentFormConfiguration: FormConfiguration;
-  selectedVolunteers: User[];
 
   returnedClassInstances: ClassInstance[];
 
@@ -189,27 +187,27 @@ export class ClassInstanceFormEditorComponent implements OnInit {
     //   t => t.role === UserRole.TENANT_ADMIN
     // ).tenantId;
 
-    if (isNullOrUndefined(this.selectedVolunteers)) {
-      const classInstance = this.createClassInstance(
-        this.currentFormConfiguration.formEntry,
-        result.value[this.currentFormConfiguration.formEntry.id]
-      );
-      classInstance.tenantId = this.tenantId;
-      classInstance.issuerId = this.tenantId;
-      classInstances.push(classInstance);
-    } else {
-      for (const volunteer of this.selectedVolunteers) {
-        const classInstance = this.createClassInstance(
-          this.currentFormConfiguration.formEntry,
-          result.value[this.currentFormConfiguration.formEntry.id]
-        );
-        classInstance.tenantId = this.tenantId;
-        classInstance.issuerId = this.tenantId;
-        classInstance.userId = volunteer.id;
+    // if (isNullOrUndefined(this.selectedVolunteers)) {
+    const classInstance = this.createClassInstance(
+      this.currentFormConfiguration.formEntry,
+      result.value[this.currentFormConfiguration.formEntry.id]
+    );
+    classInstance.tenantId = this.tenantId;
+    classInstance.issuerId = this.tenantId;
+    classInstances.push(classInstance);
+    // } else {
+    //   for (const volunteer of this.selectedVolunteers) {
+    //     const classInstance = this.createClassInstance(
+    //       this.currentFormConfiguration.formEntry,
+    //       result.value[this.currentFormConfiguration.formEntry.id]
+    //     );
+    //     classInstance.tenantId = this.tenantId;
+    //     classInstance.issuerId = this.tenantId;
+    //     classInstance.userId = volunteer.id;
 
-        classInstances.push(classInstance);
-      }
-    }
+    //     classInstances.push(classInstance);
+    //   }
+    // }
 
     this.classInstanceService.createNewClassInstances(classInstances, this.redirectUrl).then((ret: ClassInstance) => {
       this.resultClassInstance = ret;
