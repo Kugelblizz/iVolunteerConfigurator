@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -595,7 +595,7 @@ public class StandardPropertyDefinitions {
 		public void inst() {
 			this.setName("TaskType");
 			this.setTenantId(tenantId);
-			this.setId(UUID.randomUUID().toString());
+			this.setId(new ObjectId().toHexString());
 
 			// Einsatz
 			TreePropertyEntry einsatz = new TreePropertyEntry("Einsatz", false, 0, true);

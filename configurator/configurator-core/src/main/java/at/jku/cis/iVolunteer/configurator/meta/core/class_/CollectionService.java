@@ -2,8 +2,10 @@ package at.jku.cis.iVolunteer.configurator.meta.core.class_;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -19,7 +21,9 @@ import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRep
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.matching.MatchingEntityMappings;
 import at.jku.cis.iVolunteer.configurator.model.matching.MatchingMappingEntry;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.ClassPropertyRequestObject;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
+import at.jku.cis.iVolunteer.configurator.model.meta.core.property.PropertyType;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.Tuple;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.ClassProperty;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.flatProperty.FlatPropertyDefinition;
@@ -402,4 +406,28 @@ public class CollectionService {
 		propertyDefinition.setRequired(true);
 		return propertyDefinition;
 	}
+	
+	public ClassPropertyRequestObject collectClassPropertyIds(List<ClassDefinition> classDefinitions) {
+		ClassPropertyRequestObject ret = new ClassPropertyRequestObject();
+		Set<String> flatProperties = new HashSet<>();
+		Set<String> treeProperties = new HashSet<>();
+		
+		for (ClassDefinition classDefinition : classDefinitions) {
+			if (classDefinition.getProperties() != null) {
+				classDefinition.getProperties().stream().forEach(p -> {
+					if (p.getType().equals(PropertyType.TREE)) {
+						treeProperties.add(p.getId());
+					} else {
+						flatProperties.add(p.getId());
+					}
+				});
+			}
+		}
+		
+		ret.setFlatPropertyDefinitionIds(new ArrayList<String>(flatProperties));
+		ret.setTreePropertyDefinitionIds(new ArrayList<String>(treeProperties));
+		
+		return ret;
+	}
+
 }
