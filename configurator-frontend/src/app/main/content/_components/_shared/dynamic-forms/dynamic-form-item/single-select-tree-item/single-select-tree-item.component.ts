@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Rendere
 import { SingleSelectionTreeFormItem } from 'app/main/content/_model/dynamic-forms/item';
 import { isNullOrUndefined } from 'util';
 import { FormGroup } from '@angular/forms';
-import { TreePropertyEntry } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyEntry } from 'app/main/content/_model/configurator/property/tree-property';
 import { MatTableDataSource } from '@angular/material';
 
 

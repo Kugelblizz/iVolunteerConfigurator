@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ClassInstance } from 'app/main/content/_model/meta/class';
+import { ClassInstance } from 'app/main/content/_model/configurator/class';
 import { ResponseService } from '../../../response.service';
 import { isNullOrUndefined } from 'util';
 import { of } from 'rxjs';

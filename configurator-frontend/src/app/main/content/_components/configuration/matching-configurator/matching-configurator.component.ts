@@ -5,12 +5,12 @@ import { MatchingEntityDataService } from 'app/main/content/_service/configurati
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { MatchingOperatorRelationshipService } from 'app/main/content/_service/configuration/matching-operator-relationship.service';
 import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
-import { MatchingConfiguration, MatchingEntityMappingConfiguration } from 'app/main/content/_model/meta/configurations';
+import { MatchingConfiguration, MatchingEntityMappingConfiguration } from 'app/main/content/_model/configurator/configurations';
 import { CConstants } from '../class-configurator/utils-and-constants';
 import { MatchingOperatorRelationship, MatchingEntityType, MatchingEntityMappings, MatchingEntity, MatchingDataRequestDTO } from 'app/main/content/_model/matching';
 import { MyMxCell, MyMxCellType } from '../myMxCell';
 import { MatchingConfiguratorPopupMenu } from './popup-menu';
-import { PropertyType } from 'app/main/content/_model/meta/property/property';
+import { PropertyType } from 'app/main/content/_model/configurator/property/property';
 import { isNullOrUndefined } from 'util';
 import { AddClassDefinitionDialogData } from './_dialogs/add-class-definition-dialog/add-class-definition-dialog.component';
 import { NewMatchingDialogData } from './_dialogs/new-dialog/new-dialog.component';

@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
-import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
-import { Relationship } from 'app/main/content/_model/meta/relationship';
+import { ClassConfiguration } from 'app/main/content/_model/configurator/configurations';
+import { ClassDefinition } from 'app/main/content/_model/configurator/class';
+import { Relationship } from 'app/main/content/_model/configurator/relationship';
 import { ResponseService } from 'app/main/content/_service/response.service';
 
 export interface ConfirmClassConfigurationSaveDialogData {

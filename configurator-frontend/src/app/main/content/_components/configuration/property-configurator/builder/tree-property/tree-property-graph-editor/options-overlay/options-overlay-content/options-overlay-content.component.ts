@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TreePropertyEntry } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyEntry } from 'app/main/content/_model/configurator/property/tree-property';
 
 export class TreePropertyOptionsOverlayContentData {
   treePropertyEntry: TreePropertyEntry;

@@ -5,7 +5,6 @@ import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scr
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { navigation_configurator } from 'app/navigation/navigation_configurator';
-import { navigation_configurator_debug } from 'app/navigation/navigation_configurator_debug';
 
 @Component({
   selector: 'fuse-navbar',

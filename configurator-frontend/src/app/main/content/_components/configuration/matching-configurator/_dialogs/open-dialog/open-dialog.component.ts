@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
-import { MatchingConfiguration } from 'app/main/content/_model/meta/configurations';
+import { MatchingConfiguration } from 'app/main/content/_model/configurator/configurations';
 import { MatchingBrowseSubDialogData } from 'app/main/content/_components/configuration/matching-configurator/_dialogs/browse-sub-dialog/browse-sub-dialog.component';
 
 export interface OpenMatchingDialogData {

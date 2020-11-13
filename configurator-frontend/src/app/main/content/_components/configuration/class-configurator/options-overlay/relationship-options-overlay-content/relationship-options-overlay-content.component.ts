@@ -1,6 +1,6 @@
 
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
-import { RelationshipType, AssociationCardinality } from 'app/main/content/_model/meta/relationship';
+import { ClassDefinition } from 'app/main/content/_model/configurator/class';
+import { RelationshipType, AssociationCardinality } from 'app/main/content/_model/configurator/relationship';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PropertyEntry } from '../class-options-overlay-content/class-options-overlay-content.component';
 import { CConstants } from '../../utils-and-constants';

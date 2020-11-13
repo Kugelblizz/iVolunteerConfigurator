@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DynamicFormItemService } from 'app/main/content/_service/dynamic-form-item.service';
 import { DynamicFormItemControlService } from 'app/main/content/_service/dynamic-form-item-control.service';
-import { FormConfiguration, FormEntryReturnEventData, FormEntry } from 'app/main/content/_model/meta/form';
-import { ClassInstance } from 'app/main/content/_model/meta/class';
+import { FormConfiguration, FormEntryReturnEventData, FormEntry } from 'app/main/content/_model/configurator/form';
+import { ClassInstance } from 'app/main/content/_model/configurator/class';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import { ClassInstanceService } from 'app/main/content/_service/meta/core/class/class-instance.service';
 import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
 import { FormGroup, FormControl } from '@angular/forms';
-import { PropertyInstance, PropertyType, ClassProperty } from 'app/main/content/_model/meta/property/property';
+import { PropertyInstance, PropertyType, ClassProperty } from 'app/main/content/_model/configurator/property/property';
 import { isNullOrUndefined } from 'util';
 import { ResponseService } from 'app/main/content/_service/response.service';
 

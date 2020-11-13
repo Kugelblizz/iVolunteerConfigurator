@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild, Output, EventEmitter, Input, AfterViewInit, OnChanges } from '@angular/core';
 import { isNullOrUndefined } from 'util';
-import { ClassConfiguration, ClassConfigurationDTO } from 'app/main/content/_model/meta/configurations';
-import { Relationship } from 'app/main/content/_model/meta/relationship';
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
+import { ClassConfiguration, ClassConfigurationDTO } from 'app/main/content/_model/configurator/configurations';
+import { Relationship } from 'app/main/content/_model/configurator/relationship';
+import { ClassDefinition } from 'app/main/content/_model/configurator/class';
 import { DialogFactoryDirective } from 'app/main/content/_components/_shared/dialogs/_dialog-factory/dialog-factory.component';
 import { NewClassConfigurationDialogData } from '../_dialogs/new-dialog/new-dialog.component';
 import { OpenClassConfigurationDialogData } from '../_dialogs/open-dialog/open-dialog.component';

@@ -1,5 +1,5 @@
-import { ClassDefinition } from "./meta/class";
-import { MatchingConfiguration, MatchingEntityMappingConfiguration } from './meta/configurations';
+import { ClassDefinition } from "./configurator/class";
+import { MatchingConfiguration, MatchingEntityMappingConfiguration } from './configurator/configurations';
 
 export class MatchingDataRequestDTO {
   matchingConfiguration: MatchingConfiguration;

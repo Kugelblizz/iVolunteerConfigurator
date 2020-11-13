@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { RelationshipType } from 'app/main/content/_model/meta/relationship';
+import { RelationshipType } from 'app/main/content/_model/configurator/relationship';
 import { CConstants } from '../../utils-and-constants';
-import { PropertyType } from 'app/main/content/_model/meta/property/property';
+import { PropertyType } from 'app/main/content/_model/configurator/property/property';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AddPropertyDialogData } from 'app/main/content/_components/_shared/dialogs/add-property-dialog/add-property-dialog.component';
 import { isNullOrUndefined } from 'util';

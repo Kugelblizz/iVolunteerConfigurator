@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { ClassArchetype } from 'app/main/content/_model/meta/class';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
 import { isNullOrUndefined } from 'util';
+import { ClassDefinition, ClassArchetype } from '../../_model/configurator/class';
 
 @Component({
   templateUrl: './task-select.component.html',

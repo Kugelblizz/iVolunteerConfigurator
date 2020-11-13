@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNullOrUndefined } from 'util';
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
-import { ClassConfiguration, MatchingConfiguration } from 'app/main/content/_model/meta/configurations';
+import { ClassConfiguration, MatchingConfiguration } from 'app/main/content/_model/configurator/configurations';
 import { ClassBrowseSubDialogData } from '../../../class-configurator/_dialogs/browse-sub-dialog/browse-sub-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 

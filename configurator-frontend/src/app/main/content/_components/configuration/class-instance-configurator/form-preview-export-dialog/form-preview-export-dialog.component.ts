@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DynamicFormItemService } from 'app/main/content/_service/dynamic-form-item.service';
 import { DynamicFormItemControlService } from 'app/main/content/_service/dynamic-form-item-control.service';
-import { FormConfiguration, FormEntryReturnEventData, FormEntry } from 'app/main/content/_model/meta/form';
-import { ClassInstance } from 'app/main/content/_model/meta/class';
+import { FormConfiguration, FormEntryReturnEventData, FormEntry } from 'app/main/content/_model/configurator/form';
+import { ClassInstance } from 'app/main/content/_model/configurator/class';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
-import { ClassProperty } from 'app/main/content/_model/meta/property/property';
+import { ClassProperty } from 'app/main/content/_model/configurator/property/property';
 import { isNullOrUndefined } from 'util';
 import { FormControl } from '@angular/forms';
 import { DynamicFormItemBase } from 'app/main/content/_model/dynamic-forms/item';

@@ -9,7 +9,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { FuseSharedModule } from "@fuse/shared.module";
-import { GermanDateAdapter } from "../../../_adapter/german-date-adapter";
+import { GermanDateAdapter } from "../../_adapter/german-date-adapter";
 import { FuseTaskSelectComponent } from "./task-select.component";
 import { MatTableModule } from "@angular/material";
 import { HeaderModule } from "app/main/content/_components/_shared/header/header.module";

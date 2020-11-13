@@ -13,9 +13,9 @@ import {
   ClassConfiguration,
   MatchingConfiguration,
   MatchingEntityMappingConfiguration
-} from "app/main/content/_model/meta/configurations";
-import { ClassDefinition } from "app/main/content/_model/meta/class";
-import { Relationship } from "app/main/content/_model/meta/relationship";
+} from "app/main/content/_model/configurator/configurations";
+import { ClassDefinition } from "app/main/content/_model/configurator/class";
+import { Relationship } from "app/main/content/_model/configurator/relationship";
 import {
   ConfirmClassConfigurationSaveDialogComponent,
   ConfirmClassConfigurationSaveDialogData

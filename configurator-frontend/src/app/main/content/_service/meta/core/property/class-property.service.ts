@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ClassProperty, FlatPropertyDefinition } from 'app/main/content/_model/meta/property/property';
+import { ClassProperty, FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
 import { environment } from 'environments/environment';
 
 export class ClassPropertyRequestObject {

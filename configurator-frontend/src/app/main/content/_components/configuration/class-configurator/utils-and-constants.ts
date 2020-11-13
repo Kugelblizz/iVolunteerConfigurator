@@ -1,6 +1,6 @@
-import { RelationshipType } from 'app/main/content/_model/meta/relationship';
+import { RelationshipType } from 'app/main/content/_model/configurator/relationship';
 import { MatchingOperatorType } from 'app/main/content/_model/matching';
-import { PropertyType } from 'app/main/content/_model/meta/property/property';
+import { PropertyType } from 'app/main/content/_model/configurator/property/property';
 
 const relationshipPalettes = {
   id: 'relationships',

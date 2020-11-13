@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Relationship } from 'app/main/content/_model/meta/relationship';
+import { Relationship } from 'app/main/content/_model/configurator/relationship';
 import { isNullOrUndefined } from 'util';
 import { of } from 'rxjs';
 import { environment } from 'environments/environment';

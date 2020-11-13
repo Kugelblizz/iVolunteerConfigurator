@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FlatPropertyDefinition } from 'app/main/content/_model/meta/property/property';
+import { FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
 import { isNullOrUndefined } from 'util';
 import { ActivatedRoute, Router } from '@angular/router';
 

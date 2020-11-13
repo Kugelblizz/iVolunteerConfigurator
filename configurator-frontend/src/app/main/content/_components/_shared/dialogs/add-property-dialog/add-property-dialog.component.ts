@@ -4,17 +4,17 @@ import {
 } from '@angular/material/dialog';
 import {
   PropertyItem, ClassProperty, FlatPropertyDefinition,
-} from '../../../../_model/meta/property/property';
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
+} from '../../../../_model/configurator/property/property';
+import { ClassDefinition } from 'app/main/content/_model/configurator/class';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { isNullOrUndefined } from 'util';
 import {
   Relationship, RelationshipType,
-} from 'app/main/content/_model/meta/relationship';
+} from 'app/main/content/_model/configurator/relationship';
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
-import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyDefinition } from 'app/main/content/_model/configurator/property/tree-property';
 import { ClassPropertyService } from 'app/main/content/_service/meta/core/property/class-property.service';
 import {
   PropertyCreationDialogComponent, PropertyCreationDialogData,

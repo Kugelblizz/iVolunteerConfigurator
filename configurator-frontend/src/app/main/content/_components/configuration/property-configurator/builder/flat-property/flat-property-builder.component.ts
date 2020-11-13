@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
-import { FlatPropertyDefinition, PropertyType } from 'app/main/content/_model/meta/property/property';
+import { FlatPropertyDefinition, PropertyType } from 'app/main/content/_model/configurator/property/property';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { propertyNameUniqueValidator } from 'app/main/content/_validator/property-name-unique.validator';
-import { ConstraintType, PropertyConstraint } from 'app/main/content/_model/meta/constraint';
+import { ConstraintType, PropertyConstraint } from 'app/main/content/_model/configurator/constraint';
 
 export interface PropertyTypeOption {
   type: PropertyType;

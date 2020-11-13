@@ -1,20 +1,17 @@
 import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-
 import { fuseAnimations } from '@fuse/animations/index';
 import { FuseConfigService } from '@fuse/services/config.service';
 
 @Component({
-    selector   : 'fuse-content',
+    selector: 'fuse-content',
     templateUrl: './content.component.html',
-    styleUrls  : ['./content.component.scss'],
-    animations : fuseAnimations
+    styleUrls: ['./content.component.scss'],
+    animations: fuseAnimations
 })
-export class FuseContentComponent implements OnDestroy
-{
+export class FuseContentComponent implements OnDestroy {
     onConfigChanged: Subscription;
     fuseSettings: any;
 
@@ -28,14 +25,12 @@ export class FuseContentComponent implements OnDestroy
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private fuseConfig: FuseConfigService
-    )
-    {
+    ) {
         this.router.events.pipe(
             filter((event) => event instanceof NavigationEnd),
             map(() => this.activatedRoute)
         ).subscribe((event) => {
-            switch ( this.fuseSettings.routerAnimation )
-            {
+            switch (this.fuseSettings.routerAnimation) {
                 case 'fadeIn':
                     this.routeAnimationFade = !this.routeAnimationFade;
                     break;
@@ -63,8 +58,7 @@ export class FuseContentComponent implements OnDestroy
                 );
     }
 
-    ngOnDestroy()
-    {
+    ngOnDestroy() {
         this.onConfigChanged.unsubscribe();
     }
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ClassDefinition, ClassArchetype } from '../../../../_model/meta/class';
+import { ClassDefinition, ClassArchetype } from '../../../../_model/configurator/class';
 import { isNullOrUndefined } from 'util';
 import { of } from 'rxjs';
-import { Relationship } from 'app/main/content/_model/meta/relationship';
-import { FormConfigurationPreviewRequest } from 'app/main/content/_model/meta/form';
+import { Relationship } from 'app/main/content/_model/configurator/relationship';
+import { FormConfigurationPreviewRequest } from 'app/main/content/_model/configurator/form';
 import { environment } from 'environments/environment';
 
 @Injectable({

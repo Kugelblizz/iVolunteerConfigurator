@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNullOrUndefined } from 'util';
-import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
+import { ClassConfiguration } from 'app/main/content/_model/configurator/configurations';
 
 export interface ChangeIconDialogData {
   imagePath: string;

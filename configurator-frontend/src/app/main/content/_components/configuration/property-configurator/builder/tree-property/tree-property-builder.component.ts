@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyDefinition } from 'app/main/content/_model/configurator/property/tree-property';
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
 import { isNullOrUndefined } from 'util';
 import { MatDialog } from '@angular/material';

@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
+import { ClassDefinition } from 'app/main/content/_model/configurator/class';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { isNullOrUndefined } from 'util';
-import { MatchingEntityMappingConfiguration } from 'app/main/content/_model/meta/configurations';
+import { MatchingEntityMappingConfiguration } from 'app/main/content/_model/configurator/configurations';
 import { MatchingEntity } from 'app/main/content/_model/matching';
 import { AddClassDefinitionGraphDialogComponent, AddClassDefinitionGraphDialogData } from '../add-class-definition-graph-dialog/add-class-definition-graph-dialog.component';
 

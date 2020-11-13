@@ -2,8 +2,8 @@
 import {
   ViewChild, ElementRef, Component, ChangeDetectorRef, Input, EventEmitter, Output, OnInit, OnChanges
 } from '@angular/core';
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
-import { Relationship } from 'app/main/content/_model/meta/relationship';
+import { ClassDefinition } from 'app/main/content/_model/configurator/class';
+import { Relationship } from 'app/main/content/_model/configurator/relationship';
 
 declare var $: any;
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FlatPropertyDefinition } from 'app/main/content/_model/meta/property/property';
+import { FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
 import { isNullOrUndefined } from 'util';
-import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyDefinition } from 'app/main/content/_model/configurator/property/tree-property';
 
 export interface PropertyCreationDialogData {
   // allFlatPropertyDefinitions: FlatPropertyDefinition<any>[];

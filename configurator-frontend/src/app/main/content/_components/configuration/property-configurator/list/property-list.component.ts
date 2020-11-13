@@ -1,9 +1,9 @@
-import { PropertyType, FlatPropertyDefinition } from 'app/main/content/_model/meta/property/property';
+import { PropertyType, FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
 import { Component, OnInit } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { DialogFactoryDirective } from 'app/main/content/_components/_shared/dialogs/_dialog-factory/dialog-factory.component';
 import { MatTableDataSource } from '@angular/material';
-import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyDefinition } from 'app/main/content/_model/configurator/property/tree-property';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';

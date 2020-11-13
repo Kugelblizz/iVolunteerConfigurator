@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { PropertyType, ClassProperty } from '../_model/meta/property/property';
+import { PropertyType, ClassProperty } from '../_model/configurator/property/property';
 import { isNullOrUndefined } from 'util';
 import { Validators, ValidatorFn } from '@angular/forms';
-import { PropertyConstraint, ConstraintType } from '../_model/meta/constraint';
+import { PropertyConstraint, ConstraintType } from '../_model/configurator/constraint';
 import {
   TextboxFormItem, DropdownMultipleFormItem, DropdownFormItem, DynamicFormItemBase, NumberBoxFormItem,
   SingleSelectionTreeFormItem, DatepickerFormItem, TupleDropdownFormItem, GenericFormItem,
   MultipleSelectionTreeFormItem, SlideToggleFormItem, TextAreaFormItem, NumberDropdownFormItem, LocationFormItem, ComputedFormItem
 } from '../_model/dynamic-forms/item';
-import { Location } from '../_model/meta/property/location';
+import { Location } from '../_model/configurator/property/location';
 
 export interface ValidatorData {
   validators: ValidatorFn[];

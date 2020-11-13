@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { ClassInstance } from 'app/main/content/_model/meta/class';
+import { ClassInstance } from 'app/main/content/_model/configurator/class';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 

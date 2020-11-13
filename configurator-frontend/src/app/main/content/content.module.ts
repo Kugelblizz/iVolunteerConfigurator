@@ -5,7 +5,6 @@ import { Route, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const routes: Route[] = [
-
   {
     path: 'main/dashboard',
     loadChildren: () =>
@@ -59,7 +58,7 @@ const routes: Route[] = [
     path: 'main/task-select',
     loadChildren: () =>
       import(
-        './_components/task-management/task-select/task-select.module'
+        './_components/task-select/task-select.module'
       ).then((m) => m.FuseTaskSelectModule),
     canActivate: [AnonymGuard],
   },
@@ -71,14 +70,6 @@ const routes: Route[] = [
       ).then((m) => m.InvalidParametersModule),
     canActivate: [AnonymGuard],
   },
-  // {
-  //   path: 'main/tasks/all',
-  //   loadChildren: () =>
-  //     import(
-  //       './_components/task-management/task-list/task-list.module'
-  //     ).then((m) => m.FuseTaskListModule),
-  //   canActivate: [AnonymGuard],
-  // },
 ];
 
 @NgModule({

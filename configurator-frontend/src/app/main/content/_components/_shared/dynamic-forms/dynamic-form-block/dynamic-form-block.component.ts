@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { DynamicFormItemBase } from '../../../../_model/dynamic-forms/item';
 import { DynamicFormItemControlService } from '../../../../_service/dynamic-form-item-control.service';
 import { isNullOrUndefined } from 'util';
-import { FormEntryReturnEventData, FormConfiguration } from 'app/main/content/_model/meta/form';
+import { FormEntryReturnEventData, FormConfiguration } from 'app/main/content/_model/configurator/form';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import 'jquery';

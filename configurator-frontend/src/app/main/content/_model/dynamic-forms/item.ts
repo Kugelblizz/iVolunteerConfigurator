@@ -1,7 +1,7 @@
 import { ValidatorFn } from '@angular/forms';
-import { TreePropertyEntry } from '../meta/property/tree-property';
-import { Location } from '../meta/property/location';
-import { PropertyType } from '../meta/property/property';
+import { TreePropertyEntry } from '../configurator/property/tree-property';
+import { Location } from '../configurator/property/location';
+import { PropertyType } from '../configurator/property/property';
 
 export class DynamicFormItemBase<T> {
   value: T;

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatchingConfiguration } from '../../_model/meta/configurations';
+import { MatchingConfiguration } from '../../_model/configurator/configurations';
 import { environment } from "environments/environment";
 
 @Injectable({

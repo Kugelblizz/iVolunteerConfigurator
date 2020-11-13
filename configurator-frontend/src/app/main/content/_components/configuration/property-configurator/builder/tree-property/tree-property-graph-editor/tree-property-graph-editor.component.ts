@@ -2,7 +2,7 @@ import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, HostList
 import { mxgraph } from 'mxgraph';
 import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
 import { MyMxCell, MyMxCellType } from '../../../../myMxCell';
-import { TreePropertyDefinition, TreePropertyEntry, TreePropertyRelationship } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyDefinition, TreePropertyEntry, TreePropertyRelationship } from 'app/main/content/_model/configurator/property/tree-property';
 import { CConstants } from '../../../../class-configurator/utils-and-constants';
 import { isNullOrUndefined } from 'util';
 import { TreePropertyOptionsOverlayContentData } from './options-overlay/options-overlay-content/options-overlay-content.component';

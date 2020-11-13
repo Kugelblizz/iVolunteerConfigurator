@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TreePropertyDefinition } from 'app/main/content/_model/meta/property/tree-property';
+import { TreePropertyDefinition } from 'app/main/content/_model/configurator/property/tree-property';
 import { environment } from 'environments/environment';
 
 

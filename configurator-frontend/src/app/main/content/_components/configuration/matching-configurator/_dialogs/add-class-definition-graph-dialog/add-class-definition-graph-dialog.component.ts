@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ClassDefinition } from 'app/main/content/_model/meta/class';
+import { ClassDefinition } from 'app/main/content/_model/configurator/class';
 import { isNullOrUndefined } from 'util';
-import { MatchingEntityMappingConfiguration, ClassConfigurationDTO } from 'app/main/content/_model/meta/configurations';
+import { MatchingEntityMappingConfiguration, ClassConfigurationDTO } from 'app/main/content/_model/configurator/configurations';
 import { MatchingEntity } from 'app/main/content/_model/matching';
 import { mxgraph } from 'mxgraph';
 import { MyMxCell, MyMxCellType } from '../../../myMxCell';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
 import { CConstants } from '../../../class-configurator/utils-and-constants';
-import { Relationship, RelationshipType } from 'app/main/content/_model/meta/relationship';
+import { Relationship, RelationshipType } from 'app/main/content/_model/configurator/relationship';
 
 declare var require: any;
 const mx: typeof mxgraph = require('mxgraph')({

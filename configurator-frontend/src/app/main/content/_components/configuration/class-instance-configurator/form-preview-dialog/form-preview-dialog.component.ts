@@ -1,9 +1,9 @@
-import { ClassDefinition, ClassInstance } from 'app/main/content/_model/meta/class';
-import { Relationship } from 'app/main/content/_model/meta/relationship';
+import { ClassDefinition, ClassInstance } from 'app/main/content/_model/configurator/class';
+import { Relationship } from 'app/main/content/_model/configurator/relationship';
 import { Component, OnInit, Inject } from '@angular/core';
 import { DynamicFormItemService } from 'app/main/content/_service/dynamic-form-item.service';
 import { DynamicFormItemControlService } from 'app/main/content/_service/dynamic-form-item-control.service';
-import { FormConfiguration, FormEntry, FormEntryReturnEventData } from 'app/main/content/_model/meta/form';
+import { FormConfiguration, FormEntry, FormEntryReturnEventData } from 'app/main/content/_model/configurator/form';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import { isNullOrUndefined } from 'util';

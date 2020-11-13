@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ClassConfiguration } from '../../_model/meta/configurations';
+import { ClassConfiguration } from '../../_model/configurator/configurations';
 import { environment } from 'environments/environment';
 import { ConfirmClassConfigurationSaveDialogData } from '../../_components/configuration/class-configurator/_dialogs/confirm-save-dialog/confirm-save-dialog.component';
 

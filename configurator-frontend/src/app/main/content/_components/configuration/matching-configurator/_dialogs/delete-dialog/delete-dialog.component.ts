@@ -1,5 +1,5 @@
 import { OnInit, Component, Inject } from '@angular/core';
-import { MatchingConfiguration } from 'app/main/content/_model/meta/configurations';
+import { MatchingConfiguration } from 'app/main/content/_model/configurator/configurations';
 import { MatchingConfigurationService } from 'app/main/content/_service/configuration/matching-configuration.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { isNullOrUndefined } from 'util';

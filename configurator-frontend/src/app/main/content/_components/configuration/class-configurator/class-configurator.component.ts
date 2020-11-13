@@ -3,14 +3,14 @@ import { Component, OnInit, AfterContentInit, Input, ViewChild, ElementRef, Host
 import { DialogFactoryDirective } from '../../_shared/dialogs/_dialog-factory/dialog-factory.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectIdService } from 'app/main/content/_service/objectid.service.';
-import { ClassDefinition, ClassArchetype } from 'app/main/content/_model/meta/class';
-import { Relationship, RelationshipType, AssociationCardinality } from 'app/main/content/_model/meta/relationship';
-import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
+import { ClassDefinition, ClassArchetype } from 'app/main/content/_model/configurator/class';
+import { Relationship, RelationshipType, AssociationCardinality } from 'app/main/content/_model/configurator/relationship';
+import { ClassConfiguration } from 'app/main/content/_model/configurator/configurations';
 import { EditorPopupMenu } from './popup-menu';
 import { TopMenuResponse } from './top-menu-bar/top-menu-bar.component';
 import { MyMxCell, MyMxCellType } from '../myMxCell';
 import { CConstants } from './utils-and-constants';
-import { ClassProperty, PropertyType } from 'app/main/content/_model/meta/property/property';
+import { ClassProperty, PropertyType } from 'app/main/content/_model/configurator/property/property';
 import { isNullOrUndefined } from 'util';
 import { OptionsOverlayContentData } from './options-overlay/options-overlay-control/options-overlay-control.component';
 

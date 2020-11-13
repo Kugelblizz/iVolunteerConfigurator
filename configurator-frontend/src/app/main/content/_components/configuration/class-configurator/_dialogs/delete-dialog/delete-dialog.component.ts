@@ -1,5 +1,5 @@
 import { OnInit, Component, Inject } from '@angular/core';
-import { ClassConfiguration } from 'app/main/content/_model/meta/configurations';
+import { ClassConfiguration } from 'app/main/content/_model/configurator/configurations';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { ClassConfigurationService } from 'app/main/content/_service/configuration/class-configuration.service';
 import { isNullOrUndefined } from 'util';
