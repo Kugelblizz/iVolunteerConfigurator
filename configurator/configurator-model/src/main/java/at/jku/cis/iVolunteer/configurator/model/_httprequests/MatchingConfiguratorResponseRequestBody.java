@@ -6,7 +6,6 @@ import at.jku.cis.iVolunteer.configurator.model.configurations.matching.Matching
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingOperatorRelationship;
 
 public class MatchingConfiguratorResponseRequestBody {
-//	--body: matching-configuration + matching-relationships
 	
 	String action;
 	MatchingConfiguration matchingConfiguration;

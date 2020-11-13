@@ -17,9 +17,6 @@ public class MatchingDataRequestDTO {
 
 	String pathDelimiter;
 
-//	ClassConfiguration leftClassConfiguration;
-//	ClassConfiguration rightClassConfiguration;
-
 	public MatchingConfiguration getMatchingConfiguration() {
 		return matchingConfiguration;
 	}
@@ -60,21 +57,5 @@ public class MatchingDataRequestDTO {
 		this.pathDelimiter = pathDelimiter;
 	}
 
-//	public ClassConfiguration getLeftClassConfiguration() {
-//		return leftClassConfiguration;
-//	}
-
-//
-//	public void setLeftClassConfiguration(ClassConfiguration leftClassConfiguration) {
-//		this.leftClassConfiguration = leftClassConfiguration;
-//	}
-//
-//	public ClassConfiguration getRightClassConfiguration() {
-//		return rightClassConfiguration;
-//	}
-//
-//	public void setRightClassConfiguration(ClassConfiguration rightClassConfiguration) {
-//		this.rightClassConfiguration = rightClassConfiguration;
-//	}
 
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import at.jku.cis.iVolunteer.configurator.model.IVolunteerObject;
 import at.jku.cis.iVolunteer.configurator.model.meta.constraint.property.PropertyConstraint;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.PropertyType;
 

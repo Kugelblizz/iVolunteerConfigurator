@@ -11,13 +11,10 @@ import at.jku.cis.iVolunteer.configurator.model.IVolunteerObject;
 public class ClassConfiguration extends IVolunteerObject {
 
 	private String name;
-
 	private List<String> classDefinitionIds;
 	private List<String> relationshipIds;
-
 	private String userId;
 
-//	private ClassConfigurationArcheType configuratorArcheType;
 
 	public ClassConfiguration() {
 	}
@@ -66,14 +63,6 @@ public class ClassConfiguration extends IVolunteerObject {
 		}
 		return ((ClassConfiguration) obj).id.equals(id);
 	}
-
-//	public ClassConfigurationArcheType getConfiguratorArcheType() {
-//		return configuratorArcheType;
-//	}
-//
-//	public void setConfiguratorArcheType(ClassConfigurationArcheType configuratorArcheType) {
-//		this.configuratorArcheType = configuratorArcheType;
-//	}
 
 	public String getUserId() {
 		return userId;

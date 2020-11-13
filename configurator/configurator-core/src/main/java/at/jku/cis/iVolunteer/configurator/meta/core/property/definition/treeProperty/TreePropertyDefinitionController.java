@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyDefinition;
-import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyRelationship;
 
 @RestController
 public class TreePropertyDefinitionController {

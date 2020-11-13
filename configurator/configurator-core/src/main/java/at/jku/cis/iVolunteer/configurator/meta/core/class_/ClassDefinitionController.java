@@ -28,7 +28,6 @@ public class ClassDefinitionController {
 	@Autowired private ClassDefinitionService classDefinitionService;
 	@Autowired private ClassDefinitionMapper classDefinitionMapper;
 
-//	@PreAuthorize("hasAnyRole('TENANT_ADMIN', 'HELP_SEEKER')")
 	@GetMapping("/meta/core/class/definition/all")
 	private List<ClassDefinition> getAllClassDefinitions() {
 		return classDefinitionRepository.findAll();
@@ -38,15 +37,6 @@ public class ClassDefinitionController {
 	private List<ClassDefinition> getAllClassDefinitionsByTenantId(String tenantId) {
 		return classDefinitionRepository.getByTenantId(tenantId);
 	}
-//	@GetMapping("meta/core/class/definition/all/no-enum/tenant/{tenantId}")
-//	public List<ClassDefinition> getAllClassDefinitionsWithoutEnums(@PathVariable("tenantId") String tenantId) {
-//		return classDefinitionService.getAllClassDefinitionsWithoutEnums(tenantId);
-//	}
-//
-//	@GetMapping("meta/core/class/definition/all/no-enum-no-head/tenant/{tenantId}")
-//	public List<ClassDefinition> getAllClassDefinitionsWithoutEnumsAndHeads(@PathVariable("tenantId") String tenantId) {
-//		return classDefinitionService.getAllClassDefinitionsWithoutEnumsAndHeads(tenantId);
-//	}
 
 	@GetMapping("/meta/core/class/definition/{id}")
 	private ClassDefinition getClassDefinitionById(@PathVariable("id") String id) {
@@ -57,11 +47,6 @@ public class ClassDefinitionController {
 	private List<ClassDefinition> getClassDefinitionsWithProperties(@PathVariable("slotId") String slotId) {
 		return classDefinitionService.getAllClassDefinitionsWithProperties(slotId);
 	}
-
-//	@GetMapping("/meta/core/class/definition/{id}")
-//	private ClassDefinition getClassDefinitionById(@PathVariable("id") String id) {
-//		return classDefinitionService.getClassDefinitionById(id);
-//	}
 
 	@GetMapping("/meta/core/class/definition/archetype/{archetype}/tenant/{tenantId}")
 	public List<ClassDefinitionDTO> getClassDefinitionByArchetype(@PathVariable("archetype") ClassArchetype archetype,
@@ -95,24 +80,6 @@ public class ClassDefinitionController {
 		return classDefinitionService.addOrUpdateClassDefinitions(classDefinitions);
 	}
 
-//	@PutMapping("meta/core/class/definition/get-children/tenant/{tenantId}")
-//	private List<FormConfiguration> getChildrenById(@RequestBody List<String> rootIds, @PathVariable("tenantId") String tenantId) {
-//		return classDefinitionService.aggregateChildrenById(rootIds);
-//	}
-//
-//	@PutMapping("meta/core/class/definition/get-parents/tenant/{tenantId}")
-//	private List<FormConfiguration> getParentsById(@RequestBody List<String> childIds,
-//			@PathVariable("tenantId") String tenantId) {
-//		return classDefinitionService.getParentsById(childIds);
-//	}
-
-//	@GetMapping("meta/core/class/definition/enum-values/{classDefinitionId}/tenant/{tenantId}")
-//	public List<EnumEntry> getEnumValues(@PathVariable("classDefinitionId") String classDefinitionId,
-//			@PathVariable("tenantId") String tenantId) {
-//		return collectionService.aggregateEnums(classDefinitionId);
-//
-//	}
-
 	@PutMapping("meta/core/class/definition/form-configuration")
 	private List<FormConfiguration> getFormConfigurations(@RequestBody List<String> ids) {
 
@@ -138,10 +105,5 @@ public class ClassDefinitionController {
 
 		return classDefinitionService.getClassDefinitionChunk(pathPrefix, startClassDefinitionId, choiceId);
 	}
-
-//	@GetMapping("meta/core/class/definition/enum-values/{classDefinitionId}")
-//	public List<EnumEntry> getEnumValues(@PathVariable("classDefinitionId") String classDefinitionId) {
-//		return collectionService.aggregateEnums(classDefinitionId);
-//	}
 
 }

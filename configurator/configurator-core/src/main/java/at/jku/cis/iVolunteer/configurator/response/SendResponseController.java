@@ -2,7 +2,6 @@ package at.jku.cis.iVolunteer.configurator.response;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +14,7 @@ import at.jku.cis.iVolunteer.configurator.configurations.matching.configuration.
 import at.jku.cis.iVolunteer.configurator.configurations.matching.relationships.MatchingOperatorRelationshipController;
 import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionService;
 import at.jku.cis.iVolunteer.configurator.meta.core.class_.CollectionService;
-import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionController;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
-import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionController;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipController;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassConfiguratorResponseRequestBody;
@@ -30,8 +27,6 @@ import at.jku.cis.iVolunteer.configurator.model.configurations.matching.Matching
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingOperatorRelationship;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.ClassPropertyRequestObject;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
-import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassInstance;
-import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.ClassProperty;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.flatProperty.FlatPropertyDefinition;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyDefinition;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.RelationshipDTO;

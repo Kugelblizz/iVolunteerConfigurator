@@ -11,9 +11,6 @@ import at.jku.cis.iVolunteer.configurator.model.meta.core.property.PropertyType;
 
 @Document
 public class FlatPropertyDefinition<T> extends IVolunteerObject {
-
-	// @Id
-	// private String id;
 	private String name;
 	
 	private List<T> allowedValues = new ArrayList<>();

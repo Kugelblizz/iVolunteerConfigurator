@@ -3,7 +3,6 @@ package at.jku.cis.iVolunteer.configurator.model._httprequests;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassInstance;
 
 public class ClassInstanceConfiguratorResponseRequestBody {
-//	--body: instance
 	
 	private ClassInstance classInstance;
 

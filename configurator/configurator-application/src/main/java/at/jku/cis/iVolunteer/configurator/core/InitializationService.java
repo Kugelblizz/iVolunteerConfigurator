@@ -13,7 +13,6 @@ import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionReposi
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
-import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.InitConfiguratorRequest;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.UrlIdRequestBody;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;

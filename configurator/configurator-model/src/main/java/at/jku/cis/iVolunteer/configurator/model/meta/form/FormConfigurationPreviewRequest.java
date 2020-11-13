@@ -3,7 +3,6 @@ package at.jku.cis.iVolunteer.configurator.model.meta.form;
 import java.util.List;
 
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
-import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.Relationship;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.RelationshipDTO;
 
 public class FormConfigurationPreviewRequest {

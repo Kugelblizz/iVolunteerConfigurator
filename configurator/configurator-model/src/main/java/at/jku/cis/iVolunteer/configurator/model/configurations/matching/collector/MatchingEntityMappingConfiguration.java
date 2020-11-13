@@ -1,7 +1,5 @@
 package at.jku.cis.iVolunteer.configurator.model.configurations.matching.collector;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 
 import at.jku.cis.iVolunteer.configurator.model.matching.MatchingEntityMappings;

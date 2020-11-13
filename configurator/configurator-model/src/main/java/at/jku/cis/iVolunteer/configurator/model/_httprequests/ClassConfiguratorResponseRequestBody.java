@@ -6,13 +6,10 @@ import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfig
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.flatProperty.FlatPropertyDefinition;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyDefinition;
-import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.Relationship;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.relationship.RelationshipDTO;
 
 
 public class ClassConfiguratorResponseRequestBody {
-//	--body: class-configuraton + classDefinitions + relationships
-
 	private String action;
 	private ClassConfiguration classConfiguration;
 	private List<ClassDefinition> classDefinitions;
