@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassConfiguratorResponseRequestBody;
@@ -21,24 +22,44 @@ public class ResponseRestClient {
 
 	@Autowired private RestTemplate restTemplate;
 
-	public HttpStatus sendClassConfiguratorResponse(String url, ClassConfiguratorResponseRequestBody body) {
-		ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
-		return resp.getStatusCode();
+	public ResponseEntity<Object> sendClassConfiguratorResponse(String url, ClassConfiguratorResponseRequestBody body) {
+		try {
+			ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
+			return resp;
+		} catch(Exception e) {
+			return handleException(e);
+		}
 	}
 
-	public HttpStatus sendClassInstanceConfiguratorResponse(String url, ClassInstanceConfiguratorResponseRequestBody body) {
-		ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
-		return resp.getStatusCode();
+	public ResponseEntity<Object> sendClassInstanceConfiguratorResponse(String url, ClassInstanceConfiguratorResponseRequestBody body) {
+		try {
+			ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
+			return resp;
+		} catch(Exception e) {
+			return handleException(e);
+		}
 	}
 
-	public HttpStatus sendMatchingConfiguratorResponse(String url, MatchingConfiguratorResponseRequestBody body) {
-		ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
-		return resp.getStatusCode();
+	public ResponseEntity<Object> sendMatchingConfiguratorResponse(String url, MatchingConfiguratorResponseRequestBody body) {
+		try {
+			ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
+			return resp;
+		} catch(Exception e) {
+			return handleException(e);
+		}
 	}
 	
-	public HttpStatus sendPropertyConfiguratorResponse(String url, PropertyConfiguratorResponseRequestBody body) {
-		ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
-		return resp.getStatusCode();
+	public ResponseEntity<Object> sendPropertyConfiguratorResponse(String url, PropertyConfiguratorResponseRequestBody body) {
+		try {
+			ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
+			return resp;
+		} catch(Exception e) {
+			return handleException(e);
+		}
+	}
+	
+	private ResponseEntity<Object> handleException(Exception e) {
+		return ResponseEntity.badRequest().build();
 	}
 
 	private HttpEntity<?> buildEntity(Object body) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,7 @@ public class SendResponseController {
 
 
 	@PostMapping("/send-response/class-configurator")
-	public void sendClassConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
+	public ResponseEntity<Object> sendClassConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
 		ClassConfiguratorResponseRequestBody responseRequestBody = new ClassConfiguratorResponseRequestBody();
 
 		ClassConfiguration classConfiguration = ClassConfigurationController
@@ -66,19 +67,19 @@ public class SendResponseController {
 		responseRequestBody.setIdsToDelete(body.getIdsToDelete());
 		responseRequestBody.setAction(body.getAction());
 
-		HttpStatus status = responseRestClient.sendClassConfiguratorResponse(body.getUrl(), responseRequestBody);
+		return responseRestClient.sendClassConfiguratorResponse(body.getUrl(), responseRequestBody);
 	}
 
 	@PostMapping("/send-response/class-instance-configurator")
-	public void sendClassInstanceConfiguratorResponse(@RequestBody FrontendClassInstanceConfiguratorRequestBody body) {
+	public ResponseEntity<Object> sendClassInstanceConfiguratorResponse(@RequestBody FrontendClassInstanceConfiguratorRequestBody body) {
 		ClassInstanceConfiguratorResponseRequestBody responseRequestBody = new ClassInstanceConfiguratorResponseRequestBody();
 		responseRequestBody.setClassInstance(body.getClassInstance());
 		
-		HttpStatus status = responseRestClient.sendClassInstanceConfiguratorResponse(body.getUrl(), responseRequestBody);
+		return responseRestClient.sendClassInstanceConfiguratorResponse(body.getUrl(), responseRequestBody);
 	}
 
 	@PostMapping("/send-response/matching-configurator")
-	public void sendMatchingConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
+	public ResponseEntity<Object> sendMatchingConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
 		MatchingConfiguratorResponseRequestBody responseRequestBody = new MatchingConfiguratorResponseRequestBody();
 		MatchingConfiguration matchingConfiguration = matchingConfigurationService.getMatchingConfigurationById(body.getIdToSave());
 		responseRequestBody.setMatchingConfiguration(matchingConfiguration);
@@ -91,12 +92,11 @@ public class SendResponseController {
 		responseRequestBody.setIdsToDelete(body.getIdsToDelete());
 		responseRequestBody.setAction(body.getAction());
 
-		HttpStatus status = responseRestClient.sendMatchingConfiguratorResponse(body.getUrl(),
-				responseRequestBody);
+		return responseRestClient.sendMatchingConfiguratorResponse(body.getUrl(), responseRequestBody);
 	}
 	
 	@PostMapping("/send-response/property-configurator")
-	public void sendPropertyConfiguratorResponse(@RequestBody FrontendPropertyConfiguratorRequestBody body) {
+	public ResponseEntity<Object> sendPropertyConfiguratorResponse(@RequestBody FrontendPropertyConfiguratorRequestBody body) {
 		PropertyConfiguratorResponseRequestBody responseRequestBody = new PropertyConfiguratorResponseRequestBody();
 		
 		responseRequestBody.setAction(body.getAction());
@@ -115,9 +115,7 @@ public class SendResponseController {
 
 		}
 				
-		HttpStatus status = responseRestClient.sendPropertyConfiguratorResponse(body.getUrl(),
-				responseRequestBody);
-		
+		return responseRestClient.sendPropertyConfiguratorResponse(body.getUrl(), responseRequestBody);
 	}
 	
 }

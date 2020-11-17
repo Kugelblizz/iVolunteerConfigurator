@@ -95,19 +95,17 @@ export class TreePropertyBuilderComponent implements OnInit {
 
       newTreePropertyDefinition.tenantId = this.tenantId;
 
-      this.treePropertyDefinitionService
-        .newPropertyDefinition(newTreePropertyDefinition)
-        .toPromise().then((treePropertyDefinition: TreePropertyDefinition) => {
-          if (!isNullOrUndefined(treePropertyDefinition)) {
-            this.treePropertyDefinition = treePropertyDefinition;
-            this.showEditor = true;
-          }
-        }).catch(error => {
-          this.form.enable();
-          const str = "" + this.form.value.name;
-          this.form.controls['name'].setValidators([Validators.required, stringsUnique(str, this.form.value.name)]);
-          this.form.controls['name'].updateValueAndValidity();
-        });
+      this.treePropertyDefinitionService.newPropertyDefinition(newTreePropertyDefinition).toPromise().then((treePropertyDefinition: TreePropertyDefinition) => {
+        if (!isNullOrUndefined(treePropertyDefinition)) {
+          this.treePropertyDefinition = treePropertyDefinition;
+          this.showEditor = true;
+        }
+      }).catch(error => {
+        this.form.enable();
+        const str = '' + this.form.value.name;
+        this.form.controls['name'].setValidators([Validators.required, stringsUnique(str, this.form.value.name)]);
+        this.form.controls['name'].updateValueAndValidity();
+      });
     }
   }
 

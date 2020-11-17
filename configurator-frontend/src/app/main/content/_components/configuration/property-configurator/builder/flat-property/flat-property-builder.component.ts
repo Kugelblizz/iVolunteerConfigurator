@@ -330,21 +330,20 @@ export class FlatPropertyBuilderComponent implements OnInit {
       const property = this.createPropertyFromForm();
       property.tenantId = this.tenantId;
 
-      this.propertyDefinitionService.createNewPropertyDefinition(property)
-        .toPromise().then((ret: FlatPropertyDefinition<any>) => {
-          if (!isNullOrUndefined(ret)) {
-            this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [ret.id], undefined, 'save').toPromise().then(() => {
-              this.result.emit({ builderType: 'property', value: ret });
-            });
-          } else {
-            this.result.emit(undefined);
-          }
-        }).catch(error => {
-          this.form.enable();
-          const str = '' + this.form.value.name;
-          this.form.controls['name'].setValidators([Validators.required, stringsUnique(str, this.form.value.name)]);
-          this.form.controls['name'].updateValueAndValidity();
-        });
+      this.propertyDefinitionService.createNewPropertyDefinition(property).toPromise().then((ret: FlatPropertyDefinition<any>) => {
+        if (!isNullOrUndefined(ret)) {
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [ret.id], undefined, 'save').toPromise().then(() => {
+            this.result.emit({ builderType: 'property', value: ret });
+          });
+        } else {
+          this.result.emit(undefined);
+        }
+      }).catch(error => {
+        this.form.enable();
+        const str = '' + this.form.value.name;
+        this.form.controls['name'].setValidators([Validators.required, stringsUnique(str, this.form.value.name)]);
+        this.form.controls['name'].updateValueAndValidity();
+      });
     } else {
       this.markAllowedValuesAsTouched();
       this.markConstraintsAsTouched();
