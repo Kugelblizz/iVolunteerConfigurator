@@ -14,7 +14,7 @@
             <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 90%">
 
                 <div>
-                    <mat-form-field style="width: 300px">
+                    <mat-form-field style="width: 200px">
                         <input matInput (keyup)="handleTextFilterEvent($event)" placeholder="Suchen..."
                             [(ngModel)]="textSearchValue" />
                         <button *ngIf="textSearchValue" mat-button matSuffix mat-icon-button aria-label="Clear"
@@ -24,13 +24,18 @@
                     </mat-form-field>
 
                     <mat-form-field class="ml-8">
-                        <mat-select placeholder="Filter" style="width: 300px" [(ngModel)]="dropdownFilterValue"
+                        <mat-select placeholder="Filter" style="width: 200px" [(ngModel)]="dropdownFilterValue"
                             (selectionChange)="applyTypeFilter()">
                             <mat-option value="all">Alle</mat-option>
                             <mat-option value="flat">Nur Flat-Properties</mat-option>
                             <mat-option value="tree">Nur Tree-Properties</mat-option>
                         </mat-select>
                     </mat-form-field>
+
+                    <mat-slide-toggle class="pr-8" [(ngModel)]="customOnly" (change)="handleCustomOnlyToggle()"
+                        labelPosition="after">
+                        Nur Benutzerdefiniert
+                    </mat-slide-toggle>
                 </div>
 
                 <div></div>
@@ -41,11 +46,12 @@
                         Flat-Property</button>
                     <button class="secondary-button-dark-small ml-8" mat-stroked-button type="button"
                         (click)="newAction('tree')">Neues
-                        Tree.Property</button>
+                        Tree-Property</button>
                 </div>
             </div>
             <div></div>
         </div>
+
 
 
         <div class="table" fxLayout="row" fxLayoutAlign="space-between center">
@@ -75,16 +81,15 @@
                             aria-label="View Property">remove_red_eye</mat-icon>
 
                         <div>&nbsp;</div> -->
-
-                        <mat-icon class="iconButton" (click)="editAction(property)" style="cursor: pointer"
-                            matTooltip="{{property.name}} bearbeiten" matTooltipPosition="above"
+                        <mat-icon *ngIf="property.custom" class="iconButton" (click)="editAction(property)"
+                            style="cursor: pointer" matTooltip="{{property.name}} bearbeiten" matTooltipPosition="above"
                             aria-label="bearbeiten">edit</mat-icon>
 
                         <div>&nbsp;</div>
 
-                        <mat-icon class="iconButton" (click)="deleteAction(property)" style="cursor: pointer"
-                            matTooltip="Delete Property {{property.name}}" matTooltipPosition="above"
-                            aria-label="Delete Property">delete</mat-icon>
+                        <mat-icon *ngIf="property.custom" class="iconButton" (click)="deleteAction(property)"
+                            style="cursor: pointer" matTooltip="Delete Property {{property.name}}"
+                            matTooltipPosition="above" aria-label="Delete Property">delete</mat-icon>
 
                     </mat-cell>
                 </ng-container>
@@ -93,6 +98,10 @@
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editPropertyAction(row)"></mat-row> -->
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             </mat-table>
+
+            <div *ngIf="dataSource.data.length == 0">
+                keine Einträge vorhanden
+            </div>
 
             <div></div>
 

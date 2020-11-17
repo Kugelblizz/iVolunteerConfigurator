@@ -114,7 +114,7 @@ public class SendResponseController {
 			responseRequestBody.setTreePropertyDefinitions(treePropertyDefinitions);
 
 		}
-		
+				
 		HttpStatus status = responseRestClient.sendPropertyConfiguratorResponse(body.getUrl(),
 				responseRequestBody);
 		

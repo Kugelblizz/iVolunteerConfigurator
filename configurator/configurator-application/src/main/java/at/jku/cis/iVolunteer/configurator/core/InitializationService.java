@@ -91,7 +91,7 @@ public class InitializationService {
 				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenantIds.get(i).getId())
 						.size() == 0) {
 					pd.setTenantId(tenantIds.get(i).getId());
-					pd.setDeleteProtected(true);
+					pd.setCustom(false);
 					flatDefs.add(pd);
 				}
 			}
@@ -111,7 +111,7 @@ public class InitializationService {
 				if (flatPropertyDefinitionRepository.getByNameAndTenantId(tpd.getName(), tenantIds.get(i).getId())
 						.size() == 0) {
 					tpd.setTenantId(tenantIds.get(i).getId());
-					tpd.setDeleteProtected(true);
+					tpd.setCustom(false);
 					treeDefs.add(tpd);
 				}
 			}
@@ -127,7 +127,7 @@ public class InitializationService {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllFlexProdProperties()) {
 				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant.getId()).size() == 0) {
 					pd.setTenantId(tenant.getId());
-					pd.setDeleteProtected(true);
+					pd.setCustom(false);
 					defs.add(pd);
 				}
 			}
@@ -143,7 +143,7 @@ public class InitializationService {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllTest()) {
 				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant.getId()).size() == 0) {
 					pd.setTenantId(tenant.getId());
-					pd.setDeleteProtected(true);
+					pd.setCustom(false);
 					defs.add(pd);
 				}
 			}
@@ -158,7 +158,7 @@ public class InitializationService {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllGeneric()) {
 				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant.getId()).size() == 0) {
 					pd.setTenantId(tenant.getId());
-					pd.setDeleteProtected(true);
+					pd.setCustom(false);
 					defs.add(pd);
 				}
 			}
@@ -173,7 +173,7 @@ public class InitializationService {
 			for (FlatPropertyDefinition<Object> pd : standardPropertyDefinitions.getAllHeader()) {
 				if (flatPropertyDefinitionRepository.getByNameAndTenantId(pd.getName(), tenant.getId()).size() == 0) {
 					pd.setTenantId(tenant.getId());
-					pd.setDeleteProtected(true);
+					pd.setCustom(false);
 					defs.add(pd);
 				}
 			}

@@ -330,7 +330,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
       this.propertyDefinitionService.createNewPropertyDefinition([property])
         .toPromise().then((ret: FlatPropertyDefinition<any>[]) => {
           if (!isNullOrUndefined(ret) && ret.length > 0) {
-            this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [ret[0].id], undefined, "delete").toPromise().then(() => {
+            this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [ret[0].id], undefined, "save").toPromise().then(() => {
               this.result.emit({ builderType: 'property', value: ret[0] });
             });
           } else {

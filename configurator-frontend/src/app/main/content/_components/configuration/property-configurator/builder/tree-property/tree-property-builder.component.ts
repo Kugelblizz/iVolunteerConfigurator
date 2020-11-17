@@ -88,6 +88,8 @@ export class TreePropertyBuilderComponent implements OnInit {
         newTreePropertyDefinition.requiredMessage = null;
       }
 
+      newTreePropertyDefinition.custom = true;
+
       newTreePropertyDefinition.tenantId = this.tenantId;
 
       this.treePropertyDefinitionService

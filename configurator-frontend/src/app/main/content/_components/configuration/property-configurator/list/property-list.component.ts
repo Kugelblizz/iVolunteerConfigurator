@@ -15,6 +15,7 @@ export interface PropertyEntry {
   name: string;
   type: PropertyType;
   timestamp: Date;
+  custom: boolean;
 }
 
 @Component({
@@ -35,23 +36,26 @@ export class PropertyListComponent implements OnInit {
 
   dropdownFilterValue: string;
   textSearchValue: string;
+  customOnly: boolean;
+
   isLoaded: boolean;
+
 
   tenantId: string;
   redirectUrl: string;
-
-  responseService: ResponseService;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private flatPropertyDefinitionService: FlatPropertyDefinitionService,
     private treePropertyDefinitionService: TreePropertyDefinitionService,
-    private dialogFactory: DialogFactoryDirective
+    private dialogFactory: DialogFactoryDirective,
+    private responseService: ResponseService,
   ) { }
 
   ngOnInit() {
     this.isLoaded = false;
+    this.customOnly = true;
     this.dropdownFilterValue = 'all';
     this.dataSource.filterPredicate = function (data, filter: string): boolean {
       return data.name.toLowerCase().includes(filter);
@@ -113,6 +117,7 @@ export class PropertyListComponent implements OnInit {
           name: e.name,
           type: PropertyType.TREE,
           timestamp: e.timestamp,
+          custom: e.custom,
         }))
       );
     }
@@ -122,17 +127,28 @@ export class PropertyListComponent implements OnInit {
   applyTypeFilter() {
     switch (this.dropdownFilterValue) {
       case 'all':
-        this.dataSource.data = this.propertyEntries;
+        if (this.customOnly) {
+          this.dataSource.data = this.propertyEntries.filter((entry: PropertyEntry) => entry.custom);
+        } else {
+          this.dataSource.data = this.propertyEntries;
+        }
         break;
       case 'flat':
         this.dataSource.data = this.propertyEntries.filter(
           (entry: PropertyEntry) => entry.type !== PropertyType.TREE
         );
+
+        if (this.customOnly) {
+          this.dataSource.data = this.dataSource.data.filter(entry => entry.custom);
+        }
         break;
       case 'tree':
         this.dataSource.data = this.propertyEntries.filter(
           (entry: PropertyEntry) => entry.type === PropertyType.TREE
         );
+        if (this.customOnly) {
+          this.dataSource.data = this.dataSource.data.filter(entry => entry.custom);
+        }
         break;
       default:
         console.error('undefined type');
@@ -157,8 +173,12 @@ export class PropertyListComponent implements OnInit {
   applyFilters(params) {
     if (!isNullOrUndefined(params['filter'])) {
       this.dropdownFilterValue = params['filter'];
-      this.applyTypeFilter();
+    } else {
+      this.dropdownFilterValue = 'all';
     }
+    this.applyTypeFilter();
+
+
     if (!isNullOrUndefined(params['searchString'])) {
       this.applyTextFilter(params['searchString']);
       this.textSearchValue = params['searchString'];
@@ -172,6 +192,10 @@ export class PropertyListComponent implements OnInit {
       queryParamsHandling: 'merge',
       skipLocationChange: true,
     });
+  }
+
+  handleCustomOnlyToggle() {
+    this.applyTypeFilter();
   }
 
   viewPropertyAction(property: FlatPropertyDefinition<any>) {

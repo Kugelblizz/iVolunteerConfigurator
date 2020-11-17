@@ -32,6 +32,10 @@ export class ResponseService {
   }
 
   public sendPropertyConfiguratorResponse(url: string, flatPropertyDefinitionIds: string[], treePropertyDefinitionIds: string[], action: string) {
+    console.log(url);
+    console.log(flatPropertyDefinitionIds);
+    console.log(treePropertyDefinitionIds);
+    console.log(action);
     return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/property-configurator`, { url, flatPropertyDefinitionIds, treePropertyDefinitionIds, action });
   }
 

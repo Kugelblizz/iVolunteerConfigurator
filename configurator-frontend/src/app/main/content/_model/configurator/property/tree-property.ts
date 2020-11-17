@@ -3,6 +3,8 @@ export class TreePropertyEntry {
     value: string;
     selectable: boolean;
 
+    custom: boolean;
+
     level: number;
     position: number[];
 
@@ -34,6 +36,8 @@ export class TreePropertyDefinition {
 
     entries: TreePropertyEntry[];
     relationships: TreePropertyRelationship[];
+
+    custom: boolean;
 
     constructor(name: string, description: string, multiple: boolean, required: boolean, requiredMessage: string) {
         this.name = name;
