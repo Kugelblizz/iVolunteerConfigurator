@@ -6,6 +6,7 @@ import { propertyNameUniqueValidator } from 'app/main/content/_validator/propert
 import { PropertyType, FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
 import { ConstraintType, PropertyConstraint } from 'app/main/content/_model/configurator/constraint';
 import { ResponseService } from 'app/main/content/_service/response.service';
+import { stringsUnique } from 'app/main/content/_validator/strings-unique.validator';
 
 export interface PropertyTypeOption {
   type: PropertyType;
@@ -324,22 +325,37 @@ export class FlatPropertyBuilderComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
+
+      this.form.disable();
       const property = this.createPropertyFromForm();
       property.tenantId = this.tenantId;
 
-      this.propertyDefinitionService.createNewPropertyDefinition([property])
-        .toPromise().then((ret: FlatPropertyDefinition<any>[]) => {
-          if (!isNullOrUndefined(ret) && ret.length > 0) {
-            this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [ret[0].id], undefined, "save").toPromise().then(() => {
-              this.result.emit({ builderType: 'property', value: ret[0] });
+      this.propertyDefinitionService.createNewPropertyDefinition(property)
+        .toPromise().then((ret: FlatPropertyDefinition<any>) => {
+          if (!isNullOrUndefined(ret)) {
+            this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [ret.id], undefined, 'save').toPromise().then(() => {
+              this.result.emit({ builderType: 'property', value: ret });
             });
           } else {
             this.result.emit(undefined);
           }
+        }).catch(error => {
+          this.form.enable();
+          const str = '' + this.form.value.name;
+          this.form.controls['name'].setValidators([Validators.required, stringsUnique(str, this.form.value.name)]);
+          this.form.controls['name'].updateValueAndValidity();
         });
     } else {
       this.markAllowedValuesAsTouched();
       this.markConstraintsAsTouched();
+    }
+  }
+
+
+  handleNameKeyUp() {
+    if (this.form.controls['name'].hasError('stringsUnique')) {
+      this.form.controls['name'].setValidators([Validators.required]);
+      this.form.controls['name'].updateValueAndValidity();
     }
   }
 

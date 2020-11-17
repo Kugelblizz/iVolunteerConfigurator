@@ -23,19 +23,10 @@ export class ResponseService {
   }
 
   public sendMatchingConfiguratorResponse(url: string, idToSave: string, idsToDelete: string[], action: string) {
-    console.log(url);
-    console.log(idToSave);
-    console.log(idsToDelete);
-    console.log(action);
-
     return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/matching-configurator`, { url, idToSave, idsToDelete, action });
   }
 
   public sendPropertyConfiguratorResponse(url: string, flatPropertyDefinitionIds: string[], treePropertyDefinitionIds: string[], action: string) {
-    console.log(url);
-    console.log(flatPropertyDefinitionIds);
-    console.log(treePropertyDefinitionIds);
-    console.log(action);
     return this.http.post(`${environment.CONFIGURATOR_URL}/send-response/property-configurator`, { url, flatPropertyDefinitionIds, treePropertyDefinitionIds, action });
   }
 

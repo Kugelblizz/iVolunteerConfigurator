@@ -3,6 +3,8 @@ package at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatPro
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,21 +38,34 @@ public class FlatPropertyDefinitionController {
 		
 	}
 
-	@PostMapping("/property-definition/flat/new")
-	private List<FlatPropertyDefinition<Object>> createNewPropertyDefintion(
+	@PostMapping("/property-definition/flat/new/multiple")
+	private List<FlatPropertyDefinition<Object>> createNewPropertyDefintions(
 			@RequestBody List<FlatPropertyDefinition<Object>> propertyDefinitions) {
-		
-//		for (PropertyDefinition<Object> pd : propertyDefinitions) {
-//			pd.setCustom(true);
-//		}
 
 		return propertyDefinitionRepository.save(propertyDefinitions);
 	}
 
-	@PutMapping("/property-definition/flat/{id}/update")
-	private List<FlatPropertyDefinition<Object>> updatePropertyDefinition(
+	@PutMapping("/property-definition/flat/{id}/update/multiple")
+	private List<FlatPropertyDefinition<Object>> updatePropertyDefinitions(
 			@RequestBody List<FlatPropertyDefinition<Object>> propertyDefinitions) {
-		return this.createNewPropertyDefintion(propertyDefinitions);
+		return this.createNewPropertyDefintions(propertyDefinitions);
+	}
+	
+	@PostMapping("/property-definition/flat/new")
+	private ResponseEntity<Object> createNewPropertyDefintion(@RequestBody FlatPropertyDefinition<Object> propertyDefinition) {
+		
+		 if (propertyDefinitionRepository.getByNameAndTenantId(propertyDefinition.getName(), propertyDefinition.getTenantId()).size() > 0) {
+			 return ResponseEntity.badRequest().build();
+		 };
+		
+		propertyDefinition = propertyDefinitionRepository.save(propertyDefinition);
+		return ResponseEntity.ok(propertyDefinition);
+	}
+
+	@PutMapping("/property-definition/flat/{id}/update")
+	private ResponseEntity<Object>  updatePropertyDefinition(
+			@RequestBody FlatPropertyDefinition<Object> propertyDefinition) {
+		 return this.createNewPropertyDefintion(propertyDefinition);
 	}
 
 	@DeleteMapping("/property-definition/flat/{id}/delete")

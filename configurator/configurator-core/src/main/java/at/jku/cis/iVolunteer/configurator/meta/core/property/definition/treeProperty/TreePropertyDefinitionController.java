@@ -3,6 +3,7 @@ package at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treePro
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,12 +40,18 @@ public class TreePropertyDefinitionController {
 	}
 
 	@PostMapping("/property-definition/tree/new")
-	private TreePropertyDefinition newTreePropertyDefinition(@RequestBody TreePropertyDefinition treePropertyDefinition) {
-		return treePropertyDefinitionRepository.save(treePropertyDefinition);
+	private ResponseEntity<Object>  newTreePropertyDefinition(@RequestBody TreePropertyDefinition treePropertyDefinition) {
+		
+		if (treePropertyDefinitionRepository.getByNameAndTenantId(treePropertyDefinition.getName(), treePropertyDefinition.getTenantId()).size() > 0) {
+			 return ResponseEntity.badRequest().build();
+		 };
+		
+		treePropertyDefinition = treePropertyDefinitionRepository.save(treePropertyDefinition);
+		return ResponseEntity.ok(treePropertyDefinition);
 	}
 
 	@PutMapping("/property-definition/tree/save")
-	private TreePropertyDefinition replaceTreePropertyDefinition(@RequestBody TreePropertyDefinition treePropertyDefinition) {
+	TreePropertyDefinition replaceTreePropertyDefinition(@RequestBody TreePropertyDefinition treePropertyDefinition) {
 		return treePropertyDefinitionRepository.save(treePropertyDefinition);
 	}
 

@@ -4,9 +4,9 @@
   <!------------------------------------------------->
   <div fxLayout="row" fxLayoutAlign="start center">
     <mat-form-field style="width: 500px;">
-      <input matInput placeholder="Name" formControlName="name" />
+      <input matInput placeholder="Name" formControlName="name" (keyup)="handleNameKeyUp()" />
       <mat-error *ngIf="this.form.controls['name'].hasError('required')">Pflichtfeld</mat-error>
-      <mat-error *ngIf="this.form.controls['name'].hasError('propertynameunique')">Name bereits vorhanden</mat-error>
+      <mat-error *ngIf="this.form.controls['name'].hasError('stringsUnique')">Name existiert bereits</mat-error>
     </mat-form-field>
 
     <div class="pl-20"></div>

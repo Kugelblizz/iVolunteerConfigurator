@@ -5,6 +5,8 @@ import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/co
 import { isNullOrUndefined } from 'util';
 import { MatDialog } from '@angular/material';
 import { ResponseService } from 'app/main/content/_service/response.service';
+import { propertyNameUniqueValidator } from 'app/main/content/_validator/property-name-unique.validator';
+import { stringsUnique } from 'app/main/content/_validator/strings-unique.validator';
 
 @Component({
   selector: "app-tree-property-builder",
@@ -76,6 +78,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.form.markAllAsTouched();
     } else {
 
+      this.form.disable();
       const newTreePropertyDefinition = new TreePropertyDefinition(
         this.form.controls['name'].value,
         this.form.controls['description'].value,
@@ -99,7 +102,19 @@ export class TreePropertyBuilderComponent implements OnInit {
             this.treePropertyDefinition = treePropertyDefinition;
             this.showEditor = true;
           }
+        }).catch(error => {
+          this.form.enable();
+          const str = "" + this.form.value.name;
+          this.form.controls['name'].setValidators([Validators.required, stringsUnique(str, this.form.value.name)]);
+          this.form.controls['name'].updateValueAndValidity();
         });
+    }
+  }
+
+  handleNameKeyUp() {
+    if (this.form.controls['name'].hasError('stringsUnique')) {
+      this.form.controls['name'].setValidators([Validators.required]);
+      this.form.controls['name'].updateValueAndValidity();
     }
   }
 
@@ -117,7 +132,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.treePropertyDefinitionService
         .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
-          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], "save").toPromise().then(() => {
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], 'save').toPromise().then(() => {
             return; // don't emit result
           });
         });
@@ -132,7 +147,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.treePropertyDefinitionService
         .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
-          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], "save").toPromise().then(() => {
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], 'save').toPromise().then(() => {
             this.result.emit({ builderType: 'tree', value: ret });
           });
         });

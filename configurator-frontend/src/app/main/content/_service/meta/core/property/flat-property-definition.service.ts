@@ -27,12 +27,20 @@ export class FlatPropertyDefinitionService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/property-definition/flat/${id}`);
   }
 
-  createNewPropertyDefinition(propertyDefinitions: FlatPropertyDefinition<any>[]) {
-    return this.http.post(`${environment.CONFIGURATOR_URL}/property-definition/flat/new`, propertyDefinitions);
+  createNewPropertyDefinition(propertyDefinition: FlatPropertyDefinition<any>) {
+    return this.http.post(`${environment.CONFIGURATOR_URL}/property-definition/flat/new`, propertyDefinition);
   }
 
-  updatePropertyDefintion(propertyDefinitions: FlatPropertyDefinition<any>[]) {
-    return this.http.put(`${environment.CONFIGURATOR_URL}/property-definition/flat/update`, propertyDefinitions);
+  createNewPropertyDefinitions(propertyDefinitions: FlatPropertyDefinition<any>[]) {
+    return this.http.post(`${environment.CONFIGURATOR_URL}/property-definition/flat/new/multiple`, propertyDefinitions);
+  }
+
+  updatePropertyDefintion(propertyDefinition: FlatPropertyDefinition<any>) {
+    return this.http.put(`${environment.CONFIGURATOR_URL}/property-definition/flat/update`, propertyDefinition);
+  }
+
+  updatePropertyDefintions(propertyDefinitions: FlatPropertyDefinition<any>[]) {
+    return this.http.put(`${environment.CONFIGURATOR_URL}/property-definition/flat/update/multiple`, propertyDefinitions);
   }
 
   deletePropertyDefinition(id: string) {

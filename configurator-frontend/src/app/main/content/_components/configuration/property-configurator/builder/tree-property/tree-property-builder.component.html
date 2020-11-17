@@ -2,7 +2,11 @@
   <!-- <div> -->
   <form [formGroup]="form">
     <mat-form-field *ngIf="!showEditor" style="width: 500px;">
-      <input matInput formControlName="name" placeholder="Tree-Property-Bezeichnung *" />
+      <input matInput formControlName="name" placeholder="Tree-Property-Bezeichnung *" (keyup)="handleNameKeyUp()" />
+
+      <mat-error *ngIf="form.controls['name'].hasError('stringsUnique')">
+        Name existiert Bereits
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="mt-8" style="width: 100%;" appearance="outline">
