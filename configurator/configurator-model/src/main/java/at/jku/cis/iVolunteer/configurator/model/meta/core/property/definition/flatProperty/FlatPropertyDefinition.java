@@ -9,7 +9,7 @@ import at.jku.cis.iVolunteer.configurator.model.IVolunteerObject;
 import at.jku.cis.iVolunteer.configurator.model.meta.constraint.property.PropertyConstraint;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.PropertyType;
 
-@Document
+@Document(collection="flatPropertyDefinition") 
 public class FlatPropertyDefinition<T> extends IVolunteerObject {
 	private String name;
 	
@@ -17,7 +17,6 @@ public class FlatPropertyDefinition<T> extends IVolunteerObject {
 
 	private String unit;
 	
-	private boolean custom;
 	private boolean multiple;
 
 	protected PropertyType type;
@@ -27,6 +26,8 @@ public class FlatPropertyDefinition<T> extends IVolunteerObject {
 	private List<PropertyConstraint<Object>> propertyConstraints = new ArrayList<>();
 	
 	private boolean computed;
+	
+	private boolean deleteProtected;
 
 	public FlatPropertyDefinition() {
 	}
@@ -65,14 +66,6 @@ public class FlatPropertyDefinition<T> extends IVolunteerObject {
 	}
 	public void setUnit(String unit) {
 		this.unit = unit;
-	}
-
-	public boolean isCustom() {
-		return custom;
-	}
-
-	public void setCustom(boolean custom) {
-		this.custom = custom;
 	}
 
 	public boolean isMultiple() {
@@ -122,6 +115,17 @@ public class FlatPropertyDefinition<T> extends IVolunteerObject {
 	public void setComputed(boolean computed) {
 		this.computed = computed;
 	}
+
+	public boolean isDeleteProtected() {
+		return deleteProtected;
+	}
+
+	public void setDeleteProtected(boolean deleteProtected) {
+		this.deleteProtected = deleteProtected;
+	}
+
+
+	
 	
 	
 

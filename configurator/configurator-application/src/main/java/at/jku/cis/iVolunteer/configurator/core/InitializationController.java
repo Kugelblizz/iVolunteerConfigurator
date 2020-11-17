@@ -49,29 +49,9 @@ public class InitializationController {
 	 * Properties
 	 */
 
-	@PutMapping("/init/add-properties/iVolunteer")
-	public void addAllProperties() {
-		initializationService.addiVolunteerPropertyDefinitions();
-	}
-
 	@PutMapping("/init/delete-properties")
 	public void deleteProperties() {
 		initializationService.deleteProperties();
-	}
-
-	@PutMapping("/init/add-properties/header")
-	public void addHeaderProperties() {
-		initializationService.addHeaderPropertyDefintions();
-	}
-
-	@PutMapping("/init/add-properties/generic")
-	public void addGenericProperties() {
-		initializationService.addGenericPropertyDefintions();
-	}
-
-	@PutMapping("/init/add-properties/flexprod")
-	public void addFlexProdProperties() {
-		initializationService.addFlexProdPropertyDefinitions();
 	}
 
 	/**
@@ -117,7 +97,7 @@ public class InitializationController {
 	}
 	
 	@PutMapping("/init/delete-matching-operator-relationships")
-	public void deleteMachingOperatorRelationships() {
+	public void deleteMatchingOperatorRelationships() {
 		initializationService.matchingOperatorRelationshipRepository.deleteAll();
 	}
 
@@ -130,6 +110,7 @@ public class InitializationController {
 		deleteMatchingCollectorConfigurations();
 		deleteMatchingConfigurations();
 		deleteEnumDefinitions();
+		deleteMatchingOperatorRelationships();
 	}
 
 }

@@ -23,7 +23,7 @@ import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProp
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipController;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
-import at.jku.cis.iVolunteer.configurator.model.SaveClassConfigurationRequest;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.SaveClassConfigurationRequest;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfigurationDTO;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.collector.MatchingEntityMappingConfiguration;

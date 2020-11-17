@@ -2,7 +2,7 @@ package at.jku.cis.iVolunteer.configurator.model._httprequests;
 
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassInstance;
 
-public class UrlClassInstanceRequestBody {
+public class FrontendClassInstanceConfiguratorRequestBody {
 	ClassInstance classInstance;
 	String url;
 	

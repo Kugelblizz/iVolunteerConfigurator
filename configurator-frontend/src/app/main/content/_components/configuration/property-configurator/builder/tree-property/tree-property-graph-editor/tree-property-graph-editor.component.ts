@@ -23,7 +23,8 @@ const mx: typeof mxgraph = require('mxgraph')({
   styleUrls: ['./tree-property-graph-editor.component.scss'],
 })
 export class TreePropertyGraphEditorComponent implements AfterContentInit {
-  constructor(private objectIdService: ObjectIdService) { }
+  constructor(private objectIdService: ObjectIdService
+  ) { }
 
   @Input() treePropertyDefinition: TreePropertyDefinition;
   @Output() result: EventEmitter<{ type: string; payload: TreePropertyDefinition; }> = new EventEmitter();

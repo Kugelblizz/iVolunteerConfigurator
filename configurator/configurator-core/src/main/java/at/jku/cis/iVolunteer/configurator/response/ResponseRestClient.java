@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassInstanceConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.MatchingConfiguratorResponseRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.PropertyConfiguratorResponseRequestBody;
 
 
 @Service
@@ -31,6 +32,11 @@ public class ResponseRestClient {
 	}
 
 	public HttpStatus sendMatchingConfiguratorResponse(String url, MatchingConfiguratorResponseRequestBody body) {
+		ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
+		return resp.getStatusCode();
+	}
+	
+	public HttpStatus sendPropertyConfiguratorResponse(String url, PropertyConfiguratorResponseRequestBody body) {
 		ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.POST, buildEntity(body), Object.class);
 		return resp.getStatusCode();
 	}

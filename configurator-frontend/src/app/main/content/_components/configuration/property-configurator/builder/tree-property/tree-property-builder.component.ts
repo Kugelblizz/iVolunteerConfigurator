@@ -4,6 +4,7 @@ import { TreePropertyDefinition } from 'app/main/content/_model/configurator/pro
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
 import { isNullOrUndefined } from 'util';
 import { MatDialog } from '@angular/material';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 @Component({
   selector: "app-tree-property-builder",
@@ -16,11 +17,13 @@ export class TreePropertyBuilderComponent implements OnInit {
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private treePropertyDefinitionService: TreePropertyDefinitionService,
+    private responseService: ResponseService
   ) { }
 
   @Input() entryId: string;
   @Input() sourceString: string;
   @Input() tenantId: string;
+  @Input() redirectUrl: string;
   @Output() result: EventEmitter<{ builderType: string, value: TreePropertyDefinition }> = new EventEmitter();
   @Output() management: EventEmitter<String> = new EventEmitter();
 
@@ -112,7 +115,9 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.treePropertyDefinitionService
         .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
-          return; // don't emit result
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], "save").toPromise().then(() => {
+            return; // don't emit result
+          });
         });
 
     } else if (event.type === 'back') {
@@ -125,7 +130,9 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.treePropertyDefinitionService
         .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
-          this.result.emit({ builderType: 'tree', value: ret });
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], "save").toPromise().then(() => {
+            this.result.emit({ builderType: 'tree', value: ret });
+          });
         });
     }
   }

@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
-import { FlatPropertyDefinition, PropertyType } from 'app/main/content/_model/configurator/property/property';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { propertyNameUniqueValidator } from 'app/main/content/_validator/property-name-unique.validator';
+import { PropertyType, FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
 import { ConstraintType, PropertyConstraint } from 'app/main/content/_model/configurator/constraint';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 export interface PropertyTypeOption {
   type: PropertyType;
@@ -38,6 +39,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
   @Input() entryId: string;
   @Input() sourceString: string;
   @Input() tenantId: string;
+  @Input() redirectUrl: string;
   @Output() result: EventEmitter<{
     builderType: string;
     value: FlatPropertyDefinition<any>;
@@ -61,6 +63,7 @@ export class FlatPropertyBuilderComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private propertyDefinitionService: FlatPropertyDefinitionService,
+    private responseService: ResponseService,
   ) { }
 
   async ngOnInit() {
@@ -327,7 +330,9 @@ export class FlatPropertyBuilderComponent implements OnInit {
       this.propertyDefinitionService.createNewPropertyDefinition([property])
         .toPromise().then((ret: FlatPropertyDefinition<any>[]) => {
           if (!isNullOrUndefined(ret) && ret.length > 0) {
-            this.result.emit({ builderType: 'property', value: ret[0] });
+            this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [ret[0].id], undefined, "delete").toPromise().then(() => {
+              this.result.emit({ builderType: 'property', value: ret[0] });
+            });
           } else {
             this.result.emit(undefined);
           }

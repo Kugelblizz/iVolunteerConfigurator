@@ -11,6 +11,7 @@ export interface PropertyCreationDialogData {
   treePropertyDefinition: TreePropertyDefinition;
   builderType: 'flat' | 'tree';
   tenantId: string;
+  redirectUrl: string;
 }
 
 @Component({

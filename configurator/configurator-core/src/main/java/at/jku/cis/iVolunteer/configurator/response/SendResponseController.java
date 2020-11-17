@@ -20,8 +20,10 @@ import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipCon
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassInstanceConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.MatchingConfiguratorResponseRequestBody;
-import at.jku.cis.iVolunteer.configurator.model._httprequests.UrlClassInstanceRequestBody;
-import at.jku.cis.iVolunteer.configurator.model._httprequests.UrlIdRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.PropertyConfiguratorResponseRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassInstanceConfiguratorRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendPropertyConfiguratorRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassAndMatchingConfiguratorRequestBody;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingOperatorRelationship;
@@ -46,7 +48,7 @@ public class SendResponseController {
 
 
 	@PostMapping("/send-response/class-configurator")
-	public void sendClassConfiguratorResponse(@RequestBody UrlIdRequestBody body) {
+	public void sendClassConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
 		ClassConfiguratorResponseRequestBody responseRequestBody = new ClassConfiguratorResponseRequestBody();
 
 		ClassConfiguration classConfiguration = ClassConfigurationController
@@ -62,16 +64,16 @@ public class SendResponseController {
 					.getRelationshipsByIdAsDTO(classConfiguration.getRelationshipIds());
 			responseRequestBody.setRelationships(relationships);
 			
-			ClassPropertyRequestObject classPropertyIds = collectionService.collectClassPropertyIds(classDefinitions);
-			
-			List<FlatPropertyDefinition<Object>> flatPropertyDefinitions = new LinkedList<>();
-			flatPropertyDefinitionRepository.findAll(classPropertyIds.getFlatPropertyDefinitionIds()).forEach(flatPropertyDefinitions::add);;
-			
-			List<TreePropertyDefinition> treePropertyDefinitions = new LinkedList<>();
-			treePropertyDefinitionRepository.findAll(classPropertyIds.getTreePropertyDefinitionIds()).forEach(treePropertyDefinitions::add);;
-
-			responseRequestBody.setFlatPropertyDefinitions(flatPropertyDefinitions);
-			responseRequestBody.setTreePropertyDefinitions(treePropertyDefinitions);
+//			ClassPropertyRequestObject classPropertyIds = collectionService.collectClassPropertyIds(classDefinitions);
+//			
+//			List<FlatPropertyDefinition<Object>> flatPropertyDefinitions = new LinkedList<>();
+//			flatPropertyDefinitionRepository.findAll(classPropertyIds.getFlatPropertyDefinitionIds()).forEach(flatPropertyDefinitions::add);;
+//			
+//			List<TreePropertyDefinition> treePropertyDefinitions = new LinkedList<>();
+//			treePropertyDefinitionRepository.findAll(classPropertyIds.getTreePropertyDefinitionIds()).forEach(treePropertyDefinitions::add);;
+//
+//			responseRequestBody.setFlatPropertyDefinitions(flatPropertyDefinitions);
+//			responseRequestBody.setTreePropertyDefinitions(treePropertyDefinitions);
 		}
 		
 		
@@ -82,7 +84,7 @@ public class SendResponseController {
 	}
 
 	@PostMapping("/send-response/class-instance-configurator")
-	public void sendClassInstanceConfiguratorResponse(@RequestBody UrlClassInstanceRequestBody body) {
+	public void sendClassInstanceConfiguratorResponse(@RequestBody FrontendClassInstanceConfiguratorRequestBody body) {
 		ClassInstanceConfiguratorResponseRequestBody responseRequestBody = new ClassInstanceConfiguratorResponseRequestBody();
 		responseRequestBody.setClassInstance(body.getClassInstance());
 		
@@ -90,7 +92,7 @@ public class SendResponseController {
 	}
 
 	@PostMapping("/send-response/matching-configurator")
-	public void sendMatchingConfiguratorResponse(@RequestBody UrlIdRequestBody body) {
+	public void sendMatchingConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
 		MatchingConfiguratorResponseRequestBody responseRequestBody = new MatchingConfiguratorResponseRequestBody();
 		MatchingConfiguration matchingConfiguration = matchingConfigurationService.getMatchingConfigurationById(body.getIdToSave());
 		responseRequestBody.setMatchingConfiguration(matchingConfiguration);
@@ -105,6 +107,31 @@ public class SendResponseController {
 
 		HttpStatus status = responseRestClient.sendMatchingConfiguratorResponse(body.getUrl(),
 				responseRequestBody);
+	}
+	
+	@PostMapping("/send-response/property-configurator")
+	public void sendPropertyConfiguratorResponse(@RequestBody FrontendPropertyConfiguratorRequestBody body) {
+		PropertyConfiguratorResponseRequestBody responseRequestBody = new PropertyConfiguratorResponseRequestBody();
+		
+		responseRequestBody.setAction(body.getAction());
+		
+		if (body.getFlatPropertyDefinitionIds() != null) {
+			List<FlatPropertyDefinition<Object>> flatPropertyDefinitions = new LinkedList<>();
+			flatPropertyDefinitionRepository.findAll(body.getFlatPropertyDefinitionIds()).forEach(flatPropertyDefinitions::add);;
+			responseRequestBody.setFlatPropertyDefinitions(flatPropertyDefinitions);
+
+		}
+		
+		if (body.getTreePropertyDefinitionIds() != null) {
+			List<TreePropertyDefinition> treePropertyDefinitions = new LinkedList<>();
+			treePropertyDefinitionRepository.findAll(body.getTreePropertyDefinitionIds()).forEach(treePropertyDefinitions::add);;
+			responseRequestBody.setTreePropertyDefinitions(treePropertyDefinitions);
+
+		}
+		
+		HttpStatus status = responseRestClient.sendPropertyConfiguratorResponse(body.getUrl(),
+				responseRequestBody);
+		
 	}
 	
 }

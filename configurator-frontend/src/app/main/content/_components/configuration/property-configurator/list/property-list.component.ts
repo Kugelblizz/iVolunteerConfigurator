@@ -1,13 +1,14 @@
-import { PropertyType, FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
 import { Component, OnInit } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { DialogFactoryDirective } from 'app/main/content/_components/_shared/dialogs/_dialog-factory/dialog-factory.component';
 import { MatTableDataSource } from '@angular/material';
-import { TreePropertyDefinition } from 'app/main/content/_model/configurator/property/tree-property';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlatPropertyDefinitionService } from 'app/main/content/_service/meta/core/property/flat-property-definition.service';
 import { TreePropertyDefinitionService } from 'app/main/content/_service/meta/core/property/tree-property-definition.service';
 import { isNullOrUndefined } from 'util';
+import { TreePropertyDefinition } from 'app/main/content/_model/configurator/property/tree-property';
+import { PropertyType, FlatPropertyDefinition } from 'app/main/content/_model/configurator/property/property';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 export interface PropertyEntry {
   id: string;
@@ -37,6 +38,9 @@ export class PropertyListComponent implements OnInit {
   isLoaded: boolean;
 
   tenantId: string;
+  redirectUrl: string;
+
+  responseService: ResponseService;
 
   constructor(
     private router: Router,
@@ -54,10 +58,11 @@ export class PropertyListComponent implements OnInit {
     };
 
     this.route.queryParams.subscribe(params => {
-      if (isNullOrUndefined(params['tenantId'])) {
+      if (isNullOrUndefined(params['tenantId']) || isNullOrUndefined(params['redirect'])) {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];
+        this.redirectUrl = params['redirect'];
       }
     });
 
@@ -178,7 +183,7 @@ export class PropertyListComponent implements OnInit {
 
   newAction(key: string) {
     this.router.navigate(['main/property-builder'], {
-      queryParams: { type: key, tenantId: this.tenantId },
+      queryParams: { type: key, tenantId: this.tenantId, redirect: this.redirectUrl },
     });
   }
 
@@ -186,7 +191,7 @@ export class PropertyListComponent implements OnInit {
     const builderType = entry.type === PropertyType.TREE ? 'tree' : 'flat';
     this.router.navigate(
       ['main/property-builder/' + entry.id],
-      { queryParams: { type: builderType, tenantId: this.tenantId } }
+      { queryParams: { type: builderType, tenantId: this.tenantId, redirect: this.redirectUrl } }
     );
   }
 
@@ -203,6 +208,8 @@ export class PropertyListComponent implements OnInit {
             .toPromise()
             .then(() => {
               this.deleteFromLists('flat', entry.id);
+              this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [entry.id], undefined, "delete").toPromise();
+
             });
         } else if (ret && entry.type === PropertyType.TREE) {
           this.treePropertyDefinitionService
@@ -210,6 +217,8 @@ export class PropertyListComponent implements OnInit {
             .toPromise()
             .then(() => {
               this.deleteFromLists('tree', entry.id);
+
+              this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [entry.id], "delete").toPromise();
             });
         }
       });

@@ -1,4 +1,4 @@
-package at.jku.cis.iVolunteer.configurator.model;
+package at.jku.cis.iVolunteer.configurator.model._httprequests;
 
 import java.util.List;
 

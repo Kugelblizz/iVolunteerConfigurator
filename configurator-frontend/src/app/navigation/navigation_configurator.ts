@@ -18,7 +18,9 @@
 
 
 /***Property Configurator */
-// http://localhost:4201/main/properties/all?tenantId=5f92c841eada0c0d9dfa877a
+// http://localhost:4201/main/properties/all?tenantId=5f92c841eada0c0d9dfa877a&redirect=http%3A%2F%2Flocalhost%3A8080%2Fresponse%2Fproperty-configurator
+
+// http://localhost:8080/response/property-configurator 
 
 
 export const navigation_configurator = [

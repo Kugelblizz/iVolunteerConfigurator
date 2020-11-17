@@ -14,6 +14,7 @@ export class PropertyBuildFormComponent implements OnInit {
   displayBuilder: boolean;
   builderType: string;
   tenantId: string;
+  redirectUrl: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,10 +25,11 @@ export class PropertyBuildFormComponent implements OnInit {
     this.displayBuilder = true;
 
     this.route.queryParams.subscribe(params => {
-      if (isNullOrUndefined(params['tenantId'])) {
+      if (isNullOrUndefined(params['tenantId'] || params['redirect'])) {
         this.router.navigate(['main/invalid-parameters']);
       } else {
         this.tenantId = params['tenantId'];
+        this.redirectUrl = params['redirect'];
       }
     });
 
