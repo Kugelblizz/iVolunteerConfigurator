@@ -13,7 +13,6 @@ import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfiguratio
 import at.jku.cis.iVolunteer.configurator.configurations.matching.configuration.MatchingConfigurationService;
 import at.jku.cis.iVolunteer.configurator.configurations.matching.relationships.MatchingOperatorRelationshipController;
 import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionService;
-import at.jku.cis.iVolunteer.configurator.meta.core.class_.CollectionService;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipController;
@@ -27,7 +26,6 @@ import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassAndMa
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingOperatorRelationship;
-import at.jku.cis.iVolunteer.configurator.model.meta.core.ClassPropertyRequestObject;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.clazz.ClassDefinition;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.flatProperty.FlatPropertyDefinition;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.definition.treeProperty.TreePropertyDefinition;
@@ -42,7 +40,6 @@ public class SendResponseController {
 	@Autowired private MatchingConfigurationService matchingConfigurationService;
 	@Autowired private ResponseRestClient responseRestClient;
 	@Autowired private MatchingOperatorRelationshipController matchingOperatorRelationshipController;
-	@Autowired private CollectionService collectionService;
 	@Autowired private FlatPropertyDefinitionRepository flatPropertyDefinitionRepository;
 	@Autowired private TreePropertyDefinitionRepository treePropertyDefinitionRepository;
 
@@ -63,17 +60,6 @@ public class SendResponseController {
 			List<RelationshipDTO> relationships = relationshipController
 					.getRelationshipsByIdAsDTO(classConfiguration.getRelationshipIds());
 			responseRequestBody.setRelationships(relationships);
-			
-//			ClassPropertyRequestObject classPropertyIds = collectionService.collectClassPropertyIds(classDefinitions);
-//			
-//			List<FlatPropertyDefinition<Object>> flatPropertyDefinitions = new LinkedList<>();
-//			flatPropertyDefinitionRepository.findAll(classPropertyIds.getFlatPropertyDefinitionIds()).forEach(flatPropertyDefinitions::add);;
-//			
-//			List<TreePropertyDefinition> treePropertyDefinitions = new LinkedList<>();
-//			treePropertyDefinitionRepository.findAll(classPropertyIds.getTreePropertyDefinitionIds()).forEach(treePropertyDefinitions::add);;
-//
-//			responseRequestBody.setFlatPropertyDefinitions(flatPropertyDefinitions);
-//			responseRequestBody.setTreePropertyDefinitions(treePropertyDefinitions);
 		}
 		
 		

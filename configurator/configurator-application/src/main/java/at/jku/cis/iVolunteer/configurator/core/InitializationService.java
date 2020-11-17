@@ -18,7 +18,6 @@ import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProp
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.InitConfiguratorRequest;
-import at.jku.cis.iVolunteer.configurator.model._httprequests.PropertyConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassAndMatchingConfiguratorRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendPropertyConfiguratorRequestBody;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
@@ -46,15 +45,6 @@ public class InitializationService {
 
 	private List<Tuple<String, String>> tenantIds;
 	private String marketplaceUrl;
-
-//	@PostConstruct
-//	public void initOnConstruct() {
-////		List<String> tenants = new ArrayList<>();
-////		tenants.add("5f92c841eada0c0d9dfa877b");
-////		tenants.add("5f92c841eada0c0d9dfa877a");
-////		
-////		init(tenants);
-//	}
 
 	public void init(InitConfiguratorRequest initRequestBody) {
 		this.tenantIds = initRequestBody.getTenantIds();
