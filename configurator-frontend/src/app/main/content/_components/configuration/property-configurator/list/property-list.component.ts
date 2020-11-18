@@ -227,23 +227,25 @@ export class PropertyListComponent implements OnInit {
       )
       .then((ret) => {
         if (ret && entry.type !== PropertyType.TREE) {
-          this.flatPropertyDefinitionService
-            .deletePropertyDefinition(entry.id)
-            .toPromise()
-            .then(() => {
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [entry.id], undefined, "delete").toPromise().then(() => {
+            this.flatPropertyDefinitionService.deletePropertyDefinition(entry.id).toPromise().then(() => {
               this.deleteFromLists('flat', entry.id);
-              this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, [entry.id], undefined, "delete").toPromise();
-
             });
+          }).catch(error => {
+            console.error("error - rollback");
+            console.log(error);
+          });
         } else if (ret && entry.type === PropertyType.TREE) {
-          this.treePropertyDefinitionService
-            .deletePropertyDefinition(entry.id)
-            .toPromise()
-            .then(() => {
-              this.deleteFromLists('tree', entry.id);
 
-              this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [entry.id], "delete").toPromise();
+
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [entry.id], "delete").toPromise().then(() => {
+            this.treePropertyDefinitionService.deletePropertyDefinition(entry.id).toPromise().then(() => {
+              this.deleteFromLists('tree', entry.id);
             });
+          }).catch(error => {
+            console.error("error - rollback");
+            console.log(error);
+          });
         }
       });
   }

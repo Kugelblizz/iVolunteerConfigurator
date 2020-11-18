@@ -36,5 +36,5 @@ public class MatchingOperatorRelationshipController {
 		this.matchingOperatorRelationshipRepository.delete(dbRelationships);
 		return this.matchingOperatorRelationshipRepository.save(relationships);
 	}
-
+	
 }

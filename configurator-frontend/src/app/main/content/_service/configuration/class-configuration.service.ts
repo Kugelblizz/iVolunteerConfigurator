@@ -33,17 +33,12 @@ export class ClassConfigurationService {
     return this.http.get(`${environment.CONFIGURATOR_URL}/class-configuration/all-in-one/${id}`);
   }
 
-  createNewEmptyClassConfiguration(name: string, description: string) {
-    return this.http.post(`${environment.CONFIGURATOR_URL}/class-configuration/new-empty`, [name, description]);
+  createNewEmptyClassConfiguration(tenantId: string, name: string, description: string) {
+    return this.http.post(`${environment.CONFIGURATOR_URL}/class-configuration/new-empty`, [tenantId, name, description]);
   }
 
-  createNewClassConfiguration(name: string, description: string, tenantId: string) {
-    const params: string[] = [];
-    params.push(name);
-    params.push(description);
-    params.push(tenantId);
-
-    return this.http.post(`${environment.CONFIGURATOR_URL}/class-configuration/new`, params);
+  createNewClassConfiguration(tenantId: string, name: string, description: string, ) {
+    return this.http.post(`${environment.CONFIGURATOR_URL}/class-configuration/new`, [tenantId, name, description]);
   }
 
   saveClassConfiguration(classConfiguration: ClassConfiguration) {

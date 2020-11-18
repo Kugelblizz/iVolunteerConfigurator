@@ -23,12 +23,12 @@ public class RelationshipController {
 	@Autowired RelationshipMapper relationshipMapper;
 
 	@GetMapping("/meta/core/relationship/all")
-	private List<RelationshipDTO> findAllRelationships() {
+	public List<RelationshipDTO> findAllRelationships() {
 		return relationshipMapper.toTargets(relationshipRepository.findAll());
 	}
 
 	@GetMapping("/meta/core/relationship/{id}")
-	RelationshipDTO getRelationshipById(@PathVariable("id") String id) {
+	public RelationshipDTO getRelationshipById(@PathVariable("id") String id) {
 		return relationshipMapper.toTarget(relationshipRepository.findOne(id));
 	}
 
@@ -68,7 +68,7 @@ public class RelationshipController {
 	}
 
 	@PutMapping("/meta/core/relationship/delete")
-	private List<RelationshipDTO> deleteRelationship(@RequestBody List<String> idsToRemove) {
+	public List<RelationshipDTO> deleteRelationship(@RequestBody List<String> idsToRemove) {
 		for (String id : idsToRemove) {
 			relationshipRepository.delete(id);
 		}

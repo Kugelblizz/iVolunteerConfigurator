@@ -18,7 +18,7 @@ import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProp
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.relationship.RelationshipRepository;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.InitConfiguratorRequest;
-import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassAndMatchingConfiguratorRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassConfiguratorRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendPropertyConfiguratorRequestBody;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.meta.core.property.Tuple;
@@ -58,7 +58,7 @@ public class InitializationService {
 			flatDefs.addAll(prepareGenericPropertyDefintions());
 			flatDefs.addAll(prepareHeaderPropertyDefintions());
 			flatDefs.addAll(prepareMichaTestProperties());
-			flatDefs.addAll(prepareFlexProdPropertyDefinitions());
+//			flatDefs.addAll(prepareFlexProdPropertyDefinitions());
 			
 			treeDefs.addAll(prepareiVolunteerTreePropertyDefinitions());
 
@@ -77,7 +77,7 @@ public class InitializationService {
 			sendResponseRestClient.sendPropertyConfiguratorResponse(body);
 
 			addClassConfigurations(1);
-			addFlexProdClassDefinitionsAndConfigurations();
+//			addFlexProdClassDefinitionsAndConfigurations();
 		}
 
 	}
@@ -189,7 +189,7 @@ public class InitializationService {
 						.createNewClassConfiguration(new String[] { tenant.getId(), "Standardkonfiguration" + i, "" });
 
 				// TODO send new stuff to mp
-				FrontendClassAndMatchingConfiguratorRequestBody body = new FrontendClassAndMatchingConfiguratorRequestBody();
+				FrontendClassConfiguratorRequestBody body = new FrontendClassConfiguratorRequestBody();
 				body.setAction("save");
 				body.setIdToSave(cc.getId());
 
@@ -203,7 +203,20 @@ public class InitializationService {
 
 	public void addFlexProdClassDefinitionsAndConfigurations() {
 		for (Tuple<String, String> tenant : tenantIds) {
-			this.classConfigurationController.createAndSaveFlexProdClassConfigurations(tenant.getId());
+			ClassConfiguration cc1 = this.classConfigurationController.createAndSaveHaubenofen(tenant.getId());
+			ClassConfiguration cc2 = this.classConfigurationController.createAndSaveRFQ(tenant.getId());
+
+			FrontendClassConfiguratorRequestBody body = new FrontendClassConfiguratorRequestBody();
+			body.setAction("save");
+			body.setIdToSave(cc1.getId());
+			body.setUrl(marketplaceUrl + "/response/class-configurator");
+			sendResponseRestClient.sendClassConfiguratorResponse(body);
+			
+			body = new FrontendClassConfiguratorRequestBody();
+			body.setAction("save");
+			body.setIdToSave(cc2.getId());
+			body.setUrl(marketplaceUrl + "/response/class-configurator");
+			sendResponseRestClient.sendClassConfiguratorResponse(body);
 		}
 	}
 

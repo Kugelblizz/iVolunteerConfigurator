@@ -205,7 +205,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
 
   private performNew() {
     this.dialogFactory
-      .openNewClassConfigurationDialog(this.tenantId)
+      .openNewClassConfigurationDialog(this.tenantId, this.redirectUrl)
       .then((ret: NewClassConfigurationDialogData) => {
         if (!isNullOrUndefined(ret)) {
           this.currentClassConfiguration = ret.classConfiguration;
@@ -222,7 +222,7 @@ export class EditorTopMenuBarComponent implements AfterViewInit, OnChanges {
 
   private performEdit() {
     this.dialogFactory
-      .openNewClassConfigurationDialog(this.tenantId, this.currentClassConfiguration)
+      .openNewClassConfigurationDialog(this.tenantId, this.redirectUrl, this.currentClassConfiguration)
       .then((ret: NewClassConfigurationDialogData) => {
         if (!isNullOrUndefined(ret)) {
           this.currentClassConfiguration = ret.classConfiguration;

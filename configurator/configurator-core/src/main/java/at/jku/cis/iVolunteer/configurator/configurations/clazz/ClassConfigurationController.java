@@ -52,7 +52,7 @@ public class ClassConfigurationController {
 	@Autowired private PropertyDefinitionToClassPropertyMapper flatPropertyDefinitionToClassPropertyMapper;
 	@Autowired private TreePropertyDefinitionRepository treePropertyDefinitionRepository;
 	@Autowired private TreePropertyDefinitionToClassPropertyMapper treePropertyDefinitionToClassPropertyMapper;
-	
+
 	@GetMapping("class-configuration/all")
 	List<ClassConfiguration> getAllClassConfigurations() {
 		return classConfigurationRepository.findAll();
@@ -123,7 +123,7 @@ public class ClassConfigurationController {
 		this.classDefinitionRepository.deleteByIdIn(req.getDeletedClassDefinitionIds());
 		this.relationshipRepository.deleteByIdIn(req.getDeletedRelationshipIds());
 		ClassConfiguration ret = this.saveClassConfiguration(req.getClassConfiguration());
-				
+
 		return ret;
 	}
 
@@ -208,7 +208,8 @@ public class ClassConfigurationController {
 		List<ClassDefinition> classDefinitions = new ArrayList<>();
 		List<Relationship> relationships = new ArrayList<>();
 
-		List<FlatPropertyDefinition<Object>> flatProperties = this.flatPropertyDefinitionRepository.getByTenantId(tenantId);
+		List<FlatPropertyDefinition<Object>> flatProperties = this.flatPropertyDefinitionRepository
+				.getByTenantId(tenantId);
 		List<TreePropertyDefinition> treeProperties = this.treePropertyDefinitionRepository.findByTenantId(tenantId);
 
 		ClassDefinition fwPassEintrag = new ClassDefinition();
@@ -438,7 +439,7 @@ public class ClassConfigurationController {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void createAndSaveFlexProdClassConfigurations(String tenantId) {
+	public ClassConfiguration createAndSaveHaubenofen(String tenantId) {
 
 		List<FlatPropertyDefinition<Object>> flatProperties = this.flatPropertyDefinitionRepository
 				.getByTenantId(tenantId);
@@ -596,9 +597,16 @@ public class ClassConfigurationController {
 			this.relationshipRepository.save(r);
 			configuratorOfen.getRelationshipIds().add(r.getId());
 		}
-		saveClassConfiguration(configuratorOfen);
+		ClassConfiguration cc = saveClassConfiguration(configuratorOfen);
+		return cc;
+	}
 
-		// ------------
+	// ------------
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ClassConfiguration createAndSaveRFQ(String tenantId) {
+		List<FlatPropertyDefinition<Object>> flatProperties = this.flatPropertyDefinitionRepository
+				.getByTenantId(tenantId);
 
 		List<ClassDefinition> classDefinitionsRfq = new ArrayList<>();
 		List<Relationship> relationshipsRfq = new ArrayList<>();
@@ -764,7 +772,8 @@ public class ClassConfigurationController {
 			this.relationshipRepository.save(r);
 			configuratorRfq.getRelationshipIds().add(r.getId());
 		}
-		saveClassConfiguration(configuratorRfq);
+		ClassConfiguration cc = saveClassConfiguration(configuratorRfq);
+		return cc;
 
 	}
 

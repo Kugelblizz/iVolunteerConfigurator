@@ -2,7 +2,7 @@ package at.jku.cis.iVolunteer.configurator.model._httprequests;
 
 import java.util.List;
 
-public class FrontendClassAndMatchingConfiguratorRequestBody {
+public class FrontendMatchingConfiguratorRequestBody {
 	String action;
 	List<String> idsToDelete;
 	String idToSave;

@@ -98,7 +98,10 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.treePropertyDefinitionService.newPropertyDefinition(newTreePropertyDefinition).toPromise().then((treePropertyDefinition: TreePropertyDefinition) => {
         if (!isNullOrUndefined(treePropertyDefinition)) {
           this.treePropertyDefinition = treePropertyDefinition;
-          this.showEditor = true;
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [treePropertyDefinition.id], 'save').toPromise().then(() => {
+
+            this.showEditor = true;
+          });
         }
       }).catch(error => {
         this.form.enable();
@@ -130,7 +133,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.treePropertyDefinitionService
         .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
-          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], 'save').toPromise().then(() => {
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret.id], 'save').toPromise().then(() => {
             return; // don't emit result
           });
         });
@@ -145,7 +148,7 @@ export class TreePropertyBuilderComponent implements OnInit {
       this.treePropertyDefinitionService
         .savePropertyDefinition(event.payload)
         .toPromise().then((ret: TreePropertyDefinition) => {
-          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret[0].id], 'save').toPromise().then(() => {
+          this.responseService.sendPropertyConfiguratorResponse(this.redirectUrl, undefined, [ret.id], 'save').toPromise().then(() => {
             this.result.emit({ builderType: 'tree', value: ret });
           });
         });

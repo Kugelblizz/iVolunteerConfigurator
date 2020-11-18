@@ -6,12 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import at.jku.cis.iVolunteer.configurator.configurations.matching.relationships.MatchingOperatorRelationshipController;
+import at.jku.cis.iVolunteer.configurator.configurations.matching.relationships.MatchingOperatorRelationshipRepository;
+import at.jku.cis.iVolunteer.configurator.configurations.matching.relationships.MatchingOperatorRelationshipService;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingConfiguration;
+import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingOperatorRelationship;
 
 @Service
 public class MatchingConfigurationService {
 
 	@Autowired private MatchingConfigurationRepository matchingConfigurationRepository;
+	@Autowired private MatchingOperatorRelationshipRepository matchingOperatorRelationshipRepository;
 	
 	public MatchingConfiguration getMatchingConfigurationById(String id) {
 		if (id == null) {
@@ -52,8 +57,23 @@ public class MatchingConfigurationService {
 		return matchingConfigurationRepository.save(matchingConfiguration);
 	}
 
-	private String createHashFromClassConfigurationIds(String id1, String id2) {
+	public String createHashFromClassConfigurationIds(String id1, String id2) {
 		String hash = String.valueOf(id1.hashCode() ^ id2.hashCode());
 		return hash;
+	}
+	
+	public boolean deleteMatchingConfiguration(String id) {
+		if (id == null) {
+			return false;
+		}
+		
+		MatchingConfiguration config = getMatchingConfigurationById(id);
+		
+		List<MatchingOperatorRelationship> relationships = matchingOperatorRelationshipRepository.findByMatchingConfigurationId(id);
+		relationships.forEach(matchingOperatorRelationshipRepository::delete);
+		
+		matchingConfigurationRepository.delete(id);
+		return true;
+
 	}
 }

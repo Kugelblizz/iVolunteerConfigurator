@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import at.jku.cis.iVolunteer.configurator.configurations.clazz.ClassConfigurationController;
 import at.jku.cis.iVolunteer.configurator.configurations.matching.configuration.MatchingConfigurationService;
 import at.jku.cis.iVolunteer.configurator.configurations.matching.relationships.MatchingOperatorRelationshipController;
+import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionController;
 import at.jku.cis.iVolunteer.configurator.meta.core.class_.ClassDefinitionService;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.flatProperty.FlatPropertyDefinitionRepository;
 import at.jku.cis.iVolunteer.configurator.meta.core.property.definition.treeProperty.TreePropertyDefinitionRepository;
@@ -22,8 +23,9 @@ import at.jku.cis.iVolunteer.configurator.model._httprequests.ClassInstanceConfi
 import at.jku.cis.iVolunteer.configurator.model._httprequests.MatchingConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.PropertyConfiguratorResponseRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassInstanceConfiguratorRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendMatchingConfiguratorRequestBody;
 import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendPropertyConfiguratorRequestBody;
-import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassAndMatchingConfiguratorRequestBody;
+import at.jku.cis.iVolunteer.configurator.model._httprequests.FrontendClassConfiguratorRequestBody;
 import at.jku.cis.iVolunteer.configurator.model.configurations.clazz.ClassConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingConfiguration;
 import at.jku.cis.iVolunteer.configurator.model.configurations.matching.MatchingOperatorRelationship;
@@ -37,7 +39,7 @@ public class SendResponseController {
 
 	@Autowired private ClassDefinitionService classDefinitionService;
 	@Autowired private RelationshipController relationshipController;
-	@Autowired private ClassConfigurationController ClassConfigurationController;
+	@Autowired private ClassConfigurationController classConfigurationController;
 	@Autowired private MatchingConfigurationService matchingConfigurationService;
 	@Autowired private ResponseRestClient responseRestClient;
 	@Autowired private MatchingOperatorRelationshipController matchingOperatorRelationshipController;
@@ -46,10 +48,10 @@ public class SendResponseController {
 
 
 	@PostMapping("/send-response/class-configurator")
-	public ResponseEntity<Object> sendClassConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
+	public ResponseEntity<Object> sendClassConfiguratorResponse(@RequestBody FrontendClassConfiguratorRequestBody body) {
 		ClassConfiguratorResponseRequestBody responseRequestBody = new ClassConfiguratorResponseRequestBody();
 
-		ClassConfiguration classConfiguration = ClassConfigurationController
+		ClassConfiguration classConfiguration = classConfigurationController
 				.getClassConfigurationById(body.getIdToSave());
 		responseRequestBody.setClassConfiguration(classConfiguration);
 
@@ -67,7 +69,13 @@ public class SendResponseController {
 		responseRequestBody.setIdsToDelete(body.getIdsToDelete());
 		responseRequestBody.setAction(body.getAction());
 
-		return responseRestClient.sendClassConfiguratorResponse(body.getUrl(), responseRequestBody);
+		ResponseEntity<Object> resp = responseRestClient.sendClassConfiguratorResponse(body.getUrl(), responseRequestBody);
+		 if (resp.getStatusCode().is4xxClientError() && body.getAction().equals("save")) {
+			 System.out.println("error - rollback");
+			 classConfigurationController.deleteClassConfiguration(body.getIdToSave());
+		 }
+		
+		return resp;
 	}
 
 	@PostMapping("/send-response/class-instance-configurator")
@@ -75,11 +83,12 @@ public class SendResponseController {
 		ClassInstanceConfiguratorResponseRequestBody responseRequestBody = new ClassInstanceConfiguratorResponseRequestBody();
 		responseRequestBody.setClassInstance(body.getClassInstance());
 		
-		return responseRestClient.sendClassInstanceConfiguratorResponse(body.getUrl(), responseRequestBody);
+		ResponseEntity<Object> resp =  responseRestClient.sendClassInstanceConfiguratorResponse(body.getUrl(), responseRequestBody);
+		return resp;
 	}
 
 	@PostMapping("/send-response/matching-configurator")
-	public ResponseEntity<Object> sendMatchingConfiguratorResponse(@RequestBody FrontendClassAndMatchingConfiguratorRequestBody body) {
+	public ResponseEntity<Object> sendMatchingConfiguratorResponse(@RequestBody FrontendMatchingConfiguratorRequestBody body) {
 		MatchingConfiguratorResponseRequestBody responseRequestBody = new MatchingConfiguratorResponseRequestBody();
 		MatchingConfiguration matchingConfiguration = matchingConfigurationService.getMatchingConfigurationById(body.getIdToSave());
 		responseRequestBody.setMatchingConfiguration(matchingConfiguration);
@@ -92,7 +101,16 @@ public class SendResponseController {
 		responseRequestBody.setIdsToDelete(body.getIdsToDelete());
 		responseRequestBody.setAction(body.getAction());
 
-		return responseRestClient.sendMatchingConfiguratorResponse(body.getUrl(), responseRequestBody);
+		ResponseEntity<Object> resp =  responseRestClient.sendMatchingConfiguratorResponse(body.getUrl(), responseRequestBody);
+		
+		 if (resp.getStatusCode().is4xxClientError() && body.getAction().equals("save")) {
+			 System.out.println("error - rollback");
+			 for (String id : body.getIdsToDelete()) {
+				 matchingConfigurationService.deleteMatchingConfiguration(id);
+			 }
+		 }
+		
+		return resp;
 	}
 	
 	@PostMapping("/send-response/property-configurator")
@@ -115,7 +133,20 @@ public class SendResponseController {
 
 		}
 				
-		return responseRestClient.sendPropertyConfiguratorResponse(body.getUrl(), responseRequestBody);
+		ResponseEntity<Object> resp =  responseRestClient.sendPropertyConfiguratorResponse(body.getUrl(), responseRequestBody);
+		 if (resp.getStatusCode().is4xxClientError() && body.getAction().equals("save")) {
+			 System.out.println("error - rollback");
+
+			 if (body.getFlatPropertyDefinitionIds() != null) {
+				 flatPropertyDefinitionRepository.delete(responseRequestBody.getFlatPropertyDefinitions());
+			 }
+			 
+			 if (body.getTreePropertyDefinitionIds() != null) {
+				 treePropertyDefinitionRepository.delete(responseRequestBody.getTreePropertyDefinitions());
+			 }
+		 }
+		
+		return resp;
 	}
 	
 }

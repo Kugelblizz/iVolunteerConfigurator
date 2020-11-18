@@ -103,6 +103,7 @@ export class DialogFactoryDirective {
 
   openNewClassConfigurationDialog(
     tenantId: string,
+    redirectUrl: string,
     currentClassConfiguration?: ClassConfiguration,
 
   ) {
@@ -113,7 +114,8 @@ export class DialogFactoryDirective {
       minHeight: "400px",
       data: {
         classConfiguration: currentClassConfiguration,
-        tenantId: tenantId
+        tenantId: tenantId,
+        redirectUrl
       },
       disableClose: true
     });

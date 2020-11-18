@@ -62,11 +62,14 @@ export class DeleteMatchingDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.matchingConfigurationService.deleteMatchingConfigurations(this.data.idsToDelete).toPromise().then((ret) => {
-      this.responseService.sendMatchingConfiguratorResponse(this.data.redirectUrl, null, this.data.idsToDelete, 'delete').toPromise().then(() => {
+    this.responseService.sendMatchingConfiguratorResponse(this.data.redirectUrl, null, this.data.idsToDelete, 'delete').toPromise().then(() => {
+      this.matchingConfigurationService.deleteMatchingConfigurations(this.data.idsToDelete).toPromise().then((ret) => {
         this.dialogRef.close(this.data);
 
       });
+    }).catch(error => {
+      console.log("error - rollback");
+      console.log(error);
     });
 
   }

@@ -58,7 +58,7 @@ public class MatchingConfigurationController {
 
 	@DeleteMapping("matching-configuration/{id}/delete")
 	public void deleteMatchingConfiguration(@PathVariable("id") String id) {
-		matchingConfigurationRepository.delete(id);
+		matchingConfigurationService.deleteMatchingConfiguration(id);
 	}
 
 	@PutMapping("matching-configuration/delete-multiple")

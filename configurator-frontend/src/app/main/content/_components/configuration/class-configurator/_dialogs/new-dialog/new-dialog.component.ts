@@ -9,12 +9,14 @@ import { RelationshipService } from 'app/main/content/_service/meta/core/relatio
 import { ClassDefinitionService } from 'app/main/content/_service/meta/core/class/class-definition.service';
 import { stringUniqueValidator } from 'app/main/content/_validator/string-unique.validator';
 import { isNullOrUndefined } from 'util';
+import { ResponseService } from 'app/main/content/_service/response.service';
 
 export interface NewClassConfigurationDialogData {
   classConfiguration: ClassConfiguration;
   relationships: Relationship[];
   classDefinitions: ClassDefinition[];
   tenantId: string;
+  redirectUrl: string;
 }
 
 @Component({
@@ -29,6 +31,7 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     private classConfigurationService: ClassConfigurationService,
     private relationshipsService: RelationshipService,
     private classDefintionService: ClassDefinitionService,
+    private responseService: ResponseService,
   ) { }
 
   dialogForm: FormGroup;
@@ -66,7 +69,8 @@ export class NewClassConfigurationDialogComponent implements OnInit {
         // this.recentMatchingConfigurations.push(...this.recentMatchingConfigurations);
         // ----
 
-        this.loaded = true;
+        this.loaded = true; console.log(this.data.tenantId);
+
       });
   }
 
@@ -84,31 +88,30 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     if (this.checkFormInvalid()) {
       return;
     }
-
     const formValues = this.getFormValues();
-    console.log(this.data.tenantId);
 
     this.classConfigurationService
-      .createNewClassConfiguration(formValues.name, formValues.description, this.data.tenantId)
-      .toPromise().then((ret: ClassConfiguration) => {
-        this.data.classConfiguration = ret;
-      }).then(() => {
-        Promise.all([
-          this.relationshipsService
-            .getRelationshipsById(this.data.classConfiguration.relationshipIds)
-            .toPromise()
-            .then((ret: Relationship[]) => {
-              this.data.relationships = ret;
-            }),
-          this.classDefintionService
-            .getClassDefinitionsById(this.data.classConfiguration.classDefinitionIds)
-            .toPromise()
-            .then((ret: ClassDefinition[]) => {
-              this.data.classDefinitions = ret;
-            })
-        ]).then(() => {
-          this.dialogRef.close(this.data);
-        });
+      .createNewClassConfiguration(this.data.tenantId, formValues.name, formValues.description)
+      .toPromise().then((cc: ClassConfiguration) => {
+        this.data.classConfiguration = cc;
+        this.responseService.sendClassConfiguratorResponse(this.data.redirectUrl, cc.id, null, 'save').toPromise()
+          .then(() => {
+            Promise.all([
+              this.relationshipsService
+                .getRelationshipsById(this.data.classConfiguration.relationshipIds).toPromise()
+                .then((ret: Relationship[]) => {
+                  this.data.relationships = ret;
+                }),
+              this.classDefintionService
+                .getClassDefinitionsById(this.data.classConfiguration.classDefinitionIds).toPromise()
+                .then((ret: ClassDefinition[]) => {
+                  this.data.classDefinitions = ret;
+                })
+            ]).then(() => {
+              this.dialogRef.close(this.data);
+            });
+          });
+
       });
   }
 
@@ -120,8 +123,10 @@ export class NewClassConfigurationDialogComponent implements OnInit {
     this.classConfigurationService
       .saveClassConfigurationMeta(this.data.classConfiguration.id, formValues.name, formValues.description)
       .toPromise().then((ret: ClassConfiguration) => {
+        // this.responseService.sendClassConfiguratorResponse(this.data.redirectUrl, ret.id, null, "save").toPromise().then(() => {
         this.data.classConfiguration = ret;
         this.dialogRef.close(this.data);
+        // });
       });
   }
 
